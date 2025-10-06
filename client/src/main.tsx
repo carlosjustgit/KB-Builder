@@ -8,6 +8,7 @@ import './lib/i18n';
 // Components
 import { Layout } from './components/Layout';
 import { Welcome } from './routes/Welcome';
+import { Research } from './routes/Research';
 
 // Create React Query client
 const queryClient = new QueryClient({
@@ -30,7 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Layout>
           <Routes>
             <Route path="/" element={<Welcome />} />
-            <Route path="/research" element={<div className="text-center p-8">Research step coming soon...</div>} />
+            <Route path="/research" element={<Research />} />
             <Route path="/brand" element={<div className="text-center p-8">Brand step coming soon...</div>} />
             <Route path="/services" element={<div className="text-center p-8">Services step coming soon...</div>} />
             <Route path="/market" element={<div className="text-center p-8">Market step coming soon...</div>} />
