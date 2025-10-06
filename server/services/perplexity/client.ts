@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import type { ResearchRequest, ResearchResponse } from '@/types';
 
 /**
  * Perplexity API client for web research
@@ -8,6 +7,15 @@ import type { ResearchRequest, ResearchResponse } from '@/types';
 const PERPLEXITY_API_URL = 'https://api.perplexity.ai/chat/completions';
 const PERPLEXITY_MODEL = 'sonar-small-online'; // Good balance of quality and speed
 
+interface ResearchResult {
+  content_md: string;
+  sources: Array<{
+    url: string;
+    snippet: string;
+    provider: 'perplexity';
+  }>;
+}
+
 /**
  * Main research function that calls Perplexity API
  */
@@ -15,7 +23,7 @@ export async function performResearch(
   companyUrl: string,
   locale: string,
   step: string
-): Promise<ResearchResponse> {
+): Promise<ResearchResult> {
   try {
     const prompt = generatePrompt(companyUrl, locale, step);
 
@@ -43,13 +51,17 @@ export async function performResearch(
       throw new Error(`Perplexity API error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
 
-    if (!data.choices?.[0]?.message?.content) {
+    if (
+      !data ||
+      !Array.isArray(data.choices) ||
+      !data.choices[0] ||
+      !data.choices[0].message ||
+      typeof data.choices[0].message.content !== 'string'
+    ) {
       throw new Error('Invalid response format from Perplexity API');
     }
-
-    // Parse the response to extract content and sources
     return parseResearchResponse(data.choices[0].message.content, companyUrl);
 
   } catch (error) {
@@ -101,7 +113,7 @@ function extractBaseUrl(url: string): string {
 /**
  * Parse Perplexity response to extract content and sources
  */
-function parseResearchResponse(content: string, companyUrl: string): ResearchResponse {
+function parseResearchResponse(content: string, _companyUrl: string): ResearchResult {
   // Split content to separate main content from sources
   const lines = content.split('\n');
   const sources: Array<{ url: string; snippet: string; provider: 'perplexity' }> = [];

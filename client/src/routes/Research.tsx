@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChatBubble } from '@/components/ChatBubble';
 import { MarkdownEditor } from '@/components/MarkdownEditor';
 import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
-import { useSources } from '@/hooks/useSources';
 import { Loader2, Check, RotateCcw, Edit } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -18,7 +16,6 @@ export function Research() {
   const { toast } = useToast();
 
   const { data: session } = useSession();
-  const { data: sources } = useSources(session?.id || '');
   const saveDocument = useSaveDocument();
   const { performResearch, isLoading, error, reset } = useResearchWithState();
 
@@ -43,7 +40,14 @@ export function Research() {
     );
 
     if (result.success && result.data) {
-      setResearchResult(result.data);
+      setResearchResult({
+        content_md: result.data.content_md,
+        sources: result.data.sources.map((s: { url: string; snippet?: string; provider?: string }) => ({
+          url: s.url,
+          snippet: s.snippet || '',
+          provider: s.provider || 'perplexity',
+        })),
+      });
       toast({
         title: 'Research Complete',
         description: 'AI has analyzed your company information.',
