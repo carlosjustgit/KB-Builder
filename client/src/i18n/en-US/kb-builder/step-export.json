@@ -1,0 +1,70 @@
+{
+  "title": "Export & Download",
+  "subtitle": "Get your complete knowledge base",
+  "description": "Review your completed knowledge base and download it in formats ready for Witfy onboarding.",
+  "preview": {
+    "title": "Knowledge Base Preview",
+    "sections": {
+      "brand": "Brand Information",
+      "services": "Services & Proof Points",
+      "market": "Market Analysis",
+      "competitors": "Competitive Analysis",
+      "visual": "Visual Guidelines",
+      "sources": "Sources & Citations"
+    }
+  },
+  "exports": {
+    "json": {
+      "title": "JSON Export",
+      "description": "Structured data for Witfy import",
+      "filename": "witfy-kb.json",
+      "generating": "Generating JSON...",
+      "ready": "JSON ready for download"
+    },
+    "zip": {
+      "title": "ZIP Package",
+      "description": "Complete package with markdown files and assets",
+      "filename": "witfy-kb-package.zip",
+      "contents": [
+        "Brand documentation (Markdown)",
+        "Visual guidelines (Markdown + JSON)",
+        "Source citations (JSON)",
+        "Sample images (if generated)"
+      ],
+      "generating": "Creating ZIP package...",
+      "ready": "ZIP package ready for download"
+    }
+  },
+  "instructions": {
+    "title": "How to Import into Witfy",
+    "steps": [
+      "1. Log into your Witfy account",
+      "2. Go to Settings > Knowledge Base",
+      "3. Click 'Import from JSON'",
+      "4. Upload your witfy-kb.json file",
+      "5. Review and confirm the import"
+    ],
+    "note": "Your knowledge base will be available immediately after import."
+  },
+  "loading": {
+    "title": "Preparing exports...",
+    "description": "Creating your knowledge base files"
+  },
+  "actions": {
+    "exportJSON": "Export JSON",
+    "downloadZIP": "Download ZIP",
+    "startOver": "Start New KB",
+    "back": "Back to Visual"
+  },
+  "validation": {
+    "exportFailed": "Export failed. Please try again.",
+    "noContent": "No content to export. Please complete all steps first."
+  },
+  "success": {
+    "title": "Export Complete!",
+    "description": "Your knowledge base has been successfully exported.",
+    "jsonDownloaded": "JSON file downloaded",
+    "zipDownloaded": "ZIP package downloaded"
+  }
+}
+
