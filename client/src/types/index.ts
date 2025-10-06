@@ -32,7 +32,7 @@ export type DocumentStatus = 'draft' | 'approved';
 
 export type ImageRole = 'user' | 'generated';
 
-export type ImageStatus = 'uploaded' | 'analysed' | 'rejected';
+export type ImageStatus = 'uploading' | 'uploaded' | 'analyzing' | 'analyzed' | 'analysed' | 'rejected' | 'error';
 
 export type ExportFileType = 'json' | 'zip';
 
@@ -58,7 +58,7 @@ export interface KBDocument {
   doc_type: DocumentType;
   title?: string;
   content_md?: string;
-  content_json?: Record<string, any>;
+  content_json?: Record<string, unknown>;
   status: DocumentStatus;
   created_at: string;
   updated_at: string;
@@ -89,7 +89,7 @@ export interface KBVisualGuide {
   id: string;
   session_id: string;
   rules_json: VisualGuideRules;
-  derived_palettes_json?: Record<string, any>;
+  derived_palettes_json?: Record<string, unknown>;
   created_at: string;
 }
 
@@ -135,7 +135,7 @@ export interface ResearchRequest {
 
 export interface ResearchResponse {
   content_md: string;
-  content_json?: Record<string, any>;
+  content_json?: Record<string, unknown>;
   sources: KBSource[];
 }
 
@@ -257,6 +257,6 @@ export interface APIError {
   error: string;
   code?: string;
   field?: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 }
 

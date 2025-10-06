@@ -51,7 +51,14 @@ export async function performResearch(
       throw new Error(`Perplexity API error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
-    const data: any = await response.json();
+    const data = await response.json() as {
+      choices?: Array<{
+        message?: {
+          content?: string;
+        };
+      }>;
+      citations?: string[];
+    };
 
     if (
       !data ||

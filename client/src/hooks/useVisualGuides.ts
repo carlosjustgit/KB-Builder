@@ -45,7 +45,7 @@ export function useCreateVisualGuide() {
     mutationFn: async (data: {
       session_id: string;
       rules_json: VisualGuideRules;
-      derived_palettes_json?: any;
+      derived_palettes_json?: Record<string, unknown>;
     }) => {
       const { data: visualGuide, error } = await supabase
         .from('kb_visual_guides')
@@ -76,7 +76,7 @@ export function useUpdateVisualGuide() {
     mutationFn: async (data: {
       visualGuideId: string;
       rules_json?: VisualGuideRules;
-      derived_palettes_json?: any;
+      derived_palettes_json?: Record<string, unknown>;
     }) => {
       const { data: visualGuide, error } = await supabase
         .from('kb_visual_guides')
@@ -113,7 +113,7 @@ export function useSaveVisualGuide() {
     mutationFn: async (data: {
       sessionId: string;
       rules_json: VisualGuideRules;
-      derived_palettes_json?: any;
+      derived_palettes_json?: Record<string, unknown>;
     }) => {
       // Check if visual guide exists
       const { data: existingGuide } = await supabase

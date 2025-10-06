@@ -74,14 +74,11 @@ router.post('/analyse', async (req: Request, res: Response) => {
       });
 
     // Update image statuses to analyzed
-    for (const imageUrl of image_urls) {
-      // Find image by URL (this is simplified - in production you'd match by file_path)
-      await supabase
-        .from('kb_images')
-        .update({ status: 'analysed' })
-        .eq('session_id', session_id)
-        .eq('status', 'uploaded');
-    }
+    await supabase
+      .from('kb_images')
+      .update({ status: 'analysed' })
+      .eq('session_id', session_id)
+      .eq('status', 'uploaded');
 
     // Return analysis results
     return res.json({

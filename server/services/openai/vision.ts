@@ -99,7 +99,7 @@ export async function generateTestImages(
  * Build the visual analysis prompt
  */
 function buildVisualAnalysisPrompt(
-  imageUrls: string[],
+  _imageUrls: string[],
   locale: string,
   brandContext?: string
 ): string {
@@ -208,10 +208,10 @@ function parseVisionResponse(content: string, locale: string): {
 /**
  * Parse text response when JSON parsing fails
  */
-function parseTextResponse(content: string): any {
+function parseTextResponse(content: string): Partial<VisualGuideRules> {
   // Simple text parsing fallback
   const lines = content.split('\n');
-  const result: any = {};
+  const result: Record<string, unknown> = {};
 
   let currentSection = '';
 
@@ -243,7 +243,10 @@ function parseTextResponse(content: string): any {
       if (!result[currentSection]) {
         result[currentSection] = [];
       }
-      result[currentSection].push(trimmedLine.substring(1).trim());
+      const value = result[currentSection];
+      if (Array.isArray(value)) {
+        value.push(trimmedLine.substring(1).trim());
+      }
     } else if (trimmedLine && !trimmedLine.includes(':')) {
       // Value line
       if (currentSection && !Array.isArray(result[currentSection])) {
@@ -252,13 +255,13 @@ function parseTextResponse(content: string): any {
     }
   }
 
-  return result;
+  return result as Partial<VisualGuideRules>;
 }
 
 /**
  * Generate markdown summary of visual guidelines
  */
-function generateMarkdownSummary(guide: VisualGuideRules, locale: string): string {
+function generateMarkdownSummary(guide: VisualGuideRules, _locale: string): string {
   return `# Visual Brand Guidelines
 
 ## Color Palette

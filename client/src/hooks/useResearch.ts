@@ -40,7 +40,7 @@ export function useResearch() {
 
       return response.json();
     },
-    onSuccess: (_data, variables) => {
+    onSuccess: (_, variables) => {
       // Invalidate relevant queries to refresh data
       queryClient.invalidateQueries({
         queryKey: ['documents', variables.sessionId],

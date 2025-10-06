@@ -70,7 +70,7 @@ export function useCreateDocument() {
       doc_type: DocumentType;
       title?: string;
       content_md?: string;
-      content_json?: any;
+      content_json?: Record<string, unknown>;
       status?: DocumentStatus;
     }) => {
       const { data: document, error } = await supabase
@@ -109,7 +109,7 @@ export function useUpdateDocument() {
       updates: Partial<{
         title: string;
         content_md: string;
-        content_json: any;
+        content_json: Record<string, unknown>;
         status: DocumentStatus;
       }>;
     }) => {
@@ -154,7 +154,7 @@ export function useSaveDocument() {
       docType: DocumentType;
       title?: string;
       content_md?: string;
-      content_json?: any;
+      content_json?: Record<string, unknown>;
       status?: DocumentStatus;
     }) => {
       // Check if document exists
