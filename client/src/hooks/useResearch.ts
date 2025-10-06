@@ -1,10 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
-import type { ResearchRequest, ResearchResponse, Locale } from '@/types';
+import type { Locale, KBSource } from '@/types';
 
-const QUERY_KEYS = {
-  research: ['research'] as const,
-};
+interface ResearchResponse {
+  content_md: string;
+  sources: KBSource[];
+}
 
 /**
  * Hook for performing AI research
@@ -39,7 +40,7 @@ export function useResearch() {
 
       return response.json();
     },
-    onSuccess: (data, variables) => {
+    onSuccess: (_data, variables) => {
       // Invalidate relevant queries to refresh data
       queryClient.invalidateQueries({
         queryKey: ['documents', variables.sessionId],
