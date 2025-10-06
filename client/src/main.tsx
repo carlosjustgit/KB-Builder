@@ -10,6 +10,7 @@ import { Layout } from './components/Layout';
 import { Welcome } from './routes/Welcome';
 import { Research } from './routes/Research';
 import { Brand } from './routes/Brand';
+import { Services } from './routes/Services';
 import { Visual } from './routes/Visual';
 import { ExportStep } from './routes/Export';
 
@@ -36,7 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/" element={<Welcome />} />
             <Route path="/research" element={<Research />} />
             <Route path="/brand" element={<Brand />} />
-            <Route path="/services" element={<div className="text-center p-8">Services step coming soon...</div>} />
+            <Route path="/services" element={<Services />} />
             <Route path="/market" element={<div className="text-center p-8">Market step coming soon...</div>} />
             <Route path="/competitors" element={<div className="text-center p-8">Competitors step coming soon...</div>} />
             <Route path="/visual" element={<Visual />} />
