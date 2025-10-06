@@ -6,7 +6,11 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
-    --primary: 267 84% 63%; /* #8943FE - Witfy Purple */
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 267 84% 63%;
     --primary-foreground: 0 0% 100%;
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
@@ -27,7 +31,7 @@
     --witfy-200: 247 100% 90%;
     --witfy-300: 246 100% 83%;
     --witfy-400: 245 100% 73%;
-    --witfy-500: 267 84% 63%; /* Primary brand color */
+    --witfy-500: 267 84% 63%;
     --witfy-600: 258 85% 58%;
     --witfy-700: 250 74% 50%;
     --witfy-800: 243 75% 42%;
@@ -37,6 +41,14 @@
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 267 84% 63%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
@@ -58,6 +70,19 @@
     font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .witfy-gradient {
+    background: linear-gradient(135deg, hsl(var(--witfy-500)), hsl(var(--witfy-600)));
+  }
+
+  .witfy-text-gradient {
+    background: linear-gradient(135deg, hsl(var(--witfy-500)), hsl(var(--witfy-600)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
 

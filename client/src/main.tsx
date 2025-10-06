@@ -1,13 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
+import './lib/i18n';
+
+// Components
+import { Layout } from './components/Layout';
+import { Welcome } from './routes/Welcome';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <div className="min-h-screen bg-background text-foreground">
-      <h1 className="text-3xl font-bold p-8">KB Builder</h1>
-      <p className="px-8 text-muted-foreground">Loading...</p>
-    </div>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/research" element={<div className="text-center p-8">Research step coming soon...</div>} />
+          <Route path="/brand" element={<div className="text-center p-8">Brand step coming soon...</div>} />
+          <Route path="/services" element={<div className="text-center p-8">Services step coming soon...</div>} />
+          <Route path="/market" element={<div className="text-center p-8">Market step coming soon...</div>} />
+          <Route path="/competitors" element={<div className="text-center p-8">Competitors step coming soon...</div>} />
+          <Route path="/visual" element={<div className="text-center p-8">Visual step coming soon...</div>} />
+          <Route path="/export" element={<div className="text-center p-8">Export step coming soon...</div>} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
