@@ -2,6 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import { config } from 'dotenv';
+
+// Load environment variables
+config();
+config({ path: '.env.local' });
+
+// Import routes
+import researchRoutes from './routes/research.js';
+import visionRoutes from './routes/vision.js';
+import exportRoutes from './routes/export.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,28 +33,13 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Placeholder routes
-app.post('/api/research', (_req, res) => {
-  res.status(501).json({ error: 'Not implemented yet' });
-});
-
-app.post('/api/vision/analyse', (_req, res) => {
-  res.status(501).json({ error: 'Not implemented yet' });
-});
-
-app.post('/api/visual/test-image', (_req, res) => {
-  res.status(501).json({ error: 'Not implemented yet' });
-});
-
-app.post('/api/export/json', (_req, res) => {
-  res.status(501).json({ error: 'Not implemented yet' });
-});
-
-app.post('/api/export/zip', (_req, res) => {
-  res.status(501).json({ error: 'Not implemented yet' });
-});
+// API Routes
+app.use('/api/research', researchRoutes);
+app.use('/api/vision', visionRoutes);
+app.use('/api/export', exportRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`📍 Health check: http://localhost:${PORT}/api/health`);
 });
 
