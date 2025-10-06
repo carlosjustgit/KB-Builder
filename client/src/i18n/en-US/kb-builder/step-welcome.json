@@ -1,0 +1,23 @@
+{
+  "title": "Welcome to KB Builder",
+  "subtitle": "Create comprehensive brand documentation in minutes",
+  "description": "This wizard will guide you through 7 steps to build your knowledge base using AI-powered research and visual analysis.",
+  "locale": {
+    "label": "Choose your language",
+    "placeholder": "Select language"
+  },
+  "url": {
+    "label": "Company Website URL",
+    "placeholder": "https://example.com",
+    "validation": {
+      "required": "Please enter your company website",
+      "invalid": "Please enter a valid URL"
+    }
+  },
+  "estimatedTime": "Estimated time: 15-20 minutes",
+  "buttons": {
+    "next": "Start Building",
+    "back": "Back"
+  }
+}
+

@@ -1,0 +1,23 @@
+{
+  "title": "Bem-vindo ao KB Builder",
+  "subtitle": "Crie documentação completa da marca em minutos",
+  "description": "Este assistente irá guiá-lo através de 7 etapas para construir sua base de conhecimento usando pesquisa com IA e análise visual.",
+  "locale": {
+    "label": "Escolha seu idioma",
+    "placeholder": "Selecione o idioma"
+  },
+  "url": {
+    "label": "URL do site da empresa",
+    "placeholder": "https://exemplo.com.br",
+    "validation": {
+      "required": "Por favor, insira o site da sua empresa",
+      "invalid": "Por favor, insira uma URL válida"
+    }
+  },
+  "estimatedTime": "Tempo estimado: 15-20 minutos",
+  "buttons": {
+    "next": "Começar",
+    "back": "Voltar"
+  }
+}
+
