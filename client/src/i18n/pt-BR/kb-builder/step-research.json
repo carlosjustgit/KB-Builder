@@ -1,0 +1,29 @@
+{
+  "title": "Pesquisa e Análise",
+  "subtitle": "Pesquisa com IA do seu site",
+  "description": "Com base na URL da sua empresa, vamos pesquisar sua marca, público e posicionamento usando IA. Você pode revisar e editar os resultados antes de continuar.",
+  "loading": {
+    "title": "Pesquisando sua empresa...",
+    "description": "Analisando conteúdo do site e informações públicas"
+  },
+  "results": {
+    "title": "Resultados da Pesquisa",
+    "subtitle": "Aqui está o que encontramos sobre sua empresa",
+    "brandOverview": "Visão Geral da Marca",
+    "sources": "Fontes",
+    "noSources": "Nenhuma fonte encontrada",
+    "edit": "Editar Resultados",
+    "regenerate": "Regenerar",
+    "approve": "Parece Bom"
+  },
+  "actions": {
+    "analyze": "Analisar Site",
+    "next": "Continuar para Marca e Tom",
+    "back": "Voltar para Boas-vindas"
+  },
+  "validation": {
+    "noContent": "Nenhum conteúdo de pesquisa gerado. Tente novamente.",
+    "researchFailed": "Pesquisa falhou. Verifique sua URL e tente novamente."
+  }
+}
+

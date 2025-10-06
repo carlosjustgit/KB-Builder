@@ -1,0 +1,40 @@
+{
+  "title": "Análise Competitiva",
+  "subtitle": "Conheça sua concorrência e se destaque",
+  "description": "Identifique seus principais concorrentes e defina o que torna sua oferta única no mercado.",
+  "sections": {
+    "competitors": {
+      "title": "Principais Concorrentes",
+      "description": "Principais players no seu mercado",
+      "addCompetitor": "Adicionar Concorrente",
+      "competitorName": "Nome do Concorrente",
+      "competitorDescription": "O que eles fazem bem",
+      "competitorWeaknesses": "Áreas onde eles ficam aquém"
+    },
+    "differentiators": {
+      "title": "Seus Diferenciais",
+      "description": "O que te torna único",
+      "addDifferentiator": "Adicionar Diferencial",
+      "differentiatorTitle": "Vantagem Única",
+      "differentiatorDescription": "Por que isso importa para os clientes"
+    }
+  },
+  "loading": {
+    "title": "Analisando concorrência...",
+    "description": "Identificando concorrentes e vantagens competitivas"
+  },
+  "actions": {
+    "analyze": "Analisar Concorrência",
+    "addCompetitor": "Adicionar Concorrente",
+    "addDifferentiator": "Adicionar Diferencial",
+    "save": "Salvar Análise",
+    "next": "Continuar para Visual",
+    "back": "Voltar para Mercado"
+  },
+  "validation": {
+    "atLeastOneCompetitor": "Por favor, adicione pelo menos um concorrente",
+    "competitorNameRequired": "Nome do concorrente é obrigatório",
+    "atLeastOneDifferentiator": "Por favor, adicione pelo menos um diferencial"
+  }
+}
+

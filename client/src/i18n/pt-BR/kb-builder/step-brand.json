@@ -1,0 +1,40 @@
+{
+  "title": "Marca e Tom",
+  "subtitle": "Defina a voz e personalidade da sua marca",
+  "description": "Com base na nossa pesquisa, aqui está uma sugestão de história de marca e tom. Você pode editar para combinar com sua voz autêntica.",
+  "sections": {
+    "brandStory": {
+      "title": "História da Marca",
+      "placeholder": "Descreva a missão, valores e história única da sua empresa..."
+    },
+    "targetAudience": {
+      "title": "Público-alvo",
+      "placeholder": "Quem é seu cliente ideal? Seja específico sobre demografia, interesses e dores..."
+    },
+    "positioning": {
+      "title": "Posicionamento da Marca",
+      "placeholder": "Como você quer ser percebido? O que te diferencia dos concorrentes?..."
+    },
+    "tone": {
+      "title": "Tom de Voz",
+      "placeholder": "Como sua marca se comunica? Profissional, amigável, autoritário, brincalhão?..."
+    }
+  },
+  "loading": {
+    "title": "Gerando conteúdo da marca...",
+    "description": "Criando sugestões personalizadas de história e tom da marca"
+  },
+  "actions": {
+    "generate": "Gerar Conteúdo da Marca",
+    "edit": "Editar",
+    "save": "Salvar Alterações",
+    "next": "Continuar para Serviços",
+    "back": "Voltar para Pesquisa"
+  },
+  "validation": {
+    "brandStoryRequired": "Por favor, forneça uma história da marca",
+    "audienceRequired": "Por favor, descreva seu público-alvo",
+    "positioningRequired": "Por favor, defina o posicionamento da sua marca"
+  }
+}
+
