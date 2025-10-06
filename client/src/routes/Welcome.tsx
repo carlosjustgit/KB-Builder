@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -18,13 +18,12 @@ type WelcomeForm = z.infer<typeof welcomeSchema>;
 
 export function Welcome() {
   const { t, i18n } = useTranslation('step-welcome');
+  const [selectedLocale, setSelectedLocale] = useState<Locale>('en-US');
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    watch,
   } = useForm<WelcomeForm>({
     resolver: zodResolver(welcomeSchema),
     defaultValues: {
@@ -32,11 +31,10 @@ export function Welcome() {
     },
   });
 
-  const selectedLocale = watch('locale') || 'en-US';
-
   const handleLocaleChange = (value: string) => {
-    i18n.changeLanguage(value as Locale);
-    setValue('locale', value);
+    const locale = value as Locale;
+    setSelectedLocale(locale);
+    i18n.changeLanguage(locale);
   };
 
   const onSubmit = (data: WelcomeForm) => {
