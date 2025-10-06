@@ -45,12 +45,13 @@ export function MarkdownEditor({
       case 'list':
         newValue = value.substring(0, start) + `- ${selectedText}` + value.substring(end);
         break;
-      case 'link':
+      case 'link': {
         const url = prompt('Enter URL:');
         if (url) {
           newValue = value.substring(0, start) + `[${selectedText}](${url})` + value.substring(end);
         }
         break;
+      }
     }
 
     onChange(newValue);

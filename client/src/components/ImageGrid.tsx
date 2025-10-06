@@ -4,11 +4,13 @@ import { Badge } from '@/components/ui/badge';
 import { X, Upload, CheckCircle, AlertCircle, Image as ImageIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+import type { ImageStatus } from '@/types';
+
 export interface UploadedImage {
   id: string;
   file: File;
   preview: string;
-  status: 'uploading' | 'uploaded' | 'analyzing' | 'analyzed' | 'error';
+  status: ImageStatus;
   error?: string;
   size?: number;
 }
@@ -56,8 +58,10 @@ export function ImageGrid({ images, onRemove, onAnalyze, className }: ImageGridP
       case 'analyzing':
         return 'bg-blue-100 text-blue-800';
       case 'analyzed':
+      case 'analysed':
         return 'bg-green-100 text-green-800';
       case 'error':
+      case 'rejected':
         return 'bg-destructive/10 text-destructive';
       default:
         return 'bg-muted';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,14 +7,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { ImageDropzone } from '@/components/ImageDropzone';
 import { ImageGrid } from '@/components/ImageGrid';
-import { MarkdownEditor } from '@/components/MarkdownEditor';
 import { useSession } from '@/hooks/useSession';
 import { useVisionWithState } from '@/hooks/useVision';
 import { useImages } from '@/hooks/useImages';
-import { useVisualGuide } from '@/hooks/useVision';
 import { useSaveVisualGuide } from '@/hooks/useVisualGuides';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Eye, Sparkles, Download, ArrowRight } from 'lucide-react';
+import { Loader2, Eye, Sparkles, ArrowRight } from 'lucide-react';
+import type { VisualGuideRules, ImageStatus } from '@/types';
 
 export function Visual() {
   const { t } = useTranslation('step-visual');
@@ -23,21 +22,18 @@ export function Visual() {
 
   const { data: session } = useSession();
   const { data: uploadedImages } = useImages(session?.id || '', 'user');
-  const { data: visualGuide } = useVisualGuide(session?.id || '');
   const saveVisualGuide = useSaveVisualGuide();
   const {
     analyzeImages,
     generateTestImages,
     isAnalyzing,
-    isGenerating,
     analysisError,
-    generationError,
     reset
   } = useVisionWithState();
 
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [analysisResult, setAnalysisResult] = useState<{
-    visual_guide: any;
+    visual_guide: VisualGuideRules;
     guide_md: string;
   } | null>(null);
   const [isGeneratingTest, setIsGeneratingTest] = useState(false);
@@ -52,8 +48,7 @@ export function Visual() {
     });
   };
 
-  const handleUrlImport = (url: string) => {
-    console.log('URL imported:', url);
+  const handleUrlImport = (_url: string) => {
     toast({
       title: 'URL Imported',
       description: 'Image URL added for analysis.',
@@ -192,20 +187,21 @@ export function Visual() {
                 <CardTitle>Uploaded Images ({uploadedImages.length})</CardTitle>
               </CardHeader>
               <CardContent>
-                <ImageGrid
-                  images={uploadedImages.map(img => ({
-                    id: img.id,
-                    file: new File([], img.file_path),
-                    preview: `/api/images/${img.file_path}`, // Would need signed URL
-                    status: img.status,
-                    size: img.size_bytes,
-                  }))}
+                 <ImageGrid
+                   images={uploadedImages.map(img => ({
+                     id: img.id,
+                     file: new File([], img.file_path),
+                     preview: `/api/images/${img.file_path}`, // Would need signed URL
+                     status: (img.status === "analysed" ? "analyzed" : img.status) as ImageStatus,
+                     size: img.size_bytes,
+                   }))}
                   onRemove={(id) => console.log('Remove image:', id)}
                   onAnalyze={() => {
                     // Select all uploaded images for analysis
                     setSelectedImages(uploadedImages.map(img => `/api/images/${img.file_path}`));
                     // Switch to analyze tab
-                    document.querySelector('[value="analyze"]')?.click();
+                    const analyzeTab = document.querySelector('[value="analyze"]') as HTMLButtonElement | null;
+                    analyzeTab?.click();
                   }}
                 />
               </CardContent>
@@ -228,7 +224,7 @@ export function Visual() {
                   <div className="p-4 bg-muted/50 rounded-md">
                     <p className="text-sm font-medium mb-2">Selected Images ({selectedImages.length})</p>
                     <div className="flex flex-wrap gap-2">
-                      {selectedImages.map((url, index) => (
+                      {selectedImages.map((_url, index) => (
                         <Badge key={index} variant="secondary">
                           Image {index + 1}
                         </Badge>

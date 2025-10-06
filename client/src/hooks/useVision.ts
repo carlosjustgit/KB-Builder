@@ -43,7 +43,7 @@ export function useVisionAnalysis() {
 
       return response.json();
     },
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       // Invalidate vision queries for the session
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.visionBySession(variables.sessionId),
@@ -90,7 +90,7 @@ export function useGenerateTestImages() {
 
       return response.json().then(result => result.images);
     },
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       // Invalidate any relevant queries if needed
       queryClient.invalidateQueries({
         queryKey: ['images', variables.sessionId],

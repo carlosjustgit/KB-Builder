@@ -65,7 +65,7 @@ export const db = {
     doc_type: string;
     title?: string;
     content_md?: string;
-    content_json?: any;
+    content_json?: Record<string, unknown>;
     status?: string;
   }) {
     return await supabase
@@ -94,7 +94,7 @@ export const db = {
   async updateDocument(id: string, data: Partial<{
     title: string;
     content_md: string;
-    content_json: any;
+    content_json: Record<string, unknown>;
     status: string;
   }>) {
     return await supabase
@@ -178,8 +178,8 @@ export const db = {
   // Visual Guides
   async createVisualGuide(data: {
     session_id: string;
-    rules_json: any;
-    derived_palettes_json?: any;
+    rules_json: Record<string, unknown>;
+    derived_palettes_json?: Record<string, unknown>;
   }) {
     return await supabase
       .from('kb_visual_guides')
