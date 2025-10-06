@@ -10,6 +10,7 @@ import { Layout } from './components/Layout';
 import { Welcome } from './routes/Welcome';
 import { Research } from './routes/Research';
 import { Visual } from './routes/Visual';
+import { ExportStep } from './routes/Export';
 
 // Create React Query client
 const queryClient = new QueryClient({
@@ -38,7 +39,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/market" element={<div className="text-center p-8">Market step coming soon...</div>} />
             <Route path="/competitors" element={<div className="text-center p-8">Competitors step coming soon...</div>} />
             <Route path="/visual" element={<Visual />} />
-            <Route path="/export" element={<div className="text-center p-8">Export step coming soon...</div>} />
+            <Route path="/export" element={<ExportStep />} />
           </Routes>
         </Layout>
       </BrowserRouter>
