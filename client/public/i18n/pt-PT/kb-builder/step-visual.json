@@ -1,0 +1,85 @@
+{
+  "title": "Diretrizes Visuais da Marca",
+  "subtitle": "Crie identidade visual consistente",
+  "description": "Envie imagens do seu sítio web, redes sociais ou ativos da marca. Vamos analisá-las para criar diretrizes visuais abrangentes.",
+  "upload": {
+    "title": "Enviar Imagens da Marca",
+    "description": "Adicione imagens que representam a sua marca",
+    "dropzone": {
+      "prompt": "Arraste e largue imagens ou clique para navegar",
+      "urlPrompt": "Ou importe de URL",
+      "urlPlaceholder": "https://exemplo.pt/imagem.jpg",
+      "supported": "Suporta JPG, PNG, WebP até 10MB",
+      "tips": "Envie 3-5 imagens de alta qualidade incluindo logos, capturas de ecrã do sítio web e imagens de produto"
+    },
+    "analyzing": "A analisar imagens...",
+    "analyzed": "Análise completa",
+    "error": "Upload falhou"
+  },
+  "analysis": {
+    "title": "Resultados da Análise Visual",
+    "sections": {
+      "palette": {
+        "title": "Paleta de Cores",
+        "primary": "Cores Primárias",
+        "secondary": "Cores Secundárias",
+        "neutrals": "Cores Neutras"
+      },
+      "lighting": {
+        "title": "Estilo de Iluminação",
+        "description": "Iluminação e ambiente preferidos"
+      },
+      "composition": {
+        "title": "Estilo de Composição",
+        "description": "Preferências de composição visual"
+      },
+      "subjects": {
+        "title": "Assuntos Comuns",
+        "description": "Elementos típicos nas suas imagens"
+      },
+      "textures": {
+        "title": "Texturas e Materiais",
+        "description": "Qualidades de superfície e materiais"
+      },
+      "mood": {
+        "title": "Ambiente da Marca",
+        "description": "Tom emocional transmitido"
+      },
+      "guidelines": {
+        "title": "Faça e Não Faça",
+        "dos": "Faça Visuais",
+        "donts": "Não Faça Visuais"
+      },
+      "prompts": {
+        "title": "Prompts de IA",
+        "basePrompts": "Prompts Base",
+        "negativePrompts": "Prompts Negativos"
+      }
+    }
+  },
+  "generation": {
+    "title": "Gerar Imagens de Teste",
+    "description": "Crie imagens de exemplo baseadas nas suas diretrizes visuais",
+    "generating": "A gerar imagens...",
+    "generated": "Imagens geradas",
+    "error": "Geração falhou"
+  },
+  "loading": {
+    "title": "A analisar elementos visuais...",
+    "description": "A extrair paletas de cores, iluminação e composição das suas imagens"
+  },
+  "actions": {
+    "analyzeImages": "Analisar Imagens",
+    "generateTest": "Gerar Imagens de Teste",
+    "saveGuidelines": "Guardar Diretrizes Visuais",
+    "next": "Continuar para Exportação",
+    "back": "Voltar para Concorrentes"
+  },
+  "validation": {
+    "atLeastOneImage": "Por favor, envie pelo menos uma imagem",
+    "imageTooLarge": "Imagem é muito grande (máx 10MB)",
+    "unsupportedFormat": "Formato de imagem não suportado",
+    "analysisFailed": "Análise de imagem falhou. Tente novamente."
+  }
+}
+

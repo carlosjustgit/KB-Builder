@@ -1,0 +1,44 @@
+{
+  "title": "Mercado e Tendências",
+  "subtitle": "Compreenda o panorama do seu mercado",
+  "description": "Identifique tendências atuais de mercado e oportunidades que afetam o seu negócio e clientes.",
+  "sections": {
+    "trends": {
+      "title": "Tendências Atuais",
+      "description": "Principais tendências que moldam a sua indústria",
+      "trendTitle": "Título da Tendência",
+      "trendDescription": "Descrição da Tendência",
+      "trendImpact": "Como isto afeta o seu negócio"
+    },
+    "opportunities": {
+      "title": "Oportunidades de Mercado",
+      "description": "Oportunidades potenciais para explorar",
+      "opportunityTitle": "Oportunidade",
+      "opportunityDescription": "Como capitalizar nesta oportunidade"
+    },
+    "takeaways": {
+      "title": "Insights Estratégicos",
+      "description": "Insights acionáveis para a sua estratégia"
+    }
+  },
+  "loading": {
+    "title": "A analisar tendências de mercado...",
+    "description": "A pesquisar tendências da indústria e oportunidades"
+  },
+  "actions": {
+    "analyze": "Analisar Mercado",
+    "edit": "Editar",
+    "regenerate": "Regenerar",
+    "addTrend": "Adicionar Tendência",
+    "addOpportunity": "Adicionar Oportunidade",
+    "save": "Guardar Análise de Mercado",
+    "next": "Continuar para Concorrentes",
+    "back": "Voltar para Serviços"
+  },
+  "validation": {
+    "atLeastOneTrend": "Por favor, adicione pelo menos uma tendência de mercado",
+    "trendTitleRequired": "Título da tendência é obrigatório",
+    "trendDescriptionRequired": "Descrição da tendência é obrigatória"
+  }
+}
+

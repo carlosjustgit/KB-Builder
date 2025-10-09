@@ -1,14 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
+import { useStepContent } from '@/contexts/StepContentContext';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Sparkles, ArrowLeft, ArrowRight, Edit, Save } from 'lucide-react';
+import { Loader2, Sparkles, ArrowLeft, ArrowRight, Edit, Save, RotateCcw } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export function Brand() {
   const navigate = useNavigate();
@@ -17,16 +20,56 @@ export function Brand() {
   const { data: session } = useSession();
   const { performResearch, isLoading, error, reset } = useResearchWithState();
   const saveDocument = useSaveDocument();
+  const { setCurrentStepContent } = useStepContent();
 
   const [brandContent, setBrandContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [hasGenerated, setHasGenerated] = useState(false);
 
+  // Check for existing brand content
+  useEffect(() => {
+    const checkExistingBrand = async () => {
+      if (!session) return;
+
+      try {
+        const { data: brandDoc, error } = await supabase
+          .from('kb_documents')
+          .select('content_md')
+          .eq('session_id', session.id)
+          .eq('doc_type', 'brand')
+          .single();
+
+        if (brandDoc && !error) {
+          setBrandContent(brandDoc.content_md);
+          setHasGenerated(true);
+        }
+      } catch (error) {
+        console.error('Error checking existing brand content:', error);
+      }
+    };
+
+    checkExistingBrand();
+  }, [session]);
+
+  // Update the current step content whenever brandContent changes
+  useEffect(() => {
+    console.log('🔄 Brand useEffect triggered:', {
+      hasBrandContent: !!brandContent,
+      contentLength: brandContent?.length || 0,
+      contentPreview: brandContent?.substring(0, 100) + '...' || 'NONE'
+    });
+    
+    if (brandContent) {
+      console.log('✅ Setting current step content for Wit');
+      setCurrentStepContent(brandContent);
+    }
+  }, [brandContent, setCurrentStepContent]);
+
   const handleGenerate = async () => {
     if (!session) return;
 
-    // Placeholder URL - will be replaced when full welcome flow is implemented
-    const companyUrl = 'https://example.com';
+    // Use the company URL from the session
+    const companyUrl = session.company_url || 'https://example.com';
 
     const result = await performResearch(
       companyUrl,
@@ -38,7 +81,7 @@ export function Brand() {
     if (result.success && result.data) {
       setBrandContent(result.data.content_md);
       setHasGenerated(true);
-      
+
       // Auto-save as draft
       saveDocument.mutate({
         sessionId: session.id,
@@ -90,9 +133,23 @@ export function Brand() {
     navigate('/services');
   };
 
+  const handleRegenerate = async () => {
+    if (!session) return;
+
+    setIsEditing(false);
+    setHasGenerated(false);
+    setBrandContent('');
+    
+    // Reset the research state
+    reset();
+    
+    // Generate new content
+    await handleGenerate();
+  };
+
   if (!session) {
     return (
-      <Card className="w-full max-w-4xl mx-auto">
+      <Card className="w-full max-w-full mx-auto">
         <CardContent className="flex items-center justify-center p-8">
           <div className="text-center">
             <p className="text-muted-foreground">No active session found</p>
@@ -106,7 +163,7 @@ export function Brand() {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6">
+    <div className="w-full max-w-full mx-auto space-y-6">
       {/* Header */}
       <Card>
         <CardHeader>
@@ -225,14 +282,25 @@ export function Brand() {
                     </Button>
                   </>
                 ) : (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    <Edit className="w-3 h-3 mr-2" />
-                    Edit
-                  </Button>
+                  <>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsEditing(true)}
+                    >
+                      <Edit className="w-3 h-3 mr-2" />
+                      Edit
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleRegenerate}
+                      disabled={isLoading}
+                    >
+                      <RotateCcw className="w-3 h-3 mr-2" />
+                      Regenerate
+                    </Button>
+                  </>
                 )}
               </div>
             </div>
@@ -246,9 +314,7 @@ export function Brand() {
                 placeholder="Edit your brand document..."
               />
             ) : (
-              <div className="prose prose-sm max-w-none">
-                <pre className="whitespace-pre-wrap font-sans">{brandContent}</pre>
-              </div>
+              <MarkdownRenderer content={brandContent} />
             )}
           </CardContent>
         </Card>

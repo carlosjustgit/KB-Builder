@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { User, Bot, Search, RotateCcw, Edit, Check, ArrowRight } from 'lucide-react';
+import { User, Search, RotateCcw, Edit, Check, ArrowRight } from 'lucide-react';
 
 export type ChatBubbleType = 'user' | 'assistant';
 
@@ -42,7 +42,7 @@ export function ChatBubble({
           : 'bg-muted text-muted-foreground'
       )}>
         {isAssistant ? (
-          <Bot className="w-4 h-4" />
+          <img src="/Wit-profile.png" alt="Wit" className="w-4 h-4 rounded-full" />
         ) : (
           <User className="w-4 h-4" />
         )}

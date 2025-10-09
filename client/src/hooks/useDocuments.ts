@@ -73,13 +73,30 @@ export function useCreateDocument() {
       content_json?: Record<string, unknown>;
       status?: DocumentStatus;
     }) => {
+      console.log('🆕 useCreateDocument: Starting document creation', {
+        session_id: data.session_id,
+        doc_type: data.doc_type,
+        contentLength: data.content_md?.length || 0
+      });
+
       const { data: document, error } = await supabase
         .from('kb_documents')
         .insert(data)
         .select()
         .single();
 
-      if (error) throw error;
+      console.log('🆕 useCreateDocument: Supabase response', {
+        document,
+        error,
+        hasDocument: !!document
+      });
+
+      if (error) {
+        console.error('❌ useCreateDocument: Supabase error', error);
+        throw error;
+      }
+      
+      console.log('✅ useCreateDocument: Document created successfully');
       return document;
     },
     onSuccess: (newDocument) => {
@@ -157,16 +174,37 @@ export function useSaveDocument() {
       content_json?: Record<string, unknown>;
       status?: DocumentStatus;
     }) => {
+      console.log('🔍 useSaveDocument: Starting save process', {
+        sessionId: data.sessionId,
+        docType: data.docType,
+        contentLength: data.content_md?.length || 0
+      });
+
       // Check if document exists
-      const { data: existingDoc } = await supabase
+      console.log('🔍 useSaveDocument: Checking if document exists...');
+      const { data: existingDocs, error: checkError } = await supabase
         .from('kb_documents')
         .select('id')
         .eq('session_id', data.sessionId)
         .eq('doc_type', data.docType)
-        .single();
+        .limit(1);
+
+      console.log('🔍 useSaveDocument: Document check result', {
+        existingDocs,
+        checkError,
+        hasExistingDoc: !!existingDocs?.[0]
+      });
+
+      if (checkError) {
+        console.error('❌ useSaveDocument: Check error', checkError);
+        throw checkError;
+      }
+
+      const existingDoc = existingDocs?.[0];
 
       if (existingDoc) {
         // Update existing document
+        console.log('🔄 useSaveDocument: Updating existing document', existingDoc.id);
         const result = await updateDocument.mutateAsync({
           documentId: existingDoc.id,
           updates: {
@@ -176,9 +214,11 @@ export function useSaveDocument() {
             status: data.status,
           },
         });
+        console.log('✅ useSaveDocument: Document updated successfully');
         return result;
       } else {
         // Create new document
+        console.log('🆕 useSaveDocument: Creating new document');
         const result = await createDocument.mutateAsync({
           session_id: data.sessionId,
           doc_type: data.docType,
@@ -187,6 +227,7 @@ export function useSaveDocument() {
           content_json: data.content_json,
           status: data.status,
         });
+        console.log('✅ useSaveDocument: Document created successfully');
         return result;
       }
     },

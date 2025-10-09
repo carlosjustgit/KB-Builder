@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import type { Request, Response } from 'express';
-import { performResearch } from '../services/perplexity/client.js';
+import { performResearch, performResearchWithContext } from '../services/perplexity/client.js';
 import { supabase } from '../services/supabase/client.js';
 
 const router = Router();
@@ -46,7 +46,52 @@ router.post('/', async (req: Request, res: Response) => {
     }
 
     // Perform research using Perplexity
-    const researchResult = await performResearch(company_url, locale, step);
+    // For competitors, brand, and market steps, use existing research data from step 1
+    let researchResult;
+    if (step === 'competitors' || step === 'brand' || step === 'market') {
+      // Get research data from step 1
+      const { data: researchDoc, error: researchError } = await supabase
+        .from('kb_documents')
+        .select('content_md, doc_type')
+        .eq('session_id', session_id)
+        .eq('doc_type', 'research')
+        .single();
+
+      console.log('🔍 Looking for research data for session:', session_id);
+      console.log('📊 Research query result:', { researchDoc, researchError });
+
+      if (researchDoc && !researchError) {
+        console.log(`🔍 Using research context for ${step} analysis`);
+        console.log('📄 Research data length:', researchDoc.content_md.length);
+        console.log('📄 Research data preview:', researchDoc.content_md.substring(0, 200) + '...');
+        // Use the research data from step 1 to generate step-specific content
+        researchResult = await performResearchWithContext(company_url, locale, step, researchDoc.content_md);
+      } else {
+        console.log('⚠️ No research data found, trying to find any document from this session');
+        
+        // Fallback: try to find any document from this session
+        const { data: anyDoc, error: anyDocError } = await supabase
+          .from('kb_documents')
+          .select('content_md, doc_type')
+          .eq('session_id', session_id)
+          .order('created_at', { ascending: true })
+          .limit(1)
+          .single();
+
+        if (anyDoc && !anyDocError) {
+          console.log('🔍 Found fallback document:', anyDoc.doc_type);
+          console.log('📄 Fallback data length:', anyDoc.content_md.length);
+          researchResult = await performResearchWithContext(company_url, locale, step, anyDoc.content_md);
+        } else {
+          console.log('❌ No documents found at all, falling back to regular research');
+          console.log('❌ Error details:', anyDocError);
+          // Fallback to regular research if no research data found
+          researchResult = await performResearch(company_url, locale, step);
+        }
+      }
+    } else {
+      researchResult = await performResearch(company_url, locale, step);
+    }
 
     // Save sources to database
     if (researchResult.sources && researchResult.sources.length > 0) {

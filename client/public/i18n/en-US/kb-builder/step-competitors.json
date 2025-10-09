@@ -1,0 +1,42 @@
+{
+  "title": "Competitive Analysis",
+  "subtitle": "Know your competition and stand out",
+  "description": "Identify your main competitors and define what makes your offering unique in the market.",
+  "sections": {
+    "competitors": {
+      "title": "Main Competitors",
+      "description": "Key players in your market",
+      "addCompetitor": "Add Competitor",
+      "competitorName": "Competitor Name",
+      "competitorDescription": "What they do well",
+      "competitorWeaknesses": "Areas where they fall short"
+    },
+    "differentiators": {
+      "title": "Your Differentiators",
+      "description": "What makes you unique",
+      "addDifferentiator": "Add Differentiator",
+      "differentiatorTitle": "Unique Advantage",
+      "differentiatorDescription": "Why this matters to customers"
+    }
+  },
+  "loading": {
+    "title": "Analyzing competition...",
+    "description": "Identifying competitors and competitive advantages"
+  },
+  "actions": {
+    "analyze": "Analyze Competition",
+    "edit": "Edit",
+    "regenerate": "Regenerate",
+    "addCompetitor": "Add Competitor",
+    "addDifferentiator": "Add Differentiator",
+    "save": "Save Analysis",
+    "next": "Continue to Visual",
+    "back": "Back to Market"
+  },
+  "validation": {
+    "atLeastOneCompetitor": "Please add at least one competitor",
+    "competitorNameRequired": "Competitor name is required",
+    "atLeastOneDifferentiator": "Please add at least one differentiator"
+  }
+}
+

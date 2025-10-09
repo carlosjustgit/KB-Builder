@@ -9,7 +9,7 @@ import { ImageDropzone } from '@/components/ImageDropzone';
 import { ImageGrid } from '@/components/ImageGrid';
 import { useSession } from '@/hooks/useSession';
 import { useVisionWithState } from '@/hooks/useVision';
-import { useImages } from '@/hooks/useImages';
+import { useImages, useUploadImage, useImportImageFromUrl } from '@/hooks/useImages';
 import { useSaveVisualGuide } from '@/hooks/useVisualGuides';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Eye, Sparkles, ArrowRight } from 'lucide-react';
@@ -22,6 +22,8 @@ export function Visual() {
 
   const { data: session } = useSession();
   const { data: uploadedImages } = useImages(session?.id || '', 'user');
+  const uploadImage = useUploadImage();
+  const importImageFromUrl = useImportImageFromUrl();
   const saveVisualGuide = useSaveVisualGuide();
   const {
     analyzeImages,
@@ -38,21 +40,81 @@ export function Visual() {
   } | null>(null);
   const [isGeneratingTest, setIsGeneratingTest] = useState(false);
 
-  const handleImagesSelected = (files: File[]) => {
-    // This would upload images and get signed URLs
-    // For now, we'll simulate this
-    console.log('Images selected:', files.length);
-    toast({
-      title: 'Images Selected',
-      description: `${files.length} images selected for analysis.`,
-    });
+  const handleImagesSelected = async (files: File[]) => {
+    if (!session) {
+      toast({
+        title: 'Error',
+        description: 'No active session found.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    console.log('🖼️ Starting image upload for session:', session.id);
+    console.log('📁 Files to upload:', files.length);
+
+    try {
+      // Upload each file
+      const uploadPromises = files.map(async (file, index) => {
+        console.log(`📤 Uploading file ${index + 1}/${files.length}:`, file.name);
+        return uploadImage.mutateAsync({
+          sessionId: session.id,
+          file,
+          role: 'user',
+        });
+      });
+
+      const results = await Promise.all(uploadPromises);
+      console.log('✅ All uploads completed:', results.length);
+
+      toast({
+        title: 'Images Uploaded',
+        description: `${files.length} images uploaded successfully.`,
+      });
+    } catch (error) {
+      console.error('❌ Error uploading images:', error);
+      toast({
+        title: 'Upload Failed',
+        description: 'Failed to upload images. Please try again.',
+        variant: 'destructive',
+      });
+    }
   };
 
-  const handleUrlImport = (_url: string) => {
-    toast({
-      title: 'URL Imported',
-      description: 'Image URL added for analysis.',
-    });
+  const handleUrlImport = async (url: string) => {
+    if (!session) {
+      toast({
+        title: 'Error',
+        description: 'No active session found.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    console.log('🔗 Starting URL import for session:', session.id);
+    console.log('🌐 URL to import:', url);
+
+    try {
+      const result = await importImageFromUrl.mutateAsync({
+        sessionId: session.id,
+        url,
+        role: 'user',
+      });
+
+      console.log('✅ URL import completed:', result);
+
+      toast({
+        title: 'Image Imported',
+        description: 'Image imported successfully from URL.',
+      });
+    } catch (error) {
+      console.error('❌ Error importing image:', error);
+      toast({
+        title: 'Import Failed',
+        description: 'Failed to import image from URL. Please check the URL and try again.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const handleAnalyzeImages = async () => {
@@ -176,6 +238,7 @@ export function Visual() {
               <ImageDropzone
                 onFilesSelected={handleImagesSelected}
                 onUrlImport={handleUrlImport}
+                isLoading={uploadImage.isPending || importImageFromUrl.isPending}
               />
             </CardContent>
           </Card>

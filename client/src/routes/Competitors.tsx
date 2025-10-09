@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Target, ArrowLeft, ArrowRight, Edit, Save } from 'lucide-react';
+import { Loader2, Target, ArrowLeft, ArrowRight, Edit, Save, RotateCcw } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export function Competitors() {
   const navigate = useNavigate();
@@ -22,10 +24,35 @@ export function Competitors() {
   const [isEditing, setIsEditing] = useState(false);
   const [hasGenerated, setHasGenerated] = useState(false);
 
+  // Check for existing research data
+  useEffect(() => {
+    const checkExistingResearch = async () => {
+      if (!session) return;
+
+      try {
+        const { data: researchDoc, error } = await supabase
+          .from('kb_documents')
+          .select('content_md')
+          .eq('session_id', session.id)
+          .eq('doc_type', 'competitors')
+          .single();
+
+        if (researchDoc && !error) {
+          setCompetitorsContent(researchDoc.content_md);
+          setHasGenerated(true);
+        }
+      } catch (error) {
+        console.error('Error checking existing research:', error);
+      }
+    };
+
+    checkExistingResearch();
+  }, [session]);
+
   const handleGenerate = async () => {
     if (!session) return;
 
-    const companyUrl = 'https://example.com';
+    const companyUrl = session.company_url || 'https://example.com';
 
     const result = await performResearch(
       companyUrl,
@@ -88,6 +115,20 @@ export function Competitors() {
     navigate('/visual');
   };
 
+  const handleRegenerate = async () => {
+    if (!session) return;
+
+    setIsEditing(false);
+    setHasGenerated(false);
+    setCompetitorsContent('');
+    
+    // Reset the research state
+    reset();
+    
+    // Generate new content
+    await handleGenerate();
+  };
+
   if (!session) {
     return (
       <Card className="w-full max-w-4xl mx-auto">
@@ -104,7 +145,7 @@ export function Competitors() {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6">
+    <div className="w-full max-w-full mx-auto space-y-6">
       {/* Header */}
       <Card>
         <CardHeader>
@@ -223,14 +264,25 @@ export function Competitors() {
                     </Button>
                   </>
                 ) : (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    <Edit className="w-3 h-3 mr-2" />
-                    Edit
-                  </Button>
+                  <>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsEditing(true)}
+                    >
+                      <Edit className="w-3 h-3 mr-2" />
+                      Edit
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleRegenerate}
+                      disabled={isLoading}
+                    >
+                      <RotateCcw className="w-3 h-3 mr-2" />
+                      Regenerate
+                    </Button>
+                  </>
                 )}
               </div>
             </div>
@@ -244,9 +296,7 @@ export function Competitors() {
                 placeholder="Edit your competitor analysis..."
               />
             ) : (
-              <div className="prose prose-sm max-w-none">
-                <pre className="whitespace-pre-wrap font-sans">{competitorsContent}</pre>
-              </div>
+              <MarkdownRenderer content={competitorsContent} />
             )}
           </CardContent>
         </Card>

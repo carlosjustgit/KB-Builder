@@ -1,0 +1,37 @@
+{
+  "title": "Bem-vindo ao KB Builder",
+  "subtitle": "Crie documentação completa da marca em minutos",
+  "description": "Este assistente irá guiá-lo através de 7 etapas para construir sua base de conhecimento usando pesquisa com IA e análise visual.",
+  "locale": {
+    "label": "Escolha seu idioma",
+    "placeholder": "Selecione o idioma"
+  },
+  "url": {
+    "label": "URL do site da empresa",
+    "placeholder": "https://exemplo.com.br",
+    "validation": {
+      "required": "Por favor, insira o site da sua empresa",
+      "invalid": "Por favor, insira uma URL válida"
+    }
+  },
+  "estimatedTime": "Tempo estimado: 15-20 minutos",
+  "session": {
+    "checking": "Verificando sessão existente...",
+    "found": {
+      "title": "Sessão Existente Encontrada",
+      "description": "Encontrada sessão para {{url}}. Clique em \"Continuar\" ou \"Começar Do Zero\"",
+      "defaultUrl": "seu site"
+    },
+    "cleared": {
+      "title": "Sessão Limpa",
+      "description": "Iniciando do zero com uma nova sessão"
+    },
+    "continue": "Continuar Sessão",
+    "startFresh": "🗑️ Começar Do Zero"
+  },
+  "buttons": {
+    "next": "Começar",
+    "back": "Voltar"
+  }
+}
+

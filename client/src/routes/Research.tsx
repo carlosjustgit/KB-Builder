@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MarkdownEditor } from '@/components/MarkdownEditor';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
+import { useStepContent } from '@/contexts/StepContentContext';
 import { Loader2, Check, RotateCcw, Edit } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -18,6 +20,7 @@ export function Research() {
   const { data: session } = useSession();
   const saveDocument = useSaveDocument();
   const { performResearch, isLoading, error, reset } = useResearchWithState();
+  const { setCurrentStepContent } = useStepContent();
 
   const [researchResult, setResearchResult] = useState<{
     content_md: string;
@@ -25,12 +28,25 @@ export function Research() {
   } | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
+  // Update the current step content whenever researchResult changes
+  useEffect(() => {
+    console.log('🔄 Research useEffect triggered:', {
+      hasResearchResult: !!researchResult,
+      contentLength: researchResult?.content_md?.length || 0,
+      contentPreview: researchResult?.content_md?.substring(0, 100) + '...' || 'NONE'
+    });
+    
+    if (researchResult?.content_md) {
+      console.log('✅ Setting current step content for Wit');
+      setCurrentStepContent(researchResult.content_md);
+    }
+  }, [researchResult, setCurrentStepContent]);
+
   const handleResearch = async () => {
     if (!session) return;
 
-    // For now, use a placeholder URL since we don't have company URL stored yet
-    // This will be replaced when we implement the full welcome flow
-    const companyUrl = 'https://example.com'; // Placeholder
+    // Use the company URL from the session
+    const companyUrl = session.company_url || 'https://example.com';
 
     const result = await performResearch(
       companyUrl,
@@ -48,6 +64,10 @@ export function Research() {
           provider: s.provider || 'perplexity',
         })),
       });
+      
+      // Update the current step content for Wit to see
+      setCurrentStepContent(result.data.content_md);
+      
       toast({
         title: 'Research Complete',
         description: 'AI has analyzed your company information.',
@@ -64,14 +84,24 @@ export function Research() {
   const handleApprove = async () => {
     if (!researchResult || !session) return;
 
+    console.log('💾 Starting save process:', {
+      sessionId: session.id,
+      contentLength: researchResult.content_md.length,
+      contentPreview: researchResult.content_md.substring(0, 100) + '...'
+    });
+
     try {
       // Save the research content as a document
+      console.log('🔄 Calling saveDocument.mutateAsync...');
       await saveDocument.mutateAsync({
         sessionId: session.id,
-        docType: 'brand',
+        docType: 'research',
+        title: 'Company Research',
         content_md: researchResult.content_md,
         status: 'approved',
       });
+
+      console.log('✅ Document saved successfully');
 
       toast({
         title: 'Content Saved',
@@ -79,8 +109,10 @@ export function Research() {
       });
 
       // Navigate to next step
+      console.log('🧭 Navigating to /brand');
       navigate('/brand');
     } catch (error) {
+      console.error('❌ Error saving document:', error);
       toast({
         title: 'Save Failed',
         description: 'Failed to save research results.',
@@ -106,7 +138,7 @@ export function Research() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-full mx-auto space-y-6">
       {/* Header */}
       <Card>
         <CardHeader>
@@ -176,13 +208,7 @@ export function Research() {
               </p>
             </CardHeader>
             <CardContent>
-              <div className="prose prose-sm max-w-none mb-4">
-                {researchResult.content_md.split('\n').map((line, index) => (
-                  <p key={index} className="mb-2">
-                    {line}
-                  </p>
-                ))}
-              </div>
+              <MarkdownRenderer content={researchResult.content_md} />
 
               {/* Action Buttons */}
               <div className="flex gap-2 pt-4 border-t">

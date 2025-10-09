@@ -1,0 +1,35 @@
+{
+  "actions": {
+    "next": "Next",
+    "back": "Back",
+    "save": "Save",
+    "edit": "Edit",
+    "approve": "Approve",
+    "regenerate": "Regenerate",
+    "search": "Search",
+    "exportJSON": "Export JSON",
+    "downloadZIP": "Download ZIP"
+  },
+  "tabs": {
+    "summary": "Summary",
+    "sources": "Sources",
+    "documents": "Documents",
+    "visual": "Visual",
+    "export": "Export"
+  },
+  "status": {
+    "loading": "Loading...",
+    "analyzing": "Analyzing...",
+    "researching": "Researching...",
+    "generating": "Generating...",
+    "uploading": "Uploading...",
+    "exporting": "Exporting..."
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Network error. Please check your connection.",
+    "validation": "Please fix the errors above.",
+    "retry": "Retry"
+  }
+}
+

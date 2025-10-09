@@ -1,0 +1,42 @@
+{
+  "title": "Services & Proof Points",
+  "subtitle": "Showcase what you do and why clients choose you",
+  "description": "Define your core services and the specific benefits or proof points that demonstrate your expertise.",
+  "sections": {
+    "services": {
+      "title": "Core Services",
+      "description": "List your main services or offerings",
+      "addService": "Add Service",
+      "removeService": "Remove",
+      "serviceTitle": "Service Title",
+      "serviceDescription": "Service Description",
+      "serviceBenefits": "Key Benefits"
+    },
+    "proofPoints": {
+      "title": "Proof Points",
+      "description": "Evidence of your expertise and results",
+      "addProof": "Add Proof Point",
+      "examples": "Examples: certifications, awards, case studies, testimonials"
+    }
+  },
+  "loading": {
+    "title": "Analyzing services...",
+    "description": "Generating service descriptions and proof points"
+  },
+  "actions": {
+    "generate": "Generate Services",
+    "edit": "Edit",
+    "regenerate": "Regenerate",
+    "addService": "Add Service",
+    "addProof": "Add Proof Point",
+    "save": "Save Services",
+    "next": "Continue to Market",
+    "back": "Back to Brand"
+  },
+  "validation": {
+    "atLeastOneService": "Please add at least one service",
+    "serviceTitleRequired": "Service title is required",
+    "serviceDescriptionRequired": "Service description is required"
+  }
+}
+

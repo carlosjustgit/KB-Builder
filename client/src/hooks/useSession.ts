@@ -8,39 +8,11 @@ const QUERY_KEYS = {
 };
 
 /**
- * Hook for managing KB sessions
+ * Hook for managing KB sessions - uses useSessionFromParams for proper session loading
  */
 export function useSession() {
-  return useQuery({
-    queryKey: QUERY_KEYS.session,
-    queryFn: async (): Promise<KBSession | null> => {
-      // For now, we'll use a hardcoded session ID for testing
-      // In production, this would come from URL params or localStorage
-      const testSessionId = '00000000-0000-0000-0000-000000000001';
-
-      try {
-        const { data, error } = await supabase
-          .from('kb_sessions')
-          .select('*')
-          .eq('id', testSessionId)
-          .single();
-
-        if (error) {
-          if (error.code === 'PGRST116') {
-            // Session doesn't exist, create one
-            return await createTestSession();
-          }
-          throw error;
-        }
-
-        return data;
-      } catch (error) {
-        console.error('Error fetching session:', error);
-        return null;
-      }
-    },
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
+  // Use the session from URL params or localStorage
+  return useSessionFromParams();
 }
 
 /**
@@ -52,6 +24,7 @@ export function useCreateSession() {
   return useMutation({
     mutationFn: async (data: {
       user_id: string;
+      company_url?: string;
       language: Locale;
       step?: string;
       profile_id?: string;
@@ -118,7 +91,12 @@ export function useSessionFromParams() {
   return useQuery({
     queryKey: ['session', sessionId],
     queryFn: async (): Promise<KBSession | null> => {
-      if (!sessionId) return null;
+      if (!sessionId) {
+        console.log('No session ID found in URL or localStorage');
+        return null;
+      }
+
+      console.log('Loading session:', sessionId);
 
       const { data, error } = await supabase
         .from('kb_sessions')
@@ -128,38 +106,24 @@ export function useSessionFromParams() {
 
       if (error) {
         if (error.code === 'PGRST116') {
-          // Session doesn't exist
+          console.log('Session not found in database:', sessionId);
+          // Session doesn't exist, clear localStorage
+          localStorage.removeItem('kb_session_id');
           return null;
         }
+        console.error('Error loading session:', error);
         throw error;
       }
 
+      console.log('Session loaded successfully:', data.id);
       return data;
     },
     enabled: !!sessionId,
     staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 1,
   });
 }
 
-/**
- * Create a test session for development
- */
-async function createTestSession(): Promise<KBSession> {
-  const testUserId = '00000000-0000-0000-0000-000000000001';
-
-  const { data: session, error } = await supabase
-    .from('kb_sessions')
-    .insert({
-      user_id: testUserId,
-      language: 'en-US',
-      step: 'welcome',
-    })
-    .select()
-    .single();
-
-  if (error) throw error;
-  return session;
-}
 
 /**
  * Hook for session navigation

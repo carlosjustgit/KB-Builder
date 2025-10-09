@@ -34,11 +34,22 @@ export function useResearch() {
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Research failed');
+        let errorMessage = 'Research failed';
+        try {
+          const error = await response.json();
+          errorMessage = error.message || error.error || 'Research failed';
+        } catch {
+          // If response is not JSON, use status text
+          errorMessage = response.statusText || 'Research failed';
+        }
+        throw new Error(errorMessage);
       }
 
-      return response.json();
+      try {
+        return await response.json();
+      } catch (error) {
+        throw new Error('Invalid response format from server');
+      }
     },
     onSuccess: (_, variables) => {
       // Invalidate relevant queries to refresh data

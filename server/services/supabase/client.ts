@@ -1,15 +1,22 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Validate environment variables
-const supabaseUrl = process.env.VITE_SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+// Server should use non-VITE prefixed env vars or fallback to VITE_ for compatibility
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+console.log('🔧 Server environment check:');
+console.log('  - SUPABASE_URL:', process.env.SUPABASE_URL ? '✓' : '✗');
+console.log('  - VITE_SUPABASE_URL:', process.env.VITE_SUPABASE_URL ? '✓' : '✗');
+console.log('  - SUPABASE_SERVICE_ROLE_KEY:', process.env.SUPABASE_SERVICE_ROLE_KEY ? '✓' : '✗');
+console.log('  - Final supabaseUrl:', supabaseUrl ? '✓' : '✗');
 
 if (!supabaseUrl) {
-  throw new Error('Missing VITE_SUPABASE_URL environment variable');
+  throw new Error('Missing SUPABASE_URL or VITE_SUPABASE_URL environment variable');
 }
 
 if (!supabaseServiceKey) {
-  throw new Error('Missing SUPABASE_SERVICE_KEY environment variable');
+  throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY environment variable');
 }
 
 // Create Supabase client with service role key (bypasses RLS for server operations)

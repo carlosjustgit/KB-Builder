@@ -21,6 +21,7 @@ export type WizardStep =
   | 'export';
 
 export type DocumentType =
+  | 'research'
   | 'brand'
   | 'services'
   | 'market'
@@ -46,6 +47,7 @@ export interface KBSession {
   id: string;
   user_id: string;
   profile_id?: string;
+  company_url?: string;
   language: Locale;
   step: WizardStep;
   created_at: string;

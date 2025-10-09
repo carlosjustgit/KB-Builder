@@ -1,0 +1,70 @@
+{
+  "title": "Exportar e Transferir",
+  "subtitle": "Obtenha a sua base de conhecimento completa",
+  "description": "Reveja a sua base de conhecimento concluída e transfira-a em formatos prontos para integração com Witfy.",
+  "preview": {
+    "title": "Pré-visualização da Base de Conhecimento",
+    "sections": {
+      "brand": "Informações da Marca",
+      "services": "Serviços e Pontos de Prova",
+      "market": "Análise de Mercado",
+      "competitors": "Análise Competitiva",
+      "visual": "Diretrizes Visuais",
+      "sources": "Fontes e Citações"
+    }
+  },
+  "exports": {
+    "json": {
+      "title": "Exportação JSON",
+      "description": "Dados estruturados para importação no Witfy",
+      "filename": "witfy-kb.json",
+      "generating": "A gerar JSON...",
+      "ready": "JSON pronto para transferência"
+    },
+    "zip": {
+      "title": "Pacote ZIP",
+      "description": "Pacote completo com ficheiros markdown e ativos",
+      "filename": "witfy-kb-package.zip",
+      "contents": [
+        "Documentação da marca (Markdown)",
+        "Diretrizes visuais (Markdown + JSON)",
+        "Citações de fontes (JSON)",
+        "Imagens de exemplo (se geradas)"
+      ],
+      "generating": "A criar pacote ZIP...",
+      "ready": "Pacote ZIP pronto para transferência"
+    }
+  },
+  "instructions": {
+    "title": "Como Importar no Witfy",
+    "steps": [
+      "1. Inicie sessão na sua conta Witfy",
+      "2. Vá para Definições > Base de Conhecimento",
+      "3. Clique em 'Importar do JSON'",
+      "4. Faça upload do seu ficheiro witfy-kb.json",
+      "5. Reveja e confirme a importação"
+    ],
+    "note": "A sua base de conhecimento estará disponível imediatamente após a importação."
+  },
+  "loading": {
+    "title": "A preparar exportações...",
+    "description": "A criar os seus ficheiros da base de conhecimento"
+  },
+  "actions": {
+    "exportJSON": "Exportar JSON",
+    "downloadZIP": "Transferir ZIP",
+    "startOver": "Iniciar Nova KB",
+    "back": "Voltar para Visual"
+  },
+  "validation": {
+    "exportFailed": "Exportação falhou. Tente novamente.",
+    "noContent": "Nenhum conteúdo para exportar. Complete todas as etapas primeiro."
+  },
+  "success": {
+    "title": "Exportação Concluída!",
+    "description": "A sua base de conhecimento foi exportada com êxito.",
+    "jsonDownloaded": "Ficheiro JSON transferido",
+    "zipDownloaded": "Pacote ZIP transferido"
+  }
+}
+

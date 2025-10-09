@@ -1,5 +1,4 @@
-import React, { useCallback, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import React, { useCallback, useState, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Upload, Image as ImageIcon, Link } from 'lucide-react';
@@ -8,74 +7,125 @@ import { cn } from '@/lib/utils';
 export interface ImageDropzoneProps {
   onFilesSelected: (files: File[]) => void;
   onUrlImport: (url: string) => void;
-  acceptedTypes?: string[];
   maxSize?: number;
-  maxFiles?: number;
   className?: string;
+  isLoading?: boolean;
 }
 
 export function ImageDropzone({
   onFilesSelected,
   onUrlImport,
-  acceptedTypes = ['image/jpeg', 'image/png', 'image/webp'],
   maxSize = 10 * 1024 * 1024, // 10MB
-  maxFiles = 10,
   className,
+  isLoading = false,
 }: ImageDropzoneProps) {
   const [urlInput, setUrlInput] = useState('');
   const [isDragActive, setIsDragActive] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (acceptedFiles.length > 0) {
-      onFilesSelected(acceptedFiles);
+  const handleFileSelect = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    console.log('📁 Files selected:', files.length);
+    
+    // Filter for image files only
+    const imageFiles = files.filter(file => file.type.startsWith('image/'));
+    
+    console.log('🖼️ Image files found:', imageFiles.length);
+    
+    if (imageFiles.length > 0 && !isLoading) {
+      onFilesSelected(imageFiles);
+    } else if (files.length > 0) {
+      console.log('⚠️ No image files found in selected files');
     }
-  }, [onFilesSelected]);
+    
+    // Reset the input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  }, [onFilesSelected, isLoading]);
 
-  const { getRootProps, getInputProps, isDragActive: dropzoneDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      'image/*': acceptedTypes,
-    },
-    maxSize,
-    maxFiles,
-    onDragEnter: () => setIsDragActive(true),
-    onDragLeave: () => setIsDragActive(false),
-  });
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragActive(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragActive(false);
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragActive(false);
+    
+    const files = Array.from(e.dataTransfer.files);
+    console.log('📁 Files dropped:', files.length);
+    
+    // Filter for image files only
+    const imageFiles = files.filter(file => file.type.startsWith('image/'));
+    
+    console.log('🖼️ Image files found:', imageFiles.length);
+    
+    if (imageFiles.length > 0 && !isLoading) {
+      onFilesSelected(imageFiles);
+    } else if (files.length > 0) {
+      console.log('⚠️ No image files found in dropped files');
+    }
+  }, [onFilesSelected, isLoading]);
 
   const handleUrlImport = () => {
-    if (urlInput.trim()) {
+    if (urlInput.trim() && !isLoading) {
       onUrlImport(urlInput.trim());
       setUrlInput('');
     }
   };
 
-  const handlePaste = (e: React.ClipboardEvent) => {
+  const handlePaste = useCallback((e: React.ClipboardEvent) => {
+    if (isLoading) return;
+    
     const items = Array.from(e.clipboardData.items);
     const imageItems = items.filter(item => item.type.startsWith('image/'));
 
     if (imageItems.length > 0) {
       const file = imageItems[0].getAsFile();
       if (file) {
+        console.log('📋 Image pasted from clipboard');
         onFilesSelected([file]);
       }
     }
-  };
+  }, [onFilesSelected, isLoading]);
 
   return (
     <Card className={cn('w-full', className)}>
       <CardContent className="p-6">
         {/* Drop zone */}
         <div
-          {...getRootProps()}
           className={cn(
-            'border-2 border-dashed rounded-lg p-8 text-center transition-colors cursor-pointer',
-            (dropzoneDragActive || isDragActive)
+            'border-2 border-dashed rounded-lg p-8 text-center transition-colors',
+            isLoading 
+              ? 'border-muted-foreground/25 bg-muted/25 cursor-not-allowed opacity-50'
+              : 'cursor-pointer',
+            isDragActive && !isLoading
               ? 'border-witfy-500 bg-witfy-50'
-              : 'border-muted-foreground/25 hover:border-witfy-300 hover:bg-muted/50'
+              : !isLoading && 'border-muted-foreground/25 hover:border-witfy-300 hover:bg-muted/50'
           )}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
           onPaste={handlePaste}
+          onClick={() => !isLoading && fileInputRef.current?.click()}
         >
-          <input {...getInputProps()} />
+          <input
+            ref={fileInputRef}
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleFileSelect}
+            className="hidden"
+          />
 
           <div className="flex flex-col items-center gap-4">
             <div className="p-4 rounded-full bg-muted">
@@ -84,15 +134,19 @@ export function ImageDropzone({
 
             <div>
               <p className="text-lg font-medium mb-2">
-                {dropzoneDragActive || isDragActive
+                {isLoading
+                  ? 'Uploading images...'
+                  : isDragActive
                   ? 'Drop images here'
                   : 'Upload brand images'}
               </p>
               <p className="text-sm text-muted-foreground mb-4">
-                Drag and drop images, or click to select files
+                {isLoading
+                  ? 'Please wait while images are being uploaded'
+                  : 'Drag and drop images, or click to select files'}
               </p>
               <p className="text-xs text-muted-foreground">
-                Supports: JPG, PNG, WebP • Max {Math.round(maxSize / 1024 / 1024)}MB per file
+                Supports: JPG, PNG, WebP, GIF, SVG, BMP, TIFF • Max {Math.round(maxSize / 1024 / 1024)}MB per file
               </p>
             </div>
           </div>
@@ -111,11 +165,12 @@ export function ImageDropzone({
                 placeholder="https://example.com/image.jpg"
                 className="w-full pl-10 pr-3 py-2 border rounded-md text-sm"
                 onKeyPress={(e) => e.key === 'Enter' && handleUrlImport()}
+                disabled={isLoading}
               />
             </div>
             <Button
               onClick={handleUrlImport}
-              disabled={!urlInput.trim()}
+              disabled={!urlInput.trim() || isLoading}
               size="sm"
             >
               <Link className="w-4 h-4 mr-2" />

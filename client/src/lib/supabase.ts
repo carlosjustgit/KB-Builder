@@ -1,10 +1,18 @@
 import { createClient } from '@supabase/supabase-js';
 
+// Debug: Log what environment variables Vite sees
+console.log('Environment variables:', {
+  VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
+  VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY,
+  all: import.meta.env
+});
+
 // Validate environment variables
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl) {
+  console.error('Missing VITE_SUPABASE_URL. Available env vars:', Object.keys(import.meta.env));
   throw new Error('Missing VITE_SUPABASE_URL environment variable');
 }
 
@@ -100,4 +108,3 @@ export async function computeFileSHA256(file: File): Promise<string> {
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
-

@@ -1,0 +1,42 @@
+{
+  "title": "Serviços e Pontos de Prova",
+  "subtitle": "Mostre o que você faz e por que os clientes te escolhem",
+  "description": "Defina seus serviços principais e os benefícios específicos ou pontos de prova que demonstram sua expertise.",
+  "sections": {
+    "services": {
+      "title": "Serviços Principais",
+      "description": "Liste seus principais serviços ou ofertas",
+      "addService": "Adicionar Serviço",
+      "removeService": "Remover",
+      "serviceTitle": "Título do Serviço",
+      "serviceDescription": "Descrição do Serviço",
+      "serviceBenefits": "Principais Benefícios"
+    },
+    "proofPoints": {
+      "title": "Pontos de Prova",
+      "description": "Evidências da sua expertise e resultados",
+      "addProof": "Adicionar Ponto de Prova",
+      "examples": "Exemplos: certificações, prêmios, estudos de caso, depoimentos"
+    }
+  },
+  "loading": {
+    "title": "Analisando serviços...",
+    "description": "Gerando descrições de serviços e pontos de prova"
+  },
+  "actions": {
+    "generate": "Gerar Serviços",
+    "edit": "Editar",
+    "regenerate": "Regenerar",
+    "addService": "Adicionar Serviço",
+    "addProof": "Adicionar Ponto de Prova",
+    "save": "Salvar Serviços",
+    "next": "Continuar para Mercado",
+    "back": "Voltar para Marca"
+  },
+  "validation": {
+    "atLeastOneService": "Por favor, adicione pelo menos um serviço",
+    "serviceTitleRequired": "Título do serviço é obrigatório",
+    "serviceDescriptionRequired": "Descrição do serviço é obrigatória"
+  }
+}
+

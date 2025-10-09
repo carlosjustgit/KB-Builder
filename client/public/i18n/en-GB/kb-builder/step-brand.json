@@ -1,0 +1,41 @@
+{
+  "title": "Brand & Tone",
+  "subtitle": "Define your brand voice and personality",
+  "description": "Based on our research, here's a suggested brand story and tone. You can edit these to match your authentic voice.",
+  "sections": {
+    "brandStory": {
+      "title": "Brand Story",
+      "placeholder": "Describe your company's mission, values, and unique story..."
+    },
+    "targetAudience": {
+      "title": "Target Audience",
+      "placeholder": "Who is your ideal customer? Be specific about demographics, interests, and pain points..."
+    },
+    "positioning": {
+      "title": "Brand Positioning",
+      "placeholder": "How do you want to be perceived? What makes you different from competitors?..."
+    },
+    "tone": {
+      "title": "Tone of Voice",
+      "placeholder": "How does your brand communicate? Professional, friendly, authoritative, playful?..."
+    }
+  },
+  "loading": {
+    "title": "Generating brand content...",
+    "description": "Creating personalised brand story and tone suggestions"
+  },
+  "actions": {
+    "generate": "Generate Brand Content",
+    "edit": "Edit",
+    "regenerate": "Regenerate",
+    "save": "Save Changes",
+    "next": "Continue to Services",
+    "back": "Back to Research"
+  },
+  "validation": {
+    "brandStoryRequired": "Please provide a brand story",
+    "audienceRequired": "Please describe your target audience",
+    "positioningRequired": "Please define your brand positioning"
+  }
+}
+

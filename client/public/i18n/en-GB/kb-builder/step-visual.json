@@ -1,0 +1,85 @@
+{
+  "title": "Visual Brand Guidelines",
+  "subtitle": "Create consistent visual identity",
+  "description": "Upload images from your website, social media, or brand assets. We'll analyse them to create comprehensive visual guidelines.",
+  "upload": {
+    "title": "Upload Brand Images",
+    "description": "Add images that represent your brand",
+    "dropzone": {
+      "prompt": "Drag & drop images or click to browse",
+      "urlPrompt": "Or import from URL",
+      "urlPlaceholder": "https://example.com/image.jpg",
+      "supported": "Supports JPG, PNG, WebP up to 10MB",
+      "tips": "Upload 3-5 high-quality images including logos, website screenshots, and product images"
+    },
+    "analysing": "Analysing images...",
+    "analysed": "Analysis complete",
+    "error": "Upload failed"
+  },
+  "analysis": {
+    "title": "Visual Analysis Results",
+    "sections": {
+      "palette": {
+        "title": "Colour Palette",
+        "primary": "Primary Colours",
+        "secondary": "Secondary Colours",
+        "neutrals": "Neutral Colours"
+      },
+      "lighting": {
+        "title": "Lighting Style",
+        "description": "Preferred lighting and mood"
+      },
+      "composition": {
+        "title": "Composition Style",
+        "description": "Visual composition preferences"
+      },
+      "subjects": {
+        "title": "Common Subjects",
+        "description": "Typical elements in your visuals"
+      },
+      "textures": {
+        "title": "Textures & Materials",
+        "description": "Surface qualities and materials"
+      },
+      "mood": {
+        "title": "Brand Mood",
+        "description": "Emotional tone conveyed"
+      },
+      "guidelines": {
+        "title": "Do's and Don'ts",
+        "dos": "Visual Do's",
+        "donts": "Visual Don'ts"
+      },
+      "prompts": {
+        "title": "AI Prompts",
+        "basePrompts": "Base Prompts",
+        "negativePrompts": "Negative Prompts"
+      }
+    }
+  },
+  "generation": {
+    "title": "Generate Test Images",
+    "description": "Create sample images based on your visual guidelines",
+    "generating": "Generating images...",
+    "generated": "Images generated",
+    "error": "Generation failed"
+  },
+  "loading": {
+    "title": "Analysing visual elements...",
+    "description": "Extracting colour palettes, lighting, and composition from your images"
+  },
+  "actions": {
+    "analyseImages": "Analyse Images",
+    "generateTest": "Generate Test Images",
+    "saveGuidelines": "Save Visual Guidelines",
+    "next": "Continue to Export",
+    "back": "Back to Competitors"
+  },
+  "validation": {
+    "atLeastOneImage": "Please upload at least one image",
+    "imageTooLarge": "Image is too large (max 10MB)",
+    "unsupportedFormat": "Unsupported image format",
+    "analysisFailed": "Image analysis failed. Please try again."
+  }
+}
+
