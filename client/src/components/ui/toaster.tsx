@@ -6,14 +6,18 @@ import {
   ToastTitle,
   ToastViewport,
 } from "@/components/ui/toast"
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast.tsx"
 
 export function Toaster() {
   const { toasts } = useToast()
 
+  console.log('🍞 Toaster rendering with', toasts.length, 'toasts');
+
   return (
     <ToastProvider>
+      <ToastViewport />
       {toasts.map(function ({ id, title, description, ...props }) {
+        console.log('🍞 Rendering toast:', id, title);
         return (
           <Toast key={id} {...props}>
             <div className="grid gap-1">
@@ -26,7 +30,6 @@ export function Toaster() {
           </Toast>
         )
       })}
-      <ToastViewport />
     </ToastProvider>
   )
 }

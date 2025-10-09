@@ -80,6 +80,32 @@
     "imageTooLarge": "Image is too large (max 10MB)",
     "unsupportedFormat": "Unsupported image format",
     "analysisFailed": "Image analysis failed. Please try again."
+  },
+  "notifications": {
+    "analyzing": {
+      "title": "Analyzing Images... 🔍",
+      "description": "Processing {{count}} image(s) with AI vision. This may take a minute."
+    },
+    "analysisComplete": {
+      "title": "Analysis Complete! ✨",
+      "description": "Visual brand guidelines generated successfully!"
+    },
+    "analysisFailed": {
+      "title": "Analysis Failed",
+      "description": "{{error}}"
+    },
+    "analysisError": {
+      "title": "Analysis Error",
+      "description": "An unexpected error occurred. Please try again."
+    },
+    "imageRemoved": {
+      "title": "Image Removed",
+      "description": "Image deleted successfully."
+    },
+    "deleteFailed": {
+      "title": "Delete Failed",
+      "description": "Failed to delete image. Please try again."
+    }
   }
 }
 

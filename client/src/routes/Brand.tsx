@@ -9,7 +9,7 @@ import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
 import { useStepContent } from '@/contexts/StepContentContext';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast.tsx';
 import { Loader2, Sparkles, ArrowLeft, ArrowRight, Edit, Save, RotateCcw } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 

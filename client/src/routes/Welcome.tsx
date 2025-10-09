@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import type { Locale } from '@/lib/i18n';
 import { useCreateSession, useSessionFromParams } from '@/hooks/useSession';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast.tsx';
 
 const welcomeSchema = z.object({
   company_url: z.string().url('Please enter a valid URL'),

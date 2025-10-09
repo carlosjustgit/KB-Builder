@@ -21,6 +21,7 @@ import researchRoutes from './routes/research.js';
 import visionRoutes from './routes/vision.js';
 import exportRoutes from './routes/export.js';
 import chatRoutes from './routes/chat.js';
+import imagesRoutes from './routes/images.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -47,6 +48,7 @@ app.use('/api/research', researchRoutes);
 app.use('/api/vision', visionRoutes);
 app.use('/api/export', exportRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/images', imagesRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

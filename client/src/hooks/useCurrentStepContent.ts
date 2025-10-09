@@ -12,7 +12,7 @@ export function useCurrentStepContent(sessionId: string, currentStep: string) {
       if (!sessionId || !currentStep) return null;
 
       // First, try to get saved document
-      const { data: savedDoc, error: docError } = await supabase
+      const { data: savedDoc } = await supabase
         .from('kb_documents')
         .select('content_md, title, status')
         .eq('session_id', sessionId)
@@ -27,7 +27,7 @@ export function useCurrentStepContent(sessionId: string, currentStep: string) {
 
       // If no saved document, check for any recent research data
       if (currentStep === 'research') {
-        const { data: researchData, error: researchError } = await supabase
+        const { data: researchData } = await supabase
           .from('kb_documents')
           .select('content_md')
           .eq('session_id', sessionId)

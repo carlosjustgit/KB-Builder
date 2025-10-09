@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Export } from '@/components/Export';
 import { useSession } from '@/hooks/useSession';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast.tsx';
 import { ArrowLeft, ArrowRight, CheckCircle, Download } from 'lucide-react';
 
 export function ExportStep() {

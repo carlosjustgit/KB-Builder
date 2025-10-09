@@ -9,9 +9,10 @@ import { ImageDropzone } from '@/components/ImageDropzone';
 import { ImageGrid } from '@/components/ImageGrid';
 import { useSession } from '@/hooks/useSession';
 import { useVisionWithState } from '@/hooks/useVision';
-import { useImages, useUploadImage, useImportImageFromUrl } from '@/hooks/useImages';
+import { useImages, useUploadImage, useDeleteImage, useImportImageFromUrl } from '@/hooks/useImages';
 import { useSaveVisualGuide } from '@/hooks/useVisualGuides';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast.tsx';
+import { supabase } from '@/lib/supabase';
 import { Loader2, Eye, Sparkles, ArrowRight } from 'lucide-react';
 import type { VisualGuideRules, ImageStatus } from '@/types';
 
@@ -23,6 +24,7 @@ export function Visual() {
   const { data: session } = useSession();
   const { data: uploadedImages } = useImages(session?.id || '', 'user');
   const uploadImage = useUploadImage();
+  const deleteImage = useDeleteImage();
   const importImageFromUrl = useImportImageFromUrl();
   const saveVisualGuide = useSaveVisualGuide();
   const {
@@ -39,6 +41,8 @@ export function Visual() {
     guide_md: string;
   } | null>(null);
   const [isGeneratingTest, setIsGeneratingTest] = useState(false);
+  const [isAnalyzingImages, setIsAnalyzingImages] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>("upload");
 
   const handleImagesSelected = async (files: File[]) => {
     if (!session) {
@@ -118,27 +122,81 @@ export function Visual() {
   };
 
   const handleAnalyzeImages = async () => {
-    if (!session || selectedImages.length === 0) return;
-
-    const result = await analyzeImages(
-      selectedImages,
-      session.language,
-      undefined, // brand context for now
-      session.id
-    );
-
-    if (result.success && result.data) {
-      setAnalysisResult(result.data);
+    console.log('🔘 handleAnalyzeImages called from Analysis tab');
+    
+    if (!session) {
+      console.error('❌ No session found');
+      return;
+    }
+    
+    if (selectedImages.length === 0) {
+      console.error('❌ No images selected');
       toast({
-        title: 'Analysis Complete',
-        description: 'Visual brand guidelines generated successfully.',
-      });
-    } else {
-      toast({
-        title: 'Analysis Failed',
-        description: result.error || 'Please try again.',
+        title: 'No Images Selected',
+        description: 'Please upload images first.',
         variant: 'destructive',
       });
+      return;
+    }
+
+    setIsAnalyzingImages(true);
+
+    try {
+      console.log('📸 Selected images:', selectedImages);
+      
+      toast({
+        title: t('notifications.analyzing.title'),
+        description: t('notifications.analyzing.description', { count: selectedImages.length }),
+        duration: 10000,
+      });
+
+      const result = await analyzeImages(
+        selectedImages,
+        session.language,
+        undefined, // brand context for now
+        session.id
+      );
+
+      console.log('🎨 ========== ANALYSIS RESULT (Analysis Tab) ==========');
+      console.log('📦 Full result object:', JSON.stringify(result, null, 2));
+      console.log('✅ Success:', result.success);
+      console.log('📊 Has data:', !!result.data);
+      console.log('❌ Error:', result.error);
+      console.log('🎨 ====================================');
+
+      if (result.success && result.data) {
+        console.log('🎉 Analysis succeeded!');
+        setAnalysisResult(result.data);
+        
+        toast({
+          variant: 'success',
+          title: t('notifications.analysisComplete.title') || 'Analysis Complete! ✨',
+          description: t('notifications.analysisComplete.description') || 'Visual brand guidelines generated successfully!',
+          duration: 5000,
+        });
+
+        // Auto-switch to results tab
+        setTimeout(() => {
+          console.log('📍 Switching to results tab programmatically');
+          setActiveTab('results');
+        }, 500);
+      } else {
+        console.error('❌ Analysis failed:', result.error);
+        toast({
+          title: t('notifications.analysisFailed.title'),
+          description: t('notifications.analysisFailed.description', { error: result.error || t('validation.analysisFailed') }),
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      console.error('❌ Analysis exception:', error);
+      toast({
+        title: t('notifications.analysisError.title'),
+        description: t('notifications.analysisError.description'),
+        variant: 'destructive',
+      });
+    } finally {
+      setIsAnalyzingImages(false);
     }
   };
 
@@ -224,11 +282,11 @@ export function Visual() {
         </CardContent>
       </Card>
 
-      <Tabs defaultValue="upload" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+      <Tabs defaultValue="upload" value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-3" id="main-tabs">
           <TabsTrigger value="upload">Upload Images</TabsTrigger>
           <TabsTrigger value="analyze">Analysis</TabsTrigger>
-          <TabsTrigger value="results">Results</TabsTrigger>
+          <TabsTrigger value="results" id="results-tab">Results</TabsTrigger>
         </TabsList>
 
         {/* Upload Tab */}
@@ -246,25 +304,128 @@ export function Visual() {
           {/* Uploaded Images Grid */}
           {uploadedImages && uploadedImages.length > 0 && (
             <Card>
-              <CardHeader>
-                <CardTitle>Uploaded Images ({uploadedImages.length})</CardTitle>
-              </CardHeader>
-              <CardContent>
+              <CardContent className="pt-6">
                  <ImageGrid
-                   images={uploadedImages.map(img => ({
+                  isAnalyzing={isAnalyzingImages}
+                  images={uploadedImages.map(img => {
+                    // Get public URL from Supabase
+                    const { data: urlData } = supabase.storage
+                      .from('kb-builder')
+                      .getPublicUrl(img.file_path);
+                    
+                    return {
                      id: img.id,
-                     file: new File([], img.file_path),
-                     preview: `/api/images/${img.file_path}`, // Would need signed URL
+                      file: new File([], img.file_path.split('/').pop() || img.file_path),
+                      preview: urlData.publicUrl,
                      status: (img.status === "analysed" ? "analyzed" : img.status) as ImageStatus,
                      size: img.size_bytes,
-                   }))}
-                  onRemove={(id) => console.log('Remove image:', id)}
-                  onAnalyze={() => {
-                    // Select all uploaded images for analysis
-                    setSelectedImages(uploadedImages.map(img => `/api/images/${img.file_path}`));
-                    // Switch to analyze tab
-                    const analyzeTab = document.querySelector('[value="analyze"]') as HTMLButtonElement | null;
-                    analyzeTab?.click();
+                    };
+                  })}
+                  onRemove={async (id) => {
+                    try {
+                      await deleteImage.mutateAsync(id);
+                      toast({
+                        title: t('notifications.imageRemoved.title'),
+                        description: t('notifications.imageRemoved.description'),
+                      });
+                    } catch (error) {
+                      console.error('Failed to delete image:', error);
+                      toast({
+                        title: t('notifications.deleteFailed.title'),
+                        description: t('notifications.deleteFailed.description'),
+                        variant: 'destructive',
+                      });
+                    }
+                  }}
+                  onAnalyze={async () => {
+                    if (!session) {
+                      console.error('❌ No session found');
+                      return;
+                    }
+                    
+                    console.log('🎨 Starting analysis process...');
+                    setIsAnalyzingImages(true);
+                    
+                    try {
+                      // Select all uploaded images for analysis using public URLs
+                      const imageUrls = uploadedImages.map(img => {
+                        const { data: urlData } = supabase.storage
+                          .from('kb-builder')
+                          .getPublicUrl(img.file_path);
+                        return urlData.publicUrl;
+                      });
+                      setSelectedImages(imageUrls);
+                      
+                      console.log('📸 Image URLs:', imageUrls);
+                      
+                      // Show loading toast
+                      toast({
+                        title: t('notifications.analyzing.title'),
+                        description: t('notifications.analyzing.description', { count: imageUrls.length }),
+                        duration: 10000,
+                      });
+                      
+                      console.log('🎨 Calling analyzeImages function...');
+                      
+                      // Immediately start analysis
+                      const result = await analyzeImages(
+                        imageUrls,
+                        session.language,
+                        undefined,
+                        session.id
+                      );
+
+                      console.log('🎨 ========== ANALYSIS RESULT ==========');
+                      console.log('📦 Full result object:', JSON.stringify(result, null, 2));
+                      console.log('✅ Success:', result.success);
+                      console.log('📊 Has data:', !!result.data);
+                      console.log('❌ Error:', result.error);
+                      console.log('🎨 ====================================');
+
+                      if (result.success && result.data) {
+                        console.log('🎉 ENTERING SUCCESS BLOCK - Analysis succeeded!');
+                      } else if (result.success && !result.data) {
+                        console.error('⚠️ SUCCESS BUT NO DATA - This should not happen!');
+                      } else if (!result.success) {
+                        console.error('❌ ENTERING FAILURE BLOCK - Analysis failed!');
+                      }
+
+                      if (result.success && result.data) {
+                        console.log('✅ Setting analysis result...');
+                        setAnalysisResult(result.data);
+                        
+                        console.log('📣 Showing success toast...');
+                        toast({
+                          variant: 'success',
+                          title: t('notifications.analysisComplete.title') || 'Analysis Complete! ✨',
+                          description: t('notifications.analysisComplete.description') || 'Visual brand guidelines generated successfully!',
+                          duration: 5000,
+                        });
+                        
+                        // Automatically switch to results tab
+                        setTimeout(() => {
+                          console.log('📍 Switching to results tab programmatically (from ImageGrid)');
+                          setActiveTab('results');
+                        }, 500);
+                      } else {
+                        console.error('❌ Analysis failed:', result.error);
+                        toast({
+                          title: t('notifications.analysisFailed.title'),
+                          description: t('notifications.analysisFailed.description', { error: result.error || t('validation.analysisFailed') }),
+                          variant: 'destructive',
+                        });
+                      }
+                    } catch (error) {
+                      console.error('❌ Analysis exception:', error);
+                      toast({
+                        title: t('notifications.analysisError.title'),
+                        description: t('notifications.analysisError.description'),
+                        variant: 'destructive',
+                      });
+                    } finally {
+                      console.log('🏁 Analysis process complete, resetting state...');
+                      setIsAnalyzingImages(false);
+                    }
                   }}
                 />
               </CardContent>

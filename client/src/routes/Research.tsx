@@ -10,7 +10,7 @@ import { useResearchWithState } from '@/hooks/useResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
 import { useStepContent } from '@/contexts/StepContentContext';
 import { Loader2, Check, RotateCcw, Edit } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast.tsx';
 
 export function Research() {
   const { t } = useTranslation('step-research');

@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { X, Upload, CheckCircle, AlertCircle, Image as ImageIcon } from 'lucide-react';
+import { X, Upload, CheckCircle, AlertCircle, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 import type { ImageStatus } from '@/types';
@@ -19,10 +19,11 @@ export interface ImageGridProps {
   images: UploadedImage[];
   onRemove: (id: string) => void;
   onAnalyze?: () => void;
+  isAnalyzing?: boolean;
   className?: string;
 }
 
-export function ImageGrid({ images, onRemove, onAnalyze, className }: ImageGridProps) {
+export function ImageGrid({ images, onRemove, onAnalyze, isAnalyzing, className }: ImageGridProps) {
   if (images.length === 0) {
     return (
       <Card className={cn('w-full', className)}>
@@ -78,9 +79,16 @@ export function ImageGrid({ images, onRemove, onAnalyze, className }: ImageGridP
         {onAnalyze && (
           <Button
             onClick={onAnalyze}
-            disabled={images.some(img => img.status === 'uploading' || img.status === 'analyzing')}
+            disabled={isAnalyzing || images.some(img => img.status === 'uploading' || img.status === 'analyzing')}
           >
-            Analyze Images
+            {isAnalyzing ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Analyzing...
+              </>
+            ) : (
+              'Analyze Images'
+            )}
           </Button>
         )}
       </div>

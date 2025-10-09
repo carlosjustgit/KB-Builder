@@ -9,6 +9,7 @@ import './lib/i18n';
 import { Layout } from './components/Layout';
 import { Toaster } from './components/ui/toaster';
 import { StepContentProvider } from './contexts/StepContentContext';
+import { ToastProvider } from './hooks/use-toast.tsx';
 
 // Lazy load all routes
 const Welcome = React.lazy(() => import('./routes/Welcome').then(m => ({ default: m.Welcome })));
@@ -40,25 +41,27 @@ setTimeout(() => {
     ReactDOM.createRoot(document.getElementById('root')!).render(
       <React.StrictMode>
         <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <StepContentProvider>
-              <Layout>
-                <React.Suspense fallback={<div style={{padding: '50px'}}>Loading...</div>}>
-                  <Routes>
-                    <Route path="/" element={<Welcome />} />
-                    <Route path="/research" element={<Research />} />
-                    <Route path="/brand" element={<Brand />} />
-                    <Route path="/services" element={<Services />} />
-                    <Route path="/market" element={<Market />} />
-                    <Route path="/competitors" element={<Competitors />} />
-                    <Route path="/visual" element={<Visual />} />
-                    <Route path="/export" element={<ExportStep />} />
-                  </Routes>
-                </React.Suspense>
-              </Layout>
-            </StepContentProvider>
-            <Toaster />
-          </BrowserRouter>
+          <ToastProvider>
+            <BrowserRouter>
+              <StepContentProvider>
+                <Layout>
+                  <React.Suspense fallback={<div style={{padding: '50px'}}>Loading...</div>}>
+                    <Routes>
+                      <Route path="/" element={<Welcome />} />
+                      <Route path="/research" element={<Research />} />
+                      <Route path="/brand" element={<Brand />} />
+                      <Route path="/services" element={<Services />} />
+                      <Route path="/market" element={<Market />} />
+                      <Route path="/competitors" element={<Competitors />} />
+                      <Route path="/visual" element={<Visual />} />
+                      <Route path="/export" element={<ExportStep />} />
+                    </Routes>
+                  </React.Suspense>
+                </Layout>
+              </StepContentProvider>
+              <Toaster />
+            </BrowserRouter>
+          </ToastProvider>
         </QueryClientProvider>
       </React.StrictMode>
     );

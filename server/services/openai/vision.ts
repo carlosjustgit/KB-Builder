@@ -1,4 +1,5 @@
 import { OpenAI } from 'openai';
+import fetch from 'node-fetch';
 import type { VisualGuideRules } from '@/types';
 
 /**
@@ -22,23 +23,54 @@ export async function analyzeImagesForGuidelines(
   guide_md: string;
 }> {
   try {
+    console.log('🖼️ Starting vision analysis for', imageUrls.length, 'images');
+    
+    // Download images and convert to base64
+    const imageDataUrls = await Promise.all(
+      imageUrls.map(async (url) => {
+        try {
+          console.log('📥 Downloading image:', url);
+          const response = await fetch(url);
+          
+          if (!response.ok) {
+            throw new Error(`Failed to fetch image: ${response.statusText}`);
+          }
+          
+          const buffer = await response.buffer();
+          const base64 = buffer.toString('base64');
+          const contentType = response.headers.get('content-type') || 'image/jpeg';
+          
+          console.log('✅ Image downloaded:', contentType, buffer.length, 'bytes');
+          
+          // Return as data URL for OpenAI
+          return `data:${contentType};base64,${base64}`;
+        } catch (error) {
+          console.error('❌ Failed to download image:', url, error);
+          throw new Error(`Failed to download image from ${url}`);
+        }
+      })
+    );
+
+    console.log('✅ All images downloaded and converted to base64');
+    
     // Build the prompt for visual analysis
     const prompt = buildVisualAnalysisPrompt(imageUrls, locale, brandContext);
 
-    // Create the vision request
+    // Create the vision request with base64 images
     const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
       {
         role: 'user',
         content: [
           { type: 'text', text: prompt },
-          ...imageUrls.map(url => ({
+          ...imageDataUrls.map(dataUrl => ({
             type: 'image_url' as const,
-            image_url: { url }
+            image_url: { url: dataUrl }
           }))
         ],
       },
     ];
 
+    console.log('🤖 Calling OpenAI Vision API...');
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages,
@@ -49,6 +81,8 @@ export async function analyzeImagesForGuidelines(
     if (!response.choices?.[0]?.message?.content) {
       throw new Error('Invalid response from OpenAI Vision API');
     }
+
+    console.log('✅ OpenAI Vision analysis complete');
 
     // Parse the response to extract visual guidelines
     return parseVisionResponse(response.choices[0].message.content, locale);

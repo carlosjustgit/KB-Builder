@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface MarkdownRendererProps {
   content: string;
   className?: string;

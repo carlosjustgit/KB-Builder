@@ -1,0 +1,51 @@
+{
+  "visual_rules": {
+    "general_principles": [
+      "All images must be strictly photorealistic. Never generate illustrations, paintings, renders, cartoons, or abstract designs.",
+      "Style must look exactly like a real-life mobile photo, as if captured with a Samsung Galaxy S25.",
+      "Images should feel authentic, human, and relatable, avoiding staged or stock-photo looks.",
+      "Subtle touches of brand colour (purple #8943FE) may appear in clothing or small details, but never dominate the image.",
+      "Every image must look natural and trigger curiosity or emotion, encouraging the viewer to read the caption."
+    ],
+    "style_direction": {
+      "lighting": "Natural daylight or realistic indoor lighting. No neon, artificial glow, or over-saturated HDR.",
+      "colour": "Natural tones with slight enhancement. Real-world colours with one subtle vivid element.",
+      "composition": "Clean focus on the subject, natural background blur when needed.",
+      "format": "Square or portrait, optimised for Instagram and social feeds."
+    },
+    "people_and_emotions": [
+      "Real human-like faces, diverse in age, gender, and ethnicity.",
+      "Authentic expressions: curiosity, excitement, focus, joy, collaboration.",
+      "Situations: everyday relatable actions (working, celebrating, connecting).",
+      "Avoid fake smiles, robotic looks, posed corporate stock-photo style."
+    ],
+    "types_of_images": {
+      "real_people_in_context": [
+        "Close-up of someone smiling naturally while using a smartphone.",
+        "Small group collaborating around a laptop in a bright environment.",
+        "Professional writing notes in a notebook with natural light."
+      ],
+      "minimalist_lifestyle": [
+        "Single everyday object in focus (coffee mug, phone, desk item) with a vivid accent.",
+        "Simple background with one human detail (hand, expression)."
+      ]
+    },
+    "neuro_triggers": [
+      "Curiosity: visual hints that encourage the viewer to seek context in the caption.",
+      "Belonging: small groups or shared everyday experiences.",
+      "Desire: relatable lifestyle cues (modern tech, workspace, coffee moments).",
+      "Authenticity: slight imperfections like natural angles, natural light, and human spontaneity."
+    ],
+    "variation_rules": [
+      "Rotate between people-focused images and minimalist lifestyle details.",
+      "Do not repeat the same object more than once every 5\u20136 posts.",
+      "Never allow landscapes, cartoons, illustrations, floating icons, or abstract visuals."
+    ],
+    "prompting_guidance": [
+      "Always include: 'strictly photorealistic, captured with Samsung Galaxy S25, natural light, real people, authentic everyday moment'.",
+      "Add one contextual keyword: curiosity, joy, collaboration, focus, discovery.",
+      "Add one stylistic element: subtle purple accent, minimal background, lifestyle realism.",
+      "Strictly avoid: painting, drawing, illustration, abstract, 3D render, cartoon, surreal, glowing futuristic effects."
+    ]
+  }
+}

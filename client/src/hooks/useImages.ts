@@ -64,22 +64,24 @@ export function useUploadImage() {
       const sha256 = await computeFileSHA256(data.file);
 
       // Check if image already exists
-      const { data: existingImage } = await supabase
+      const { data: existingImages } = await supabase
         .from('kb_images')
         .select('*')
         .eq('session_id', data.sessionId)
         .eq('sha256', sha256)
-        .single();
+        .limit(1);
+
+      const existingImage = existingImages?.[0];
 
       if (existingImage) {
-        // Get signed URL for existing image
-        const { data: urlData } = await supabase.storage
+        // Get public URL for existing image
+        const { data: urlData } = supabase.storage
           .from('kb-builder')
-          .createSignedUrl(existingImage.file_path, 3600);
+          .getPublicUrl(existingImage.file_path);
 
         return {
           image: existingImage,
-          signedUrl: urlData?.signedUrl || '',
+          signedUrl: urlData?.publicUrl || '',
         };
       }
 
@@ -123,14 +125,14 @@ export function useUploadImage() {
 
       console.log('✅ Image record created:', image.id);
 
-      // Get signed URL for preview
-      const { data: urlData } = await supabase.storage
+      // Get public URL for preview
+      const { data: urlData } = supabase.storage
         .from('kb-builder')
-        .createSignedUrl(filePath, 3600);
+        .getPublicUrl(filePath);
 
       return {
         image,
-        signedUrl: urlData?.signedUrl || '',
+        signedUrl: urlData?.publicUrl || '',
       };
     },
     onSuccess: (result) => {
@@ -282,85 +284,29 @@ export function useImportImageFromUrl() {
       url: string;
       role?: ImageRole;
     }): Promise<{ image: KBImage; signedUrl: string }> => {
-      try {
-        // Ensure we're authenticated (anonymous)
-        const { data: authData, error: authError } = await supabase.auth.getSession();
-        
-        if (authError || !authData.session) {
-          console.log('🔐 No session found, signing in anonymously...');
-          const { error: signInError } = await supabase.auth.signInAnonymously();
-          if (signInError) {
-            console.error('❌ Failed to sign in anonymously:', signInError);
-            throw new Error('Authentication failed');
-          }
-        }
+      console.log('🌐 Importing image from URL (server-side):', data.url);
 
-        console.log('🌐 Fetching image from URL:', data.url);
+      // Call server endpoint to import image (avoids CORS issues)
+      const response = await fetch('/api/images/import-url', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          url: data.url,
+          session_id: data.sessionId,
+        }),
+      });
 
-        // Fetch the image from the URL
-        const response = await fetch(data.url);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch image: ${response.statusText}`);
-        }
-
-        const blob = await response.blob();
-        const file = new File([blob], `imported-${Date.now()}.jpg`, { type: blob.type });
-
-        console.log('📁 Image fetched, size:', file.size, 'type:', file.type);
-
-        // Upload file to storage first
-        const timestamp = Date.now();
-        const fileName = `imported-${timestamp}.jpg`;
-        const filePath = `images/user/${data.sessionId}/${fileName}`;
-
-        console.log('📤 Uploading to path:', filePath);
-
-        const { error: uploadError } = await supabase.storage
-          .from('kb-builder')
-          .upload(filePath, file);
-
-        if (uploadError) {
-          console.error('❌ Upload error:', uploadError);
-          throw uploadError;
-        }
-
-        console.log('✅ File uploaded successfully');
-
-        // Create image record in database
-        const { data: image, error: dbError } = await supabase
-          .from('kb_images')
-          .insert({
-            session_id: data.sessionId,
-            file_path: filePath,
-            mime: file.type,
-            size_bytes: file.size,
-            sha256: await computeFileSHA256(file),
-            role: data.role || 'user',
-            status: 'uploaded',
-          })
-          .select()
-          .single();
-
-        if (dbError) {
-          console.error('❌ Database error:', dbError);
-          throw dbError;
-        }
-
-        console.log('✅ Image record created:', image.id);
-
-        // Get signed URL
-        const { data: urlData } = await supabase.storage
-          .from('kb-builder')
-          .createSignedUrl(filePath, 3600);
-
-        return {
-          image,
-          signedUrl: urlData?.signedUrl || '',
-        };
-      } catch (error) {
-        console.error('❌ Error importing image from URL:', error);
-        throw error;
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || error.error || 'Failed to import image');
       }
+
+      const result = await response.json();
+      console.log('✅ Image imported successfully:', result);
+
+      return result;
     },
     onSuccess: (result) => {
       // Invalidate images cache for the session

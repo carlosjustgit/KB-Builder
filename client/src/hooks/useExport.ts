@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast.tsx';
 
 const QUERY_KEYS = {
   exportStats: (sessionId: string) => ['exportStats', sessionId] as const,
