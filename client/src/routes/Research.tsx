@@ -47,6 +47,8 @@ export function Research() {
 
     // Use the company URL from the session
     const companyUrl = session.company_url || 'https://example.com';
+    console.log('🔍 [Research] Session URL:', session.company_url);
+    console.log('🔍 [Research] Using URL for API call:', companyUrl);
 
     const result = await performResearch(
       companyUrl,
@@ -54,6 +56,8 @@ export function Research() {
       'research',
       session.id
     );
+    
+    console.log('📊 [Research] API Result:', result);
 
     if (result.success && result.data) {
       setResearchResult({
