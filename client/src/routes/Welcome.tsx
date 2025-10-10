@@ -24,7 +24,21 @@ export function Welcome() {
   
   // Define schema inside component to access translations
   const welcomeSchema = z.object({
-    company_url: z.string().url(t('url.validation.invalid')),
+    company_url: z.string()
+      .min(1, t('url.validation.required'))
+      .refine(
+        (val) => {
+          // Auto-prepend https:// for validation if missing
+          const urlToValidate = val.match(/^https?:\/\//i) ? val : `https://${val}`;
+          try {
+            new URL(urlToValidate);
+            return true;
+          } catch {
+            return false;
+          }
+        },
+        { message: t('url.validation.invalid') }
+      ),
   });
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -110,6 +124,12 @@ export function Welcome() {
   };
 
   const onSubmit = async (formData: WelcomeForm) => {
+    // Auto-prepend https:// if no protocol is present
+    let companyUrl = formData.company_url;
+    if (companyUrl && !companyUrl.match(/^https?:\/\//i)) {
+      companyUrl = `https://${companyUrl}`;
+    }
+
     console.log('🚀 Form submitted with:', formData);
     console.log('📍 Selected locale:', selectedLocale);
     console.log('💾 Current localStorage session ID:', localStorage.getItem('kb_session_id'));
@@ -119,7 +139,7 @@ export function Welcome() {
       console.log('🔄 Creating session...');
       const session = await createSession.mutateAsync({
         user_id: crypto.randomUUID(), // Generate a unique user ID
-        company_url: formData.company_url,
+        company_url: companyUrl,
         language: selectedLocale,
         step: 'research',
       });
@@ -234,7 +254,7 @@ export function Welcome() {
               <Label htmlFor="company_url">{t('url.label')}</Label>
               <Input
                 id="company_url"
-                type="url"
+                type="text"
                 placeholder={t('url.placeholder')}
                 {...register('company_url')}
                 className={errors.company_url ? 'border-destructive' : ''}

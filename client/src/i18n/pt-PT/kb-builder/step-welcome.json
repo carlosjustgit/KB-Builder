@@ -8,7 +8,7 @@
   },
   "url": {
     "label": "URL do site da empresa",
-    "placeholder": "https://exemplo.pt",
+    "placeholder": "exemplo.pt",
     "validation": {
       "required": "Por favor, insira o site da sua empresa",
       "invalid": "Por favor, insira um URL válido"
