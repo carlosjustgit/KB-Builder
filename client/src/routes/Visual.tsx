@@ -314,9 +314,12 @@ ${guidelines.prompting_guidance.join('\n')}
       navigate('/export');
     } catch (error) {
       console.error('❌ [Visual] Save failed:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('❌ [Visual] Error details:', errorMessage);
+      
       toast({
         title: t('notifications.saveFailed.title'),
-        description: t('notifications.saveFailed.description'),
+        description: errorMessage || t('notifications.saveFailed.description'),
         variant: 'destructive',
       });
     }
