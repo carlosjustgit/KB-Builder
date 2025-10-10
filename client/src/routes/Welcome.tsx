@@ -203,16 +203,17 @@ export function Welcome() {
 
           {/* Session control options */}
           {existingSession && (
-            <div className="flex justify-center gap-3">
+            <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-3">
               <Button
                 onClick={() => navigate(`/research?session=${existingSession.id}`)}
-                className="witfy-gradient text-white"
+                className="witfy-gradient text-white w-full sm:w-auto"
               >
                 {t('session.continue')}
               </Button>
               <Button
                 variant="outline"
                 onClick={handleStartFreshClick}
+                className="w-full sm:w-auto"
               >
                 {t('session.startFresh')}
               </Button>
@@ -225,7 +226,7 @@ export function Welcome() {
                 variant="ghost"
                 size="sm"
                 onClick={handleStartFreshClick}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground w-full sm:w-auto"
               >
                 {t('session.startFresh')}
               </Button>
@@ -278,7 +279,7 @@ export function Welcome() {
               <Button
                 type="submit"
                 size="lg"
-                className="witfy-gradient text-white hover:opacity-90"
+                className="witfy-gradient text-white hover:opacity-90 w-full sm:w-auto"
                 disabled={createSession.isPending}
                 onClick={() => console.log('🔘 Button clicked!')}
               >
