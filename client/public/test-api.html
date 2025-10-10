@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test - KB Builder</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #0070f3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0051cc;
+        }
+        .result {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            width: 400px;
+            font-size: 14px;
+        }
+        h1 { color: #333; }
+        h2 { color: #666; margin-top: 30px; }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+        .status.ok { background: #d4edda; color: #155724; }
+        .status.fail { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>🧪 KB Builder API Test</h1>
+    <p>Test the API endpoints directly without going through the full flow</p>
+
+    <div class="test-section">
+        <h2>1. Test Export Stats API</h2>
+        <p>Enter a session ID to test:</p>
+        <input type="text" id="sessionId" placeholder="bf8cbf90-1234-5678-9abc-123456789012" />
+        <button onclick="testExportStats()">Test Export Stats</button>
+        <button onclick="testWithRandomSession()">Test with Random Session</button>
+        <div id="exportResult" class="result" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test All API Endpoints</h2>
+        <button onclick="testAllEndpoints()">Test All Endpoints</button>
+        <div id="allResults" class="result" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Current Browser Info</h2>
+        <button onclick="showBrowserInfo()">Show Browser Info</button>
+        <div id="browserInfo" class="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function log(elementId, message, type = 'info') {
+            const el = document.getElementById(elementId);
+            el.style.display = 'block';
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'success' ? 'green' : type === 'error' ? 'red' : 'blue';
+            el.innerHTML += `<span style="color:${color}">[${timestamp}] ${message}</span>\n`;
+        }
+
+        function clearLog(elementId) {
+            document.getElementById(elementId).innerHTML = '';
+            document.getElementById(elementId).style.display = 'none';
+        }
+
+        async function testExportStats() {
+            clearLog('exportResult');
+            const sessionId = document.getElementById('sessionId').value || 'bf8cbf90-1234-5678-9abc-123456789012';
+            
+            log('exportResult', `Testing /api/export-stats?sessionId=${sessionId}`, 'info');
+            
+            try {
+                const cacheBuster = Date.now();
+                const url = `/api/export-stats?sessionId=${sessionId}&_cb=${cacheBuster}`;
+                log('exportResult', `Fetching: ${url}`, 'info');
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                    },
+                    cache: 'no-store'
+                });
+                
+                log('exportResult', `Status: ${response.status} ${response.statusText}`, 
+                    response.ok ? 'success' : 'error');
+                
+                const contentType = response.headers.get('content-type');
+                log('exportResult', `Content-Type: ${contentType}`, 'info');
+                
+                const text = await response.text();
+                log('exportResult', `Response length: ${text.length} characters`, 'info');
+                log('exportResult', `First 500 chars: ${text.substring(0, 500)}`, 'info');
+                
+                if (contentType && contentType.includes('application/json')) {
+                    const data = JSON.parse(text);
+                    log('exportResult', `✅ SUCCESS! Got JSON response:`, 'success');
+                    log('exportResult', JSON.stringify(data, null, 2), 'success');
+                } else {
+                    log('exportResult', `❌ ERROR: Got ${contentType} instead of JSON`, 'error');
+                    if (text.includes('<!doctype') || text.includes('<html')) {
+                        log('exportResult', '❌ PROBLEM: Still getting HTML (authentication page)', 'error');
+                        log('exportResult', 'SOLUTION: Deployment protection might still be on', 'error');
+                    }
+                }
+            } catch (error) {
+                log('exportResult', `❌ ERROR: ${error.message}`, 'error');
+                log('exportResult', error.stack, 'error');
+            }
+        }
+
+        function testWithRandomSession() {
+            // Generate a valid UUID v4
+            const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+            document.getElementById('sessionId').value = uuid;
+            testExportStats();
+        }
+
+        async function testAllEndpoints() {
+            clearLog('allResults');
+            log('allResults', '🧪 Testing all API endpoints...', 'info');
+            
+            const testSession = 'bf8cbf90-1234-5678-9abc-123456789012';
+            const endpoints = [
+                { name: 'Export Stats', url: `/api/export-stats?sessionId=${testSession}` },
+                { name: 'Research', url: '/api/research', method: 'POST', needsAuth: true },
+                { name: 'Vision Analyse', url: '/api/vision/analyse', method: 'POST', needsAuth: true },
+            ];
+            
+            for (const endpoint of endpoints) {
+                if (endpoint.method === 'POST') {
+                    log('allResults', `\n${endpoint.name}: Skipped (requires POST body)`, 'info');
+                    continue;
+                }
+                
+                try {
+                    log('allResults', `\nTesting ${endpoint.name}...`, 'info');
+                    const response = await fetch(endpoint.url + '&_cb=' + Date.now(), {
+                        cache: 'no-store',
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    
+                    const contentType = response.headers.get('content-type');
+                    const isJson = contentType && contentType.includes('application/json');
+                    
+                    log('allResults', 
+                        `  ${endpoint.name}: ${response.status} - ${isJson ? '✅ JSON' : '❌ ' + contentType}`,
+                        isJson ? 'success' : 'error'
+                    );
+                } catch (error) {
+                    log('allResults', `  ${endpoint.name}: ❌ ${error.message}`, 'error');
+                }
+            }
+        }
+
+        function showBrowserInfo() {
+            clearLog('browserInfo');
+            log('browserInfo', 'Browser Information:', 'info');
+            log('browserInfo', `User Agent: ${navigator.userAgent}`, 'info');
+            log('browserInfo', `Platform: ${navigator.platform}`, 'info');
+            log('browserInfo', `Language: ${navigator.language}`, 'info');
+            log('browserInfo', `Online: ${navigator.onLine}`, 'info');
+            log('browserInfo', `Cookies Enabled: ${navigator.cookieEnabled}`, 'info');
+            log('browserInfo', `URL: ${window.location.href}`, 'info');
+            log('browserInfo', `Referrer: ${document.referrer || 'none'}`, 'info');
+            
+            // Test if we can access the API
+            log('browserInfo', '\nTesting API accessibility...', 'info');
+            fetch('/api/export-stats?sessionId=test&_cb=' + Date.now(), {
+                method: 'HEAD',
+                cache: 'no-store'
+            }).then(r => {
+                log('browserInfo', `API Status: ${r.status} - ${r.ok ? '✅ Accessible' : '❌ Not accessible'}`, 
+                    r.ok ? 'success' : 'error');
+            }).catch(e => {
+                log('browserInfo', `API Status: ❌ Network error - ${e.message}`, 'error');
+            });
+        }
+
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            console.log('🧪 KB Builder API Test Page Loaded');
+            console.log('Use the buttons to test API endpoints');
+        });
+    </script>
+</body>
+</html>
+
