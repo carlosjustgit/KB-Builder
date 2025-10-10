@@ -108,20 +108,34 @@ export interface KBExport {
 // ===========================
 
 export interface VisualGuideRules {
+  general_principles: string[];
+  style_direction: {
+    lighting: string;
+    colour: string;
+    composition: string;
+    format: string;
+  };
   palette: {
     primary: string[];
     secondary: string[];
     neutrals: string[];
   };
-  lighting: string;
-  composition: string;
-  subjects: string[];
-  textures: string[];
-  mood: string[];
-  dos: string[];
-  donts: string[];
-  base_prompts: string[];
-  negative_prompts: string[];
+  people_and_emotions: string[];
+  types_of_images: {
+    category_name: string;
+    subject_matter?: string;
+    context?: string;
+    examples: string[];
+  }[];
+  neuro_triggers: string[];
+  variation_rules: string[];
+  prompting_guidance: string[];
+  producer_notes: {
+    camera: string;
+    lighting: string;
+    angle: string;
+    scene: string;
+  };
 }
 
 // ===========================

@@ -1,42 +1,59 @@
 {
-  "title": "Competitive Analysis",
-  "subtitle": "Know your competition and stand out",
-  "description": "Identify your main competitors and define what makes your offering unique in the market.",
-  "sections": {
-    "competitors": {
-      "title": "Main Competitors",
-      "description": "Key players in your market",
-      "addCompetitor": "Add Competitor",
-      "competitorName": "Competitor Name",
-      "competitorDescription": "What they do well",
-      "competitorWeaknesses": "Areas where they fall short"
-    },
-    "differentiators": {
-      "title": "Your Differentiators",
-      "description": "What makes you unique",
-      "addDifferentiator": "Add Differentiator",
-      "differentiatorTitle": "Unique Advantage",
-      "differentiatorDescription": "Why this matters to customers"
+  "title": "Competitor Analysis",
+  "subtitle": "Identify and analyse key competitors and market positioning",
+  "stepLabel": "Step 5 of 6",
+  "session": "Session:",
+  "generateCard": {
+    "title": "Generate Competitor Analysis",
+    "description": "Our AI will research and create a comprehensive competitor analysis document including:",
+    "items": {
+      "overview": "Key Competitors Overview",
+      "advantages": "Competitive Advantages & Weaknesses",
+      "marketShare": "Market Share & Positioning",
+      "pricing": "Pricing Strategies",
+      "differentiation": "Differentiation Opportunities",
+      "response": "Competitive Response Strategies"
     }
   },
+  "documentCard": {
+    "title": "Competitor Analysis Document"
+  },
+  "error": {
+    "title": "Generation Failed",
+    "tryAgain": "Try Again"
+  },
   "loading": {
-    "title": "Analysing competition...",
-    "description": "Identifying competitors and competitive advantages"
+    "generating": "Generating Competitor Analysis...",
+    "saving": "Saving..."
   },
   "actions": {
-    "analyse": "Analyse Competition",
+    "generate": "Generate Competitor Analysis",
     "edit": "Edit",
+    "save": "Save Changes",
+    "cancel": "Cancel",
     "regenerate": "Regenerate",
-    "addCompetitor": "Add Competitor",
-    "addDifferentiator": "Add Differentiator",
-    "save": "Save Analysis",
-    "next": "Continue to Visual",
-    "back": "Back to Market"
+    "next": "Continue to Visual Guide",
+    "back": "Back to Market Analysis"
   },
-  "validation": {
-    "atLeastOneCompetitor": "Please add at least one competitor",
-    "competitorNameRequired": "Competitor name is required",
-    "atLeastOneDifferentiator": "Please add at least one differentiator"
+  "placeholders": {
+    "editDocument": "Edit your competitor analysis..."
+  },
+  "notifications": {
+    "generated": {
+      "title": "Competitor Analysis Generated",
+      "description": "AI has generated your competitor analysis document"
+    },
+    "saved": {
+      "title": "Competitor Analysis Saved",
+      "description": "Your changes have been saved successfully"
+    },
+    "generateRequired": {
+      "title": "Generate Competitor Analysis",
+      "description": "Please generate your competitor analysis before continuing"
+    }
+  },
+  "noSession": {
+    "message": "No active session found",
+    "action": "Start New Session"
   }
 }
-

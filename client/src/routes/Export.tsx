@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -8,6 +9,7 @@ import { useToast } from '@/hooks/use-toast.tsx';
 import { ArrowLeft, ArrowRight, CheckCircle, Download } from 'lucide-react';
 
 export function ExportStep() {
+  const { t } = useTranslation('step-export');
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -19,8 +21,8 @@ export function ExportStep() {
 
   const handleComplete = () => {
     toast({
-      title: 'Knowledge Base Complete!',
-      description: 'Your knowledge base has been successfully generated and exported.',
+      title: t('notifications.complete.title'),
+      description: t('notifications.complete.description'),
     });
     
     // Navigate to a completion page or back to welcome
@@ -32,9 +34,9 @@ export function ExportStep() {
       <Card className="w-full max-w-4xl mx-auto">
         <CardContent className="flex items-center justify-center p-8">
           <div className="text-center">
-            <p className="text-muted-foreground">No active session found</p>
+            <p className="text-muted-foreground">{t('noSession.message')}</p>
             <Button onClick={() => navigate('/')} className="mt-4">
-              Start New Session
+              {t('noSession.action')}
             </Button>
           </div>
         </CardContent>
@@ -53,14 +55,14 @@ export function ExportStep() {
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
               <div>
-                <CardTitle className="text-xl">Export Knowledge Base</CardTitle>
+                <CardTitle className="text-xl">{t('title')}</CardTitle>
                 <p className="text-muted-foreground">
-                  Download your complete knowledge base in JSON or ZIP format
+                  {t('subtitle')}
                 </p>
               </div>
             </div>
             <Badge variant="outline" className="text-sm">
-              Step 6 of 6
+              {t('stepLabel')}
             </Badge>
           </div>
         </CardHeader>
@@ -68,15 +70,15 @@ export function ExportStep() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-green-600" />
-              <span>Research Complete</span>
+              <span>{t('status.researchComplete')}</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-green-600" />
-              <span>Visual Guide Generated</span>
+              <span>{t('status.visualGuideGenerated')}</span>
             </div>
             <div className="flex items-center gap-2">
               <Download className="w-4 h-4 text-blue-600" />
-              <span>Ready to Export</span>
+              <span>{t('status.readyToExport')}</span>
             </div>
           </div>
         </CardContent>
@@ -94,15 +96,15 @@ export function ExportStep() {
             className="flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Visual Guide
+            {t('navigation.back')}
           </Button>
 
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
-              Session: {session.id.slice(0, 8)}...
+              {t('navigation.session')} {session.id.slice(0, 8)}...
             </p>
             <p className="text-xs text-muted-foreground">
-              ID: {session.id.slice(0, 8)}...
+              {t('navigation.id')} {session.id.slice(0, 8)}...
             </p>
           </div>
 
@@ -110,7 +112,7 @@ export function ExportStep() {
             onClick={handleComplete}
             className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
           >
-            Complete
+            {t('navigation.complete')}
             <ArrowRight className="w-4 h-4" />
           </Button>
         </CardContent>

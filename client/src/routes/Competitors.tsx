@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +16,7 @@ import { supabase } from '@/lib/supabase';
 export function Competitors() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation('step-competitors');
   
   const { data: session } = useSession();
   const { performResearch, isLoading, error, reset } = useResearchWithState();
@@ -68,14 +70,14 @@ export function Competitors() {
       saveDocument.mutate({
         sessionId: session.id,
         docType: 'competitors',
-        title: 'Competitor Analysis',
+        title: t('title'),
         content_md: result.data.content_md,
         status: 'draft',
       });
 
       toast({
-        title: 'Competitor Analysis Generated',
-        description: 'AI has generated your competitor analysis document',
+        title: t('notifications.generated.title'),
+        description: t('notifications.generated.description'),
       });
     }
   };
@@ -87,7 +89,7 @@ export function Competitors() {
       {
         sessionId: session.id,
         docType: 'competitors',
-        title: 'Competitor Analysis',
+        title: t('title'),
         content_md: competitorsContent,
         status: 'approved',
       },
@@ -95,8 +97,8 @@ export function Competitors() {
         onSuccess: () => {
           setIsEditing(false);
           toast({
-            title: 'Competitor Analysis Saved',
-            description: 'Your changes have been saved successfully',
+            title: t('notifications.saved.title'),
+            description: t('notifications.saved.description'),
           });
         },
       }
@@ -106,8 +108,8 @@ export function Competitors() {
   const handleNext = () => {
     if (!hasGenerated) {
       toast({
-        title: 'Generate Competitor Analysis',
-        description: 'Please generate your competitor analysis before continuing',
+        title: t('notifications.generateRequired.title'),
+        description: t('notifications.generateRequired.description'),
         variant: 'destructive',
       });
       return;
@@ -134,9 +136,9 @@ export function Competitors() {
       <Card className="w-full max-w-4xl mx-auto">
         <CardContent className="flex items-center justify-center p-8">
           <div className="text-center">
-            <p className="text-muted-foreground">No active session found</p>
+            <p className="text-muted-foreground">{t('noSession.message')}</p>
             <Button onClick={() => navigate('/')} className="mt-4">
-              Start New Session
+              {t('noSession.action')}
             </Button>
           </div>
         </CardContent>
@@ -155,20 +157,20 @@ export function Competitors() {
                 <Target className="w-5 h-5 text-red-600" />
               </div>
               <div>
-                <CardTitle className="text-xl">Competitor Analysis</CardTitle>
+                <CardTitle className="text-xl">{t('title')}</CardTitle>
                 <p className="text-muted-foreground">
-                  Identify and analyze key competitors and market positioning
+                  {t('subtitle')}
                 </p>
               </div>
             </div>
             <Badge variant="outline" className="text-sm">
-              Step 5 of 6
+              {t('stepLabel')}
             </Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div className="text-sm text-muted-foreground">
-            Session: <span className="font-medium text-foreground">{session.id.slice(0, 8)}...</span>
+            {t('session')} <span className="font-medium text-foreground">{session.id.slice(0, 8)}...</span>
           </div>
         </CardContent>
       </Card>
@@ -177,24 +179,24 @@ export function Competitors() {
       {!hasGenerated && (
         <Card>
           <CardHeader>
-            <CardTitle>Generate Competitor Analysis</CardTitle>
+            <CardTitle>{t('generateCard.title')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-muted-foreground">
-              Our AI will research and create a comprehensive competitor analysis document including:
+              {t('generateCard.description')}
             </p>
             <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground ml-4">
-              <li>Key Competitors Overview</li>
-              <li>Competitive Advantages & Weaknesses</li>
-              <li>Market Share & Positioning</li>
-              <li>Pricing Strategies</li>
-              <li>Differentiation Opportunities</li>
-              <li>Competitive Response Strategies</li>
+              <li>{t('generateCard.items.overview')}</li>
+              <li>{t('generateCard.items.advantages')}</li>
+              <li>{t('generateCard.items.marketShare')}</li>
+              <li>{t('generateCard.items.pricing')}</li>
+              <li>{t('generateCard.items.differentiation')}</li>
+              <li>{t('generateCard.items.response')}</li>
             </ul>
 
             {error && (
               <div className="p-4 bg-destructive/10 text-destructive rounded-md">
-                <p className="font-medium">Generation Failed</p>
+                <p className="font-medium">{t('error.title')}</p>
                 <p className="text-sm">{error.message}</p>
                 <Button
                   variant="outline"
@@ -202,7 +204,7 @@ export function Competitors() {
                   onClick={reset}
                   className="mt-2"
                 >
-                  Try Again
+                  {t('error.tryAgain')}
                 </Button>
               </div>
             )}
@@ -216,12 +218,12 @@ export function Competitors() {
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Generating Competitor Analysis...
+                  {t('loading.generating')}
                 </>
               ) : (
                 <>
                   <Target className="w-4 h-4 mr-2" />
-                  Generate Competitor Analysis
+                  {t('actions.generate')}
                 </>
               )}
             </Button>
@@ -234,7 +236,7 @@ export function Competitors() {
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Competitor Analysis Document</CardTitle>
+              <CardTitle>{t('documentCard.title')}</CardTitle>
               <div className="flex gap-2">
                 {isEditing ? (
                   <>
@@ -243,7 +245,7 @@ export function Competitors() {
                       size="sm"
                       onClick={() => setIsEditing(false)}
                     >
-                      Cancel
+                      {t('actions.cancel')}
                     </Button>
                     <Button
                       size="sm"
@@ -253,12 +255,12 @@ export function Competitors() {
                       {saveDocument.isPending ? (
                         <>
                           <Loader2 className="w-3 h-3 mr-2 animate-spin" />
-                          Saving...
+                          {t('loading.saving')}
                         </>
                       ) : (
                         <>
                           <Save className="w-3 h-3 mr-2" />
-                          Save Changes
+                          {t('actions.save')}
                         </>
                       )}
                     </Button>
@@ -271,7 +273,7 @@ export function Competitors() {
                       onClick={() => setIsEditing(true)}
                     >
                       <Edit className="w-3 h-3 mr-2" />
-                      Edit
+                      {t('actions.edit')}
                     </Button>
                     <Button
                       variant="outline"
@@ -280,7 +282,7 @@ export function Competitors() {
                       disabled={isLoading}
                     >
                       <RotateCcw className="w-3 h-3 mr-2" />
-                      Regenerate
+                      {t('actions.regenerate')}
                     </Button>
                   </>
                 )}
@@ -293,7 +295,7 @@ export function Competitors() {
                 value={competitorsContent}
                 onChange={(e) => setCompetitorsContent(e.target.value)}
                 className="min-h-[500px] font-mono text-sm"
-                placeholder="Edit your competitor analysis..."
+                placeholder={t('placeholders.editDocument')}
               />
             ) : (
               <MarkdownRenderer content={competitorsContent} />
@@ -311,7 +313,7 @@ export function Competitors() {
             className="flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Market Analysis
+            {t('actions.back')}
           </Button>
 
           <Button
@@ -319,7 +321,7 @@ export function Competitors() {
             disabled={!hasGenerated}
             className="flex items-center gap-2"
           >
-            Continue to Visual Guide
+            {t('actions.next')}
             <ArrowRight className="w-4 h-4" />
           </Button>
         </CardContent>

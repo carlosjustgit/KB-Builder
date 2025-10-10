@@ -22,9 +22,13 @@ interface ResearchResult {
 export async function performResearch(
   companyUrl: string,
   locale: string,
-  step: string
+  step: string,
+  retryCount: number = 0,
+  maxRetries: number = 3
 ): Promise<ResearchResult> {
   try {
+    console.log(`🔍 Starting research for ${step} (attempt ${retryCount + 1}/${maxRetries + 1})`);
+    
     const prompt = generatePrompt(companyUrl, locale, step);
 
     const response = await fetch(PERPLEXITY_API_URL, {
@@ -83,11 +87,42 @@ Your credibility depends on accuracy. False information damages trust and busine
       citations?: string[];
     };
 
-    const content = data.choices?.[0]?.message?.content || '';
+    let content = data.choices?.[0]?.message?.content || '';
+    
+    // Validate content
+    if (!content || content.trim().length < 50) {
+      throw new Error('Invalid research result: content too short or empty');
+    }
+    
+    // Remove reasoning tags if present (sonar-reasoning model includes these)
+    if (content.includes('<think>') || content.includes('</think>')) {
+      console.log('⚠️ Removing reasoning tags from response');
+      content = content.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+    }
 
-    return parseResearchResponse(content, companyUrl);
+    const result = parseResearchResponse(content, companyUrl);
+    
+    // Validate parsed result
+    if (!result.content_md || result.content_md.trim().length < 50) {
+      throw new Error('Invalid research result: parsed content too short');
+    }
+    
+    console.log('✅ Research validation passed');
+    return result;
+    
   } catch (error) {
-    console.error('[Perplexity] Research with context failed:', error);
+    console.error(`[Perplexity] Research failed (attempt ${retryCount + 1}):`, error);
+    
+    // Retry logic with exponential backoff
+    if (retryCount < maxRetries) {
+      const delay = Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s
+      console.log(`⏳ Retrying in ${delay}ms...`);
+      
+      await new Promise(resolve => setTimeout(resolve, delay));
+      
+      return performResearch(companyUrl, locale, step, retryCount + 1, maxRetries);
+    }
+    
     throw error;
   }
 }
@@ -126,16 +161,18 @@ ${basePrompt}`;
 }
 
 /**
- * Research function with context from previous steps
+ * Research function with context from previous steps with retry logic
  */
 export async function performResearchWithContext(
   companyUrl: string,
   locale: string,
   step: string,
-  context: string
+  context: string,
+  retryCount: number = 0,
+  maxRetries: number = 3
 ): Promise<ResearchResult> {
   try {
-    console.log('🔄 Performing research with context for step:', step);
+    console.log(`🔄 Performing research with context for step: ${step} (attempt ${retryCount + 1}/${maxRetries + 1})`);
     console.log('📊 Context length:', context.length);
     console.log('🏢 Company URL:', companyUrl);
     
@@ -187,10 +224,43 @@ export async function performResearchWithContext(
     ) {
       throw new Error('Invalid response format from Perplexity API');
     }
-    return parseResearchResponse(data.choices[0].message.content, companyUrl);
+    
+    let content = data.choices[0].message.content;
+    
+    // Validate content
+    if (!content || content.trim().length < 50) {
+      throw new Error('Invalid research result: content too short or empty');
+    }
+    
+    // Remove reasoning tags if present (sonar-reasoning model includes these)
+    if (content.includes('<think>') || content.includes('</think>')) {
+      console.log('⚠️ Removing reasoning tags from response');
+      content = content.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+    }
+    
+    const result = parseResearchResponse(content, companyUrl);
+    
+    // Validate parsed result
+    if (!result.content_md || result.content_md.trim().length < 50) {
+      throw new Error('Invalid research result: parsed content too short');
+    }
+    
+    console.log('✅ Research with context validation passed');
+    return result;
 
   } catch (error) {
-    console.error('[Perplexity] Research failed:', error);
+    console.error(`[Perplexity] Research with context failed (attempt ${retryCount + 1}):`, error);
+    
+    // Retry logic with exponential backoff
+    if (retryCount < maxRetries) {
+      const delay = Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s
+      console.log(`⏳ Retrying in ${delay}ms...`);
+      
+      await new Promise(resolve => setTimeout(resolve, delay));
+      
+      return performResearchWithContext(companyUrl, locale, step, context, retryCount + 1, maxRetries);
+    }
+    
     throw error;
   }
 }

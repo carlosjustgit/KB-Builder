@@ -13,17 +13,21 @@ import type { Locale } from '@/lib/i18n';
 import { useCreateSession, useSessionFromParams } from '@/hooks/useSession';
 import { useToast } from '@/hooks/use-toast.tsx';
 
-const welcomeSchema = z.object({
-  company_url: z.string().url('Please enter a valid URL'),
-});
-
-type WelcomeForm = z.infer<typeof welcomeSchema>;
+type WelcomeForm = {
+  company_url: string;
+};
 
 export function Welcome() {
   const { t, i18n } = useTranslation('step-welcome');
+  
+  // Define schema inside component to access translations
+  const welcomeSchema = z.object({
+    company_url: z.string().url(t('url.validation.invalid')),
+  });
   const navigate = useNavigate();
   const { toast } = useToast();
   const [selectedLocale, setSelectedLocale] = useState<Locale>('en-US');
+  const [showStartFreshDialog, setShowStartFreshDialog] = useState(false);
   const createSession = useCreateSession();
   const { data: existingSession, isLoading: sessionLoading } = useSessionFromParams();
 
@@ -40,12 +44,12 @@ export function Welcome() {
   }, [existingSession, sessionLoading, toast, t]);
 
   // Handle starting fresh (clearing session data but preserving chat)
-  const handleStartFresh = async () => {
-    const confirmed = window.confirm(
-      'Starting fresh will create a completely new session. This will clear all your research, documents, and chat history. Are you sure you want to continue?'
-    );
-    
-    if (!confirmed) return;
+  const handleStartFreshClick = () => {
+    setShowStartFreshDialog(true);
+  };
+
+  const confirmStartFresh = async () => {
+    setShowStartFreshDialog(false);
     
     console.log('🗑️ Starting fresh - creating new session...');
     
@@ -54,13 +58,13 @@ export function Welcome() {
       
       toast({
         title: t('session.cleared.title'),
-        description: 'New session created. All previous data has been cleared.',
+        description: t('session.cleared.description'),
       });
     } catch (error) {
       console.error('Error clearing session:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to start fresh. Please try again.',
+        title: t('notifications.error.title'),
+        description: t('notifications.error.startFresh'),
         variant: 'destructive',
       });
     }
@@ -103,8 +107,8 @@ export function Welcome() {
       console.log('💾 Stored session ID in localStorage:', session.id);
 
       toast({
-        title: t('success.title') || 'Success!',
-        description: t('success.description') || 'Session created successfully',
+        title: t('notifications.success.title'),
+        description: t('notifications.success.description'),
       });
 
       // Navigate to research step
@@ -113,8 +117,8 @@ export function Welcome() {
     } catch (error) {
       console.error('❌ Error creating session:', error);
       toast({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to create session. Please try again.',
+        title: t('notifications.error.title'),
+        description: error instanceof Error ? error.message : t('notifications.error.sessionCreation'),
         variant: 'destructive',
       });
     }
@@ -167,7 +171,7 @@ export function Welcome() {
               </Button>
               <Button
                 variant="outline"
-                onClick={handleStartFresh}
+                onClick={handleStartFreshClick}
               >
                 {t('session.startFresh')}
               </Button>
@@ -179,7 +183,7 @@ export function Welcome() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={handleStartFresh}
+                onClick={handleStartFreshClick}
                 className="text-muted-foreground hover:text-foreground"
               >
                 {t('session.startFresh')}
@@ -237,12 +241,42 @@ export function Welcome() {
                 disabled={createSession.isPending}
                 onClick={() => console.log('🔘 Button clicked!')}
               >
-                {createSession.isPending ? 'Starting...' : t('buttons.next')}
+                {createSession.isPending ? t('buttons.starting') : t('buttons.next')}
               </Button>
             </div>
           </form>
         </CardContent>
       </Card>
+
+      {/* Start Fresh Confirmation Dialog */}
+      {showStartFreshDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <Card className="w-full max-w-md mx-4">
+            <CardHeader>
+              <CardTitle>{t('session.startFresh')}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground">
+                {t('session.startFreshConfirm')}
+              </p>
+              <div className="flex gap-3 justify-end">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowStartFreshDialog(false)}
+                >
+                  {t('buttons.cancel')}
+                </Button>
+                <Button
+                  onClick={confirmStartFresh}
+                  className="witfy-gradient text-white"
+                >
+                  {t('buttons.confirm')}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

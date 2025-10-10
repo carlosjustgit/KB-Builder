@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Send, User, Loader2, Trash2 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast.tsx";
+import { useTranslation } from "react-i18next";
 
 interface ChatMessage {
   id: string;
@@ -26,6 +27,7 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { t } = useTranslation('common');
 
   // Fetch chat history
   const { data: messages = [] } = useQuery<ChatMessage[]>({
@@ -86,8 +88,8 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
     },
     onError: (error) => {
       toast({
-        title: "Chat Error",
-        description: error.message,
+        title: t('chat.error.title'),
+        description: error.message || t('chat.error.description'),
         variant: "destructive",
       });
     },
@@ -109,14 +111,14 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['chatMessages', sessionId] });
       toast({
-        title: "Chat Cleared",
-        description: "All messages have been cleared",
+        title: t('chat.cleared.title'),
+        description: t('chat.cleared.description'),
       });
     },
     onError: (error) => {
       toast({
-        title: "Clear Chat Error",
-        description: error.message,
+        title: t('chat.clearError.title'),
+        description: error.message || t('chat.clearError.description'),
         variant: "destructive",
       });
     },
@@ -136,9 +138,7 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
   };
 
   const handleClearChat = () => {
-    const confirmed = window.confirm(
-      'Are you sure you want to clear all chat messages? This action cannot be undone.'
-    );
+    const confirmed = window.confirm(t('chat.clearConfirm'));
     
     if (confirmed) {
       clearChatMutation.mutate();
@@ -160,10 +160,10 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
             <div className="text-center text-muted-foreground py-8">
               <img src="/Wit-profile.png" alt="Wit" className="h-8 w-8 mx-auto mb-2 opacity-50" />
               <p className="text-sm">
-                Start a conversation about your research
+                {t('chat.emptyState.title')}
               </p>
               <p className="text-xs mt-1">
-                Try: "Is this information accurate?" or "Change the tone to be more professional"
+                {t('chat.emptyState.examples')}
               </p>
             </div>
           )}
@@ -209,7 +209,7 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
                 <div className="p-3 rounded-lg bg-muted">
                   <div className="flex items-center space-x-2">
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    <span className="text-sm text-gray-600">AI is thinking...</span>
+                    <span className="text-sm text-gray-600">{t('chat.thinking')}</span>
                   </div>
                 </div>
                 <img src="/Wit-profile.png" alt="Wit" className="h-6 w-6 rounded-full" />
@@ -226,7 +226,7 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask about your research or request changes..."
+            placeholder={t('chat.placeholder')}
             disabled={isLoading}
             className="flex-1"
           />
@@ -243,7 +243,7 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
               disabled={clearChatMutation.isPending}
               variant="outline"
               size="sm"
-              title="Clear chat history"
+              title={t('chat.clearChat')}
               className="text-red-600 hover:text-red-700 hover:bg-red-50"
             >
               <Trash2 className="h-4 w-4" />

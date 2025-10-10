@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -16,6 +17,7 @@ import { supabase } from '@/lib/supabase';
 export function Brand() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation('step-brand');
   
   const { data: session } = useSession();
   const { performResearch, isLoading, error, reset } = useResearchWithState();
@@ -86,14 +88,14 @@ export function Brand() {
       saveDocument.mutate({
         sessionId: session.id,
         docType: 'brand',
-        title: 'Brand Identity',
+        title: t('title'),
         content_md: result.data.content_md,
         status: 'draft',
       });
 
       toast({
-        title: 'Brand Document Generated',
-        description: 'AI has generated your brand identity document',
+        title: t('notifications.generated.title'),
+        description: t('notifications.generated.description'),
       });
     }
   };
@@ -105,7 +107,7 @@ export function Brand() {
       {
         sessionId: session.id,
         docType: 'brand',
-        title: 'Brand Identity',
+        title: t('title'),
         content_md: brandContent,
         status: 'approved',
       },
@@ -113,8 +115,8 @@ export function Brand() {
         onSuccess: () => {
           setIsEditing(false);
           toast({
-            title: 'Brand Document Saved',
-            description: 'Your changes have been saved successfully',
+            title: t('notifications.saved.title'),
+            description: t('notifications.saved.description'),
           });
         },
       }
@@ -124,8 +126,8 @@ export function Brand() {
   const handleNext = () => {
     if (!hasGenerated) {
       toast({
-        title: 'Generate Brand Document',
-        description: 'Please generate your brand document before continuing',
+        title: t('notifications.generateRequired.title'),
+        description: t('notifications.generateRequired.description'),
         variant: 'destructive',
       });
       return;
@@ -152,9 +154,9 @@ export function Brand() {
       <Card className="w-full max-w-full mx-auto">
         <CardContent className="flex items-center justify-center p-8">
           <div className="text-center">
-            <p className="text-muted-foreground">No active session found</p>
+            <p className="text-muted-foreground">{t('noSession.message')}</p>
             <Button onClick={() => navigate('/')} className="mt-4">
-              Start New Session
+              {t('noSession.action')}
             </Button>
           </div>
         </CardContent>
@@ -173,20 +175,20 @@ export function Brand() {
                 <Sparkles className="w-5 h-5 text-purple-600" />
               </div>
               <div>
-                <CardTitle className="text-xl">Brand Identity</CardTitle>
+                <CardTitle className="text-xl">{t('title')}</CardTitle>
                 <p className="text-muted-foreground">
-                  Define your brand's mission, vision, and core values
+                  {t('subtitle')}
                 </p>
               </div>
             </div>
             <Badge variant="outline" className="text-sm">
-              Step 2 of 6
+              {t('stepLabel')}
             </Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div className="text-sm text-muted-foreground">
-            Session: <span className="font-medium text-foreground">{session.id.slice(0, 8)}...</span>
+            {t('session')} <span className="font-medium text-foreground">{session.id.slice(0, 8)}...</span>
           </div>
         </CardContent>
       </Card>
@@ -195,24 +197,24 @@ export function Brand() {
       {!hasGenerated && (
         <Card>
           <CardHeader>
-            <CardTitle>Generate Brand Document</CardTitle>
+            <CardTitle>{t('generateCard.title')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-muted-foreground">
-              Our AI will research and create a comprehensive brand identity document including:
+              {t('generateCard.description')}
             </p>
             <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground ml-4">
-              <li>Mission Statement</li>
-              <li>Vision Statement</li>
-              <li>Core Values</li>
-              <li>Brand Promise</li>
-              <li>Brand Personality</li>
-              <li>Target Audience</li>
+              <li>{t('generateCard.items.missionStatement')}</li>
+              <li>{t('generateCard.items.visionStatement')}</li>
+              <li>{t('generateCard.items.coreValues')}</li>
+              <li>{t('generateCard.items.brandPromise')}</li>
+              <li>{t('generateCard.items.brandPersonality')}</li>
+              <li>{t('generateCard.items.targetAudience')}</li>
             </ul>
 
             {error && (
               <div className="p-4 bg-destructive/10 text-destructive rounded-md">
-                <p className="font-medium">Generation Failed</p>
+                <p className="font-medium">{t('error.title')}</p>
                 <p className="text-sm">{error.message}</p>
                 <Button
                   variant="outline"
@@ -220,7 +222,7 @@ export function Brand() {
                   onClick={reset}
                   className="mt-2"
                 >
-                  Try Again
+                  {t('error.tryAgain')}
                 </Button>
               </div>
             )}
@@ -234,12 +236,12 @@ export function Brand() {
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Generating Brand Document...
+                  {t('loading.generating')}
                 </>
               ) : (
                 <>
                   <Sparkles className="w-4 h-4 mr-2" />
-                  Generate Brand Document
+                  {t('actions.generate')}
                 </>
               )}
             </Button>
@@ -252,7 +254,7 @@ export function Brand() {
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Brand Identity Document</CardTitle>
+              <CardTitle>{t('documentCard.title')}</CardTitle>
               <div className="flex gap-2">
                 {isEditing ? (
                   <>
@@ -261,7 +263,7 @@ export function Brand() {
                       size="sm"
                       onClick={() => setIsEditing(false)}
                     >
-                      Cancel
+                      {t('actions.cancel')}
                     </Button>
                     <Button
                       size="sm"
@@ -271,12 +273,12 @@ export function Brand() {
                       {saveDocument.isPending ? (
                         <>
                           <Loader2 className="w-3 h-3 mr-2 animate-spin" />
-                          Saving...
+                          {t('loading.saving')}
                         </>
                       ) : (
                         <>
                           <Save className="w-3 h-3 mr-2" />
-                          Save Changes
+                          {t('actions.save')}
                         </>
                       )}
                     </Button>
@@ -289,7 +291,7 @@ export function Brand() {
                       onClick={() => setIsEditing(true)}
                     >
                       <Edit className="w-3 h-3 mr-2" />
-                      Edit
+                      {t('actions.edit')}
                     </Button>
                     <Button
                       variant="outline"
@@ -298,7 +300,7 @@ export function Brand() {
                       disabled={isLoading}
                     >
                       <RotateCcw className="w-3 h-3 mr-2" />
-                      Regenerate
+                      {t('actions.regenerate')}
                     </Button>
                   </>
                 )}
@@ -311,7 +313,7 @@ export function Brand() {
                 value={brandContent}
                 onChange={(e) => setBrandContent(e.target.value)}
                 className="min-h-[500px] font-mono text-sm"
-                placeholder="Edit your brand document..."
+                placeholder={t('placeholders.editDocument')}
               />
             ) : (
               <MarkdownRenderer content={brandContent} />
@@ -329,7 +331,7 @@ export function Brand() {
             className="flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Research
+            {t('actions.back')}
           </Button>
 
           <Button
@@ -337,7 +339,7 @@ export function Brand() {
             disabled={!hasGenerated}
             className="flex items-center gap-2"
           >
-            Continue to Services
+            {t('actions.next')}
             <ArrowRight className="w-4 h-4" />
           </Button>
         </CardContent>

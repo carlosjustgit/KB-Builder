@@ -1,7 +1,13 @@
 {
-  "title": "Export & Download",
-  "subtitle": "Get your complete knowledge base",
+  "title": "Export Knowledge Base",
+  "subtitle": "Download your complete knowledge base in JSON or ZIP format",
   "description": "Review your completed knowledge base and download it in formats ready for Witfy onboarding.",
+  "stepLabel": "Step 6 of 6",
+  "status": {
+    "researchComplete": "Research Complete",
+    "visualGuideGenerated": "Visual Guide Generated",
+    "readyToExport": "Ready to Export"
+  },
   "preview": {
     "title": "Knowledge Base Preview",
     "sections": {
@@ -65,6 +71,65 @@
     "description": "Your knowledge base has been successfully exported.",
     "jsonDownloaded": "JSON file downloaded",
     "zipDownloaded": "ZIP package downloaded"
+  },
+  "pdf": {
+    "title": "Export Individual Documents as PDF",
+    "description": "Download each document separately as a PDF file",
+    "downloading": "Downloading PDF...",
+    "downloaded": "PDF downloaded successfully",
+    "failed": "PDF export failed",
+    "noDocuments": "No documents available",
+    "noDocumentsDescription": "Complete the steps to generate documents"
+  },
+  "generate": {
+    "title": "Generate New Export",
+    "formatLabel": "Export Format",
+    "formatJson": "JSON",
+    "formatJsonDesc": "Structured data",
+    "formatZip": "ZIP",
+    "formatZipDesc": "Complete package",
+    "includeLabel": "Include in Export",
+    "includeImages": "Images ({{count}})",
+    "includeSources": "Research Sources ({{count}})",
+    "includeVisualGuide": "Visual Guidelines",
+    "generating": "Generating Export...",
+    "generateButton": "Generate Export"
+  },
+  "history": {
+    "title": "Export History",
+    "noExports": "No exports generated yet",
+    "noExportsDescription": "Generate your first export to see it here",
+    "totalExports": "Total Exports",
+    "jsonFiles": "JSON Files",
+    "zipFiles": "ZIP Files",
+    "latestExport": "Latest Export",
+    "exportType": "{{type}} Export",
+    "downloading": "Downloading...",
+    "downloadAgain": "Download Again"
+  },
+  "loading": {
+    "title": "Preparing exports...",
+    "description": "Creating your knowledge base files",
+    "exportInfo": "Loading export information..."
+  },
+  "error": {
+    "loadFailed": "Failed to load export information"
+  },
+  "navigation": {
+    "back": "Back to Visual Guide",
+    "complete": "Complete",
+    "session": "Session:",
+    "id": "ID:"
+  },
+  "notifications": {
+    "complete": {
+      "title": "Knowledge Base Complete!",
+      "description": "Your knowledge base has been successfully generated and exported."
+    }
+  },
+  "noSession": {
+    "message": "No active session found",
+    "action": "Start New Session"
   }
 }
 

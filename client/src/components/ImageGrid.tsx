@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -24,14 +25,16 @@ export interface ImageGridProps {
 }
 
 export function ImageGrid({ images, onRemove, onAnalyze, isAnalyzing, className }: ImageGridProps) {
+  const { t } = useTranslation('step-visual');
+  
   if (images.length === 0) {
     return (
       <Card className={cn('w-full', className)}>
         <CardContent className="p-8 text-center">
           <ImageIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-          <p className="text-muted-foreground">No images uploaded yet</p>
+          <p className="text-muted-foreground">{t('upload.grid.noImages')}</p>
           <p className="text-sm text-muted-foreground mt-1">
-            Use the dropzone above to add brand images
+            {t('upload.grid.noImagesDescription')}
           </p>
         </CardContent>
       </Card>
@@ -74,7 +77,7 @@ export function ImageGrid({ images, onRemove, onAnalyze, isAnalyzing, className 
       {/* Header with analyze button */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold">
-          Uploaded Images ({images.length})
+          {t('upload.grid.uploadedImages', { count: images.length })}
         </h3>
         {onAnalyze && (
           <Button
@@ -84,10 +87,10 @@ export function ImageGrid({ images, onRemove, onAnalyze, isAnalyzing, className 
             {isAnalyzing ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Analyzing...
+                {t('upload.grid.analyzing')}
               </>
             ) : (
-              'Analyze Images'
+              t('upload.grid.analyzeButton')
             )}
           </Button>
         )}
@@ -110,7 +113,7 @@ export function ImageGrid({ images, onRemove, onAnalyze, isAnalyzing, className 
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <div className="flex items-center gap-2 text-white text-sm">
                     {getStatusIcon(image.status)}
-                    <span className="capitalize">{image.status}</span>
+                    <span className="capitalize">{t(`upload.grid.status.${image.status}`)}</span>
                   </div>
                 </div>
 
@@ -129,7 +132,7 @@ export function ImageGrid({ images, onRemove, onAnalyze, isAnalyzing, className 
               <div className="p-3">
                 <div className="flex items-center justify-between mb-2">
                   <Badge variant="secondary" className={cn('text-xs', getStatusColor(image.status))}>
-                    {image.status}
+                    {t(`upload.grid.status.${image.status}`)}
                   </Badge>
                   {image.size && (
                     <span className="text-xs text-muted-foreground">
@@ -158,17 +161,17 @@ export function ImageGrid({ images, onRemove, onAnalyze, isAnalyzing, className 
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center gap-4">
             <span>
-              <strong>{images.filter(img => img.status === 'analyzed').length}</strong> analyzed
+              {t('upload.grid.summary.analyzed', { count: images.filter(img => img.status === 'analyzed').length })}
             </span>
             <span>
-              <strong>{images.filter(img => img.status === 'uploading').length}</strong> uploading
+              {t('upload.grid.summary.uploading', { count: images.filter(img => img.status === 'uploading').length })}
             </span>
             <span>
-              <strong>{images.filter(img => img.status === 'error').length}</strong> errors
+              {t('upload.grid.summary.errors', { count: images.filter(img => img.status === 'error').length })}
             </span>
           </div>
           <span className="text-muted-foreground">
-            {images.length} total
+            {t('upload.grid.summary.total', { count: images.length })}
           </span>
         </div>
       </div>

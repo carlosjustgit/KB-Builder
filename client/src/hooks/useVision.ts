@@ -70,7 +70,7 @@ export function useGenerateTestImages() {
       count?: number;
       sessionId: string;
     }): Promise<Array<{ url: string; storage_path: string }>> => {
-      const response = await fetch('/api/visual/test-image', {
+      const response = await fetch('/api/vision/test-image', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -220,35 +220,59 @@ export function useVisionWithState() {
 function generateMarkdownFromRules(rules: VisualGuideRules): string {
   return `# Visual Brand Guidelines
 
+## General Principles
+${rules.general_principles.map(principle => `- ${principle}`).join('\n')}
+
+## Style Direction
+
+### Lighting
+${rules.style_direction.lighting}
+
+### Color Approach
+${rules.style_direction.colour}
+
+### Composition
+${rules.style_direction.composition}
+
+### Format
+${rules.style_direction.format}
+
 ## Color Palette
 - **Primary Colors:** ${rules.palette.primary.join(', ')}
 - **Secondary Colors:** ${rules.palette.secondary.join(', ')}
 - **Neutral Colors:** ${rules.palette.neutrals.join(', ')}
 
-## Visual Style
-- **Lighting:** ${rules.lighting}
-- **Composition:** ${rules.composition}
-- **Common Subjects:** ${rules.subjects.join(', ')}
-- **Textures:** ${rules.textures.join(', ')}
+## People and Emotions
+${rules.people_and_emotions.map(item => `- ${item}`).join('\n')}
 
-## Brand Mood
-${rules.mood.map(mood => `- ${mood}`).join('\n')}
+## Types of Images
+${rules.types_of_images.map(category => `
+### ${category.category_name}
+${category.examples.map(example => `- ${example}`).join('\n')}
+`).join('\n')}
 
-## Visual Guidelines
+## Neuro-Marketing Triggers
+${rules.neuro_triggers.map(trigger => `- ${trigger}`).join('\n')}
 
-### Do's
-${rules.dos.map(doItem => `- ${doItem}`).join('\n')}
+## Variation Rules
+${rules.variation_rules.map(rule => `- ${rule}`).join('\n')}
 
-### Don'ts
-${rules.donts.map(dont => `- ${dont}`).join('\n')}
+## Prompting Guidance for AI Image Generation
+${rules.prompting_guidance.map(guidance => `- ${guidance}`).join('\n')}
 
-## AI Prompts for Image Generation
+## Producer Notes
 
-### Base Prompts
-${rules.base_prompts.map((prompt, index) => `${index + 1}. ${prompt}`).join('\n')}
+### Camera Setup
+${rules.producer_notes.camera}
 
-### Negative Prompts
-${rules.negative_prompts.map((prompt, index) => `${index + 1}. ${prompt}`).join('\n')}
+### Lighting Setup
+${rules.producer_notes.lighting}
+
+### Camera Angle
+${rules.producer_notes.angle}
+
+### Scene Direction
+${rules.producer_notes.scene}
 `;
 }
 

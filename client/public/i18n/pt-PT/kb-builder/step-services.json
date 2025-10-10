@@ -1,42 +1,60 @@
 {
-  "title": "Serviços e Pontos de Prova",
-  "subtitle": "Mostre o que faz e por que os clientes o escolhem",
-  "description": "Defina os seus serviços principais e os benefícios específicos ou pontos de prova que demonstram a sua expertise.",
-  "sections": {
-    "services": {
-      "title": "Serviços Principais",
-      "description": "Liste os seus principais serviços ou ofertas",
-      "addService": "Adicionar Serviço",
-      "removeService": "Remover",
-      "serviceTitle": "Título do Serviço",
-      "serviceDescription": "Descrição do Serviço",
-      "serviceBenefits": "Principais Benefícios"
-    },
-    "proofPoints": {
-      "title": "Pontos de Prova",
-      "description": "Evidências da sua expertise e resultados",
-      "addProof": "Adicionar Ponto de Prova",
-      "examples": "Exemplos: certificações, prémios, estudos de caso, testemunhos"
+  "title": "Serviços e Produtos",
+  "subtitle": "Documente as suas ofertas, recursos e propostas de valor",
+  "stepLabel": "Etapa 3 de 6",
+  "session": "Sessão:",
+  "generateCard": {
+    "title": "Gerar Documento de Serviços",
+    "description": "A nossa IA irá pesquisar e criar um documento abrangente de serviços e produtos incluindo:",
+    "items": {
+      "overview": "Visão Geral dos Serviços/Produtos Principais",
+      "features": "Principais Recursos e Benefícios",
+      "pricing": "Estrutura de Preços",
+      "packages": "Pacotes/Níveis de Serviço",
+      "valueProps": "Propostas de Valor Únicas",
+      "implementation": "Processo de Implementação"
     }
   },
+  "documentCard": {
+    "title": "Documento de Serviços e Produtos"
+  },
+  "error": {
+    "title": "Falha na Geração",
+    "tryAgain": "Tentar Novamente"
+  },
   "loading": {
-    "title": "A analisar serviços...",
-    "description": "A gerar descrições de serviços e pontos de prova"
+    "generating": "A gerar Documento de Serviços...",
+    "saving": "A guardar..."
   },
   "actions": {
-    "generate": "Gerar Serviços",
+    "generate": "Gerar Documento de Serviços",
     "edit": "Editar",
+    "save": "Guardar Alterações",
+    "cancel": "Cancelar",
     "regenerate": "Regenerar",
-    "addService": "Adicionar Serviço",
-    "addProof": "Adicionar Ponto de Prova",
-    "save": "Guardar Serviços",
-    "next": "Continuar para Mercado",
+    "next": "Continuar para Análise de Mercado",
     "back": "Voltar para Marca"
   },
-  "validation": {
-    "atLeastOneService": "Por favor, adicione pelo menos um serviço",
-    "serviceTitleRequired": "Título do serviço é obrigatório",
-    "serviceDescriptionRequired": "Descrição do serviço é obrigatória"
+  "placeholders": {
+    "editDocument": "Edite o seu documento de serviços..."
+  },
+  "notifications": {
+    "generated": {
+      "title": "Documento de Serviços Gerado",
+      "description": "A IA gerou o seu documento de serviços e produtos"
+    },
+    "saved": {
+      "title": "Documento de Serviços Guardado",
+      "description": "As suas alterações foram guardadas com sucesso"
+    },
+    "generateRequired": {
+      "title": "Gerar Documento de Serviços",
+      "description": "Por favor, gere o seu documento de serviços antes de continuar"
+    }
+  },
+  "noSession": {
+    "message": "Nenhuma sessão ativa encontrada",
+    "action": "Iniciar Nova Sessão"
   }
 }
 

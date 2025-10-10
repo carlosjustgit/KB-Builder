@@ -13,7 +13,7 @@ i18n
     supportedLngs: ['en-US', 'en-GB', 'pt-BR', 'pt-PT'],
     
     // Namespace configuration
-    ns: ['common', 'step-welcome', 'discovery-bar'],
+    ns: ['common', 'step-welcome', 'step-brand', 'step-services', 'step-market', 'step-competitors', 'step-visual', 'step-export', 'discovery-bar'],
     defaultNS: 'common',
     
     // Lazy loading configuration

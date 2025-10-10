@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +16,7 @@ import { supabase } from '@/lib/supabase';
 export function Services() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation('step-services');
   
   const { data: session } = useSession();
   const { performResearch, isLoading, error, reset } = useResearchWithState();
@@ -68,14 +70,14 @@ export function Services() {
       saveDocument.mutate({
         sessionId: session.id,
         docType: 'services',
-        title: 'Services & Products',
+        title: t('title'),
         content_md: result.data.content_md,
         status: 'draft',
       });
 
       toast({
-        title: 'Services Document Generated',
-        description: 'AI has generated your services and products document',
+        title: t('notifications.generated.title'),
+        description: t('notifications.generated.description'),
       });
     }
   };
@@ -87,7 +89,7 @@ export function Services() {
       {
         sessionId: session.id,
         docType: 'services',
-        title: 'Services & Products',
+        title: t('title'),
         content_md: servicesContent,
         status: 'approved',
       },
@@ -95,8 +97,8 @@ export function Services() {
         onSuccess: () => {
           setIsEditing(false);
           toast({
-            title: 'Services Document Saved',
-            description: 'Your changes have been saved successfully',
+            title: t('notifications.saved.title'),
+            description: t('notifications.saved.description'),
           });
         },
       }
@@ -106,8 +108,8 @@ export function Services() {
   const handleNext = () => {
     if (!hasGenerated) {
       toast({
-        title: 'Generate Services Document',
-        description: 'Please generate your services document before continuing',
+        title: t('notifications.generateRequired.title'),
+        description: t('notifications.generateRequired.description'),
         variant: 'destructive',
       });
       return;
@@ -134,9 +136,9 @@ export function Services() {
       <Card className="w-full max-w-4xl mx-auto">
         <CardContent className="flex items-center justify-center p-8">
           <div className="text-center">
-            <p className="text-muted-foreground">No active session found</p>
+            <p className="text-muted-foreground">{t('noSession.message')}</p>
             <Button onClick={() => navigate('/')} className="mt-4">
-              Start New Session
+              {t('noSession.action')}
             </Button>
           </div>
         </CardContent>
@@ -155,20 +157,20 @@ export function Services() {
                 <Package className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <CardTitle className="text-xl">Services & Products</CardTitle>
+                <CardTitle className="text-xl">{t('title')}</CardTitle>
                 <p className="text-muted-foreground">
-                  Document your offerings, features, and value propositions
+                  {t('subtitle')}
                 </p>
               </div>
             </div>
             <Badge variant="outline" className="text-sm">
-              Step 3 of 6
+              {t('stepLabel')}
             </Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div className="text-sm text-muted-foreground">
-            Session: <span className="font-medium text-foreground">{session.id.slice(0, 8)}...</span>
+            {t('session')} <span className="font-medium text-foreground">{session.id.slice(0, 8)}...</span>
           </div>
         </CardContent>
       </Card>
@@ -177,24 +179,24 @@ export function Services() {
       {!hasGenerated && (
         <Card>
           <CardHeader>
-            <CardTitle>Generate Services Document</CardTitle>
+            <CardTitle>{t('generateCard.title')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-muted-foreground">
-              Our AI will research and create a comprehensive services and products document including:
+              {t('generateCard.description')}
             </p>
             <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground ml-4">
-              <li>Core Services/Products Overview</li>
-              <li>Key Features & Benefits</li>
-              <li>Pricing Structure</li>
-              <li>Service Packages/Tiers</li>
-              <li>Unique Value Propositions</li>
-              <li>Implementation Process</li>
+              <li>{t('generateCard.items.overview')}</li>
+              <li>{t('generateCard.items.features')}</li>
+              <li>{t('generateCard.items.pricing')}</li>
+              <li>{t('generateCard.items.packages')}</li>
+              <li>{t('generateCard.items.valueProps')}</li>
+              <li>{t('generateCard.items.implementation')}</li>
             </ul>
 
             {error && (
               <div className="p-4 bg-destructive/10 text-destructive rounded-md">
-                <p className="font-medium">Generation Failed</p>
+                <p className="font-medium">{t('error.title')}</p>
                 <p className="text-sm">{error.message}</p>
                 <Button
                   variant="outline"
@@ -202,7 +204,7 @@ export function Services() {
                   onClick={reset}
                   className="mt-2"
                 >
-                  Try Again
+                  {t('error.tryAgain')}
                 </Button>
               </div>
             )}
@@ -216,12 +218,12 @@ export function Services() {
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Generating Services Document...
+                  {t('loading.generating')}
                 </>
               ) : (
                 <>
                   <Package className="w-4 h-4 mr-2" />
-                  Generate Services Document
+                  {t('actions.generate')}
                 </>
               )}
             </Button>
@@ -234,7 +236,7 @@ export function Services() {
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Services & Products Document</CardTitle>
+              <CardTitle>{t('documentCard.title')}</CardTitle>
               <div className="flex gap-2">
                 {isEditing ? (
                   <>
@@ -243,7 +245,7 @@ export function Services() {
                       size="sm"
                       onClick={() => setIsEditing(false)}
                     >
-                      Cancel
+                      {t('actions.cancel')}
                     </Button>
                     <Button
                       size="sm"
@@ -253,12 +255,12 @@ export function Services() {
                       {saveDocument.isPending ? (
                         <>
                           <Loader2 className="w-3 h-3 mr-2 animate-spin" />
-                          Saving...
+                          {t('loading.saving')}
                         </>
                       ) : (
                         <>
                           <Save className="w-3 h-3 mr-2" />
-                          Save Changes
+                          {t('actions.save')}
                         </>
                       )}
                     </Button>
@@ -271,7 +273,7 @@ export function Services() {
                       onClick={() => setIsEditing(true)}
                     >
                       <Edit className="w-3 h-3 mr-2" />
-                      Edit
+                      {t('actions.edit')}
                     </Button>
                     <Button
                       variant="outline"
@@ -280,7 +282,7 @@ export function Services() {
                       disabled={isLoading}
                     >
                       <RotateCcw className="w-3 h-3 mr-2" />
-                      Regenerate
+                      {t('actions.regenerate')}
                     </Button>
                   </>
                 )}
@@ -293,7 +295,7 @@ export function Services() {
                 value={servicesContent}
                 onChange={(e) => setServicesContent(e.target.value)}
                 className="min-h-[500px] font-mono text-sm"
-                placeholder="Edit your services document..."
+                placeholder={t('placeholders.editDocument')}
               />
             ) : (
               <MarkdownRenderer content={servicesContent} />
@@ -311,7 +313,7 @@ export function Services() {
             className="flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Brand
+            {t('actions.back')}
           </Button>
 
           <Button
@@ -319,7 +321,7 @@ export function Services() {
             disabled={!hasGenerated}
             className="flex items-center gap-2"
           >
-            Continue to Market Analysis
+            {t('actions.next')}
             <ArrowRight className="w-4 h-4" />
           </Button>
         </CardContent>

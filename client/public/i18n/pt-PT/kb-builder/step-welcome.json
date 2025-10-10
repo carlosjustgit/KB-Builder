@@ -1,5 +1,5 @@
 {
-  "title": "Bem-vindo ao KB Builder",
+  "title": "Bem-vindo ao Witfy Origin",
   "subtitle": "Crie documentação completa da marca em minutos",
   "description": "Este assistente irá guiá-lo através de 7 etapas para construir a sua base de conhecimento usando pesquisa com IA e análise visual.",
   "locale": {
@@ -14,7 +14,7 @@
       "invalid": "Por favor, insira um URL válido"
     }
   },
-  "estimatedTime": "Tempo estimado: 15-20 minutos",
+  "estimatedTime": "Construa a sua documentação completa da marca em minutos gratuitamente",
   "session": {
     "checking": "Verificando sessão existente...",
     "found": {
@@ -24,14 +24,30 @@
     },
     "cleared": {
       "title": "Sessão Limpa",
-      "description": "Iniciando do zero com uma nova sessão"
+      "description": "Nova sessão criada. Todos os dados anteriores foram eliminados."
     },
+    "startFreshConfirm": "Começar do zero irá criar uma sessão completamente nova. Isto eliminará toda a sua pesquisa, documentos e histórico de conversa. Tem a certeza de que deseja continuar?",
     "continue": "Continuar Sessão",
     "startFresh": "🗑️ Começar Do Zero"
   },
+  "notifications": {
+    "error": {
+      "title": "Erro",
+      "sessionCreation": "Falha ao criar sessão. Por favor, tente novamente.",
+      "startFresh": "Falha ao começar do zero. Por favor, tente novamente.",
+      "noSession": "Nenhuma sessão ativa encontrada."
+    },
+    "success": {
+      "title": "Sucesso!",
+      "description": "Sessão criada com sucesso"
+    }
+  },
   "buttons": {
     "next": "Começar",
-    "back": "Voltar"
+    "back": "Voltar",
+    "cancel": "Cancelar",
+    "confirm": "OK",
+    "starting": "A iniciar..."
   }
 }
 

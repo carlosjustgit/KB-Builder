@@ -1,40 +1,60 @@
 {
-  "title": "Marca e Tom",
-  "subtitle": "Defina a voz e personalidade da sua marca",
-  "description": "Com base na nossa pesquisa, aqui está uma sugestão de história de marca e tom. Pode editar para combinar com a sua voz autêntica.",
-  "sections": {
-    "brandStory": {
-      "title": "História da Marca",
-      "placeholder": "Descreva a missão, valores e história única da sua empresa..."
-    },
-    "targetAudience": {
-      "title": "Público-alvo",
-      "placeholder": "Quem é o seu cliente ideal? Seja específico sobre demografia, interesses e pontos problemáticos..."
-    },
-    "positioning": {
-      "title": "Posicionamento da Marca",
-      "placeholder": "Como quer ser percecionado? O que o diferencia dos concorrentes?..."
-    },
-    "tone": {
-      "title": "Tom de Voz",
-      "placeholder": "Como a sua marca comunica? Profissional, amigável, autoritário, brincalhão?..."
+  "title": "Identidade da Marca",
+  "subtitle": "Defina a missão, visão e valores essenciais da sua marca",
+  "stepLabel": "Etapa 2 de 6",
+  "session": "Sessão:",
+  "generateCard": {
+    "title": "Gerar Documento da Marca",
+    "description": "A nossa IA irá pesquisar e criar um documento abrangente de identidade da marca incluindo:",
+    "items": {
+      "missionStatement": "Declaração de Missão",
+      "visionStatement": "Declaração de Visão",
+      "coreValues": "Valores Essenciais",
+      "brandPromise": "Promessa da Marca",
+      "brandPersonality": "Personalidade da Marca",
+      "targetAudience": "Público-alvo"
     }
   },
+  "documentCard": {
+    "title": "Documento de Identidade da Marca"
+  },
+  "error": {
+    "title": "Falha na Geração",
+    "tryAgain": "Tentar Novamente"
+  },
   "loading": {
-    "title": "A gerar conteúdo da marca...",
-    "description": "A criar sugestões personalizadas de história e tom da marca"
+    "generating": "A gerar Documento da Marca...",
+    "saving": "A guardar..."
   },
   "actions": {
-    "generate": "Gerar Conteúdo da Marca",
+    "generate": "Gerar Documento da Marca",
     "edit": "Editar",
     "save": "Guardar Alterações",
+    "cancel": "Cancelar",
+    "regenerate": "Regenerar",
     "next": "Continuar para Serviços",
     "back": "Voltar para Pesquisa"
   },
-  "validation": {
-    "brandStoryRequired": "Por favor, forneça uma história da marca",
-    "audienceRequired": "Por favor, descreva o seu público-alvo",
-    "positioningRequired": "Por favor, defina o posicionamento da sua marca"
+  "placeholders": {
+    "editDocument": "Edite o seu documento de marca..."
+  },
+  "notifications": {
+    "generated": {
+      "title": "Documento da Marca Gerado",
+      "description": "A IA gerou o seu documento de identidade da marca"
+    },
+    "saved": {
+      "title": "Documento da Marca Guardado",
+      "description": "As suas alterações foram guardadas com sucesso"
+    },
+    "generateRequired": {
+      "title": "Gerar Documento da Marca",
+      "description": "Por favor, gere o seu documento de marca antes de continuar"
+    }
+  },
+  "noSession": {
+    "message": "Nenhuma sessão ativa encontrada",
+    "action": "Iniciar Nova Sessão"
   }
 }
 

@@ -20,7 +20,7 @@
   },
   "status": {
     "loading": "Loading...",
-    "analyzing": "Analyzing...",
+    "analyzing": "Analysing...",
     "researching": "Researching...",
     "generating": "Generating...",
     "uploading": "Uploading...",
@@ -51,7 +51,7 @@
     "noSession": "Start a session to chat with the AI about your research.",
     "emptyState": {
       "title": "Ask Wit anything about your research",
-      "examples": "Try: \"Can you summarize this?\" or \"What are the key points?\""
+      "examples": "Try: \"Can you summarise this?\" or \"What are the key points?\""
     },
     "placeholder": "Ask a question...",
     "thinking": "Wit is thinking...",
@@ -165,7 +165,7 @@
     "research": {
       "complete": {
         "title": "Research Complete",
-        "description": "AI has analyzed your company information."
+        "description": "AI has analysed your company information."
       },
       "failed": {
         "title": "Research Failed",

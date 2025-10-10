@@ -145,6 +145,46 @@ router.get('/download/:filename', authenticateRequest, async (req, res) => {
 });
 
 /**
+ * GET /api/export/pdf/:sessionId/:documentId
+ * Generate and download PDF for a specific document
+ */
+router.get('/pdf/:sessionId/:documentId', authenticateRequest, async (req, res) => {
+  try {
+    const { sessionId, documentId } = req.params;
+
+    console.log(`[Export API] Generating PDF for document ${documentId} in session ${sessionId}`);
+
+    const filepath = await exportService.generatePDFExport(sessionId, documentId);
+
+    // Return the file for download
+    res.download(filepath, (err) => {
+      if (err) {
+        console.error(`[Export API] PDF download error:`, err);
+        if (!res.headersSent) {
+          res.status(500).json({ 
+            error: 'Failed to download PDF file',
+            code: 'DOWNLOAD_ERROR'
+          });
+        }
+      } else {
+        console.log(`[Export API] PDF downloaded successfully: ${filepath}`);
+      }
+    });
+
+  } catch (error) {
+    console.error(`[Export API] PDF generation failed:`, error);
+    
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const statusCode = errorMessage.includes('not found') ? 404 : 500;
+    
+    res.status(statusCode).json({
+      error: errorMessage,
+      code: statusCode === 404 ? 'DOCUMENT_NOT_FOUND' : 'PDF_ERROR'
+    });
+  }
+});
+
+/**
  * GET /api/export/list/:sessionId
  * List all exports for a session
  */

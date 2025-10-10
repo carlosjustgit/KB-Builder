@@ -1,42 +1,59 @@
 {
-  "title": "Análise Competitiva",
-  "subtitle": "Conheça a sua concorrência e destaque-se",
-  "description": "Identifique os seus principais concorrentes e defina o que torna a sua oferta única no mercado.",
-  "sections": {
-    "competitors": {
-      "title": "Principais Concorrentes",
-      "description": "Principais players no seu mercado",
-      "addCompetitor": "Adicionar Concorrente",
-      "competitorName": "Nome do Concorrente",
-      "competitorDescription": "O que eles fazem bem",
-      "competitorWeaknesses": "Áreas onde eles ficam aquém"
-    },
-    "differentiators": {
-      "title": "Os Seus Diferenciais",
-      "description": "O que o torna único",
-      "addDifferentiator": "Adicionar Diferencial",
-      "differentiatorTitle": "Vantagem Única",
-      "differentiatorDescription": "Por que isto importa para os clientes"
+  "title": "Análise de Concorrentes",
+  "subtitle": "Identifique e analise concorrentes-chave e posicionamento de mercado",
+  "stepLabel": "Etapa 5 de 6",
+  "session": "Sessão:",
+  "generateCard": {
+    "title": "Gerar Análise de Concorrentes",
+    "description": "A nossa IA irá pesquisar e criar um documento abrangente de análise de concorrentes incluindo:",
+    "items": {
+      "overview": "Visão Geral dos Principais Concorrentes",
+      "advantages": "Vantagens e Fraquezas Competitivas",
+      "marketShare": "Quota de Mercado e Posicionamento",
+      "pricing": "Estratégias de Preços",
+      "differentiation": "Oportunidades de Diferenciação",
+      "response": "Estratégias de Resposta Competitiva"
     }
   },
+  "documentCard": {
+    "title": "Documento de Análise de Concorrentes"
+  },
+  "error": {
+    "title": "Falha na Geração",
+    "tryAgain": "Tentar Novamente"
+  },
   "loading": {
-    "title": "A analisar concorrência...",
-    "description": "A identificar concorrentes e vantagens competitivas"
+    "generating": "A gerar Análise de Concorrentes...",
+    "saving": "A guardar..."
   },
   "actions": {
-    "analyze": "Analisar Concorrência",
+    "generate": "Gerar Análise de Concorrentes",
     "edit": "Editar",
+    "save": "Guardar Alterações",
+    "cancel": "Cancelar",
     "regenerate": "Regenerar",
-    "addCompetitor": "Adicionar Concorrente",
-    "addDifferentiator": "Adicionar Diferencial",
-    "save": "Guardar Análise",
-    "next": "Continuar para Visual",
-    "back": "Voltar para Mercado"
+    "next": "Continuar para Guia Visual",
+    "back": "Voltar para Análise de Mercado"
   },
-  "validation": {
-    "atLeastOneCompetitor": "Por favor, adicione pelo menos um concorrente",
-    "competitorNameRequired": "Nome do concorrente é obrigatório",
-    "atLeastOneDifferentiator": "Por favor, adicione pelo menos um diferencial"
+  "placeholders": {
+    "editDocument": "Edite a sua análise de concorrentes..."
+  },
+  "notifications": {
+    "generated": {
+      "title": "Análise de Concorrentes Gerada",
+      "description": "A IA gerou o seu documento de análise de concorrentes"
+    },
+    "saved": {
+      "title": "Análise de Concorrentes Guardada",
+      "description": "As suas alterações foram guardadas com sucesso"
+    },
+    "generateRequired": {
+      "title": "Gerar Análise de Concorrentes",
+      "description": "Por favor, gere a sua análise de concorrentes antes de continuar"
+    }
+  },
+  "noSession": {
+    "message": "Nenhuma sessão ativa encontrada",
+    "action": "Iniciar Nova Sessão"
   }
 }
-

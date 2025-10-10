@@ -1,42 +1,59 @@
 {
-  "title": "Market & Trends",
-  "subtitle": "Understand your market landscape",
-  "description": "Identify current market trends and opportunities that affect your business and customers.",
-  "sections": {
-    "trends": {
-      "title": "Current Trends",
-      "description": "Key trends shaping your industry",
-      "trendTitle": "Trend Title",
-      "trendDescription": "Trend Description",
-      "trendImpact": "How this affects your business"
-    },
-    "opportunities": {
-      "title": "Market Opportunities",
-      "description": "Potential opportunities to explore",
-      "opportunityTitle": "Opportunity",
-      "opportunityDescription": "How to capitalize on this"
-    },
-    "takeaways": {
-      "title": "Strategic Takeaways",
-      "description": "Actionable insights for your strategy"
+  "title": "Market Analysis",
+  "subtitle": "Analyze market trends, opportunities, and industry insights",
+  "stepLabel": "Step 4 of 6",
+  "session": "Session:",
+  "generateCard": {
+    "title": "Generate Market Analysis",
+    "description": "Our AI will research and create a comprehensive market analysis document including:",
+    "items": {
+      "marketSize": "Market Size & Growth Potential",
+      "industryTrends": "Industry Trends & Dynamics",
+      "targetMarket": "Target Market Segments",
+      "opportunities": "Market Opportunities",
+      "barriers": "Barriers to Entry",
+      "regulatory": "Regulatory Environment"
     }
   },
+  "documentCard": {
+    "title": "Market Analysis Document"
+  },
+  "error": {
+    "title": "Generation Failed",
+    "tryAgain": "Try Again"
+  },
   "loading": {
-    "title": "Analyzing market trends...",
-    "description": "Researching industry trends and opportunities"
+    "generating": "Generating Market Analysis...",
+    "saving": "Saving..."
   },
   "actions": {
-    "analyze": "Analyze Market",
-    "addTrend": "Add Trend",
-    "addOpportunity": "Add Opportunity",
-    "save": "Save Market Analysis",
+    "generate": "Generate Market Analysis",
+    "edit": "Edit",
+    "save": "Save Changes",
+    "cancel": "Cancel",
+    "regenerate": "Regenerate",
     "next": "Continue to Competitors",
     "back": "Back to Services"
   },
-  "validation": {
-    "atLeastOneTrend": "Please add at least one market trend",
-    "trendTitleRequired": "Trend title is required",
-    "trendDescriptionRequired": "Trend description is required"
+  "placeholders": {
+    "editDocument": "Edit your market analysis..."
+  },
+  "notifications": {
+    "generated": {
+      "title": "Market Analysis Generated",
+      "description": "AI has generated your market analysis document"
+    },
+    "saved": {
+      "title": "Market Analysis Saved",
+      "description": "Your changes have been saved successfully"
+    },
+    "generateRequired": {
+      "title": "Generate Market Analysis",
+      "description": "Please generate your market analysis before continuing"
+    }
+  },
+  "noSession": {
+    "message": "No active session found",
+    "action": "Start New Session"
   }
 }
-

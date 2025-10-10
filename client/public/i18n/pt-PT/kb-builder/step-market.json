@@ -1,44 +1,59 @@
 {
-  "title": "Mercado e Tendências",
-  "subtitle": "Compreenda o panorama do seu mercado",
-  "description": "Identifique tendências atuais de mercado e oportunidades que afetam o seu negócio e clientes.",
-  "sections": {
-    "trends": {
-      "title": "Tendências Atuais",
-      "description": "Principais tendências que moldam a sua indústria",
-      "trendTitle": "Título da Tendência",
-      "trendDescription": "Descrição da Tendência",
-      "trendImpact": "Como isto afeta o seu negócio"
-    },
-    "opportunities": {
-      "title": "Oportunidades de Mercado",
-      "description": "Oportunidades potenciais para explorar",
-      "opportunityTitle": "Oportunidade",
-      "opportunityDescription": "Como capitalizar nesta oportunidade"
-    },
-    "takeaways": {
-      "title": "Insights Estratégicos",
-      "description": "Insights acionáveis para a sua estratégia"
+  "title": "Análise de Mercado",
+  "subtitle": "Analise tendências de mercado, oportunidades e insights do setor",
+  "stepLabel": "Etapa 4 de 6",
+  "session": "Sessão:",
+  "generateCard": {
+    "title": "Gerar Análise de Mercado",
+    "description": "A nossa IA irá pesquisar e criar um documento abrangente de análise de mercado incluindo:",
+    "items": {
+      "marketSize": "Tamanho do Mercado e Potencial de Crescimento",
+      "industryTrends": "Tendências e Dinâmicas do Setor",
+      "targetMarket": "Segmentos de Mercado-alvo",
+      "opportunities": "Oportunidades de Mercado",
+      "barriers": "Barreiras à Entrada",
+      "regulatory": "Ambiente Regulatório"
     }
   },
+  "documentCard": {
+    "title": "Documento de Análise de Mercado"
+  },
+  "error": {
+    "title": "Falha na Geração",
+    "tryAgain": "Tentar Novamente"
+  },
   "loading": {
-    "title": "A analisar tendências de mercado...",
-    "description": "A pesquisar tendências da indústria e oportunidades"
+    "generating": "A gerar Análise de Mercado...",
+    "saving": "A guardar..."
   },
   "actions": {
-    "analyze": "Analisar Mercado",
+    "generate": "Gerar Análise de Mercado",
     "edit": "Editar",
+    "save": "Guardar Alterações",
+    "cancel": "Cancelar",
     "regenerate": "Regenerar",
-    "addTrend": "Adicionar Tendência",
-    "addOpportunity": "Adicionar Oportunidade",
-    "save": "Guardar Análise de Mercado",
     "next": "Continuar para Concorrentes",
     "back": "Voltar para Serviços"
   },
-  "validation": {
-    "atLeastOneTrend": "Por favor, adicione pelo menos uma tendência de mercado",
-    "trendTitleRequired": "Título da tendência é obrigatório",
-    "trendDescriptionRequired": "Descrição da tendência é obrigatória"
+  "placeholders": {
+    "editDocument": "Edite a sua análise de mercado..."
+  },
+  "notifications": {
+    "generated": {
+      "title": "Análise de Mercado Gerada",
+      "description": "A IA gerou o seu documento de análise de mercado"
+    },
+    "saved": {
+      "title": "Análise de Mercado Guardada",
+      "description": "As suas alterações foram guardadas com sucesso"
+    },
+    "generateRequired": {
+      "title": "Gerar Análise de Mercado",
+      "description": "Por favor, gere a sua análise de mercado antes de continuar"
+    }
+  },
+  "noSession": {
+    "message": "Nenhuma sessão ativa encontrada",
+    "action": "Iniciar Nova Sessão"
   }
 }
-

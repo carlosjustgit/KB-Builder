@@ -11,6 +11,7 @@ import { useSession } from '@/hooks/useSession';
 import { useVisionWithState } from '@/hooks/useVision';
 import { useImages, useUploadImage, useDeleteImage, useImportImageFromUrl } from '@/hooks/useImages';
 import { useSaveVisualGuide } from '@/hooks/useVisualGuides';
+import { useSaveDocument } from '@/hooks/useDocuments';
 import { useToast } from '@/hooks/use-toast.tsx';
 import { supabase } from '@/lib/supabase';
 import { Loader2, Eye, Sparkles, ArrowRight } from 'lucide-react';
@@ -18,6 +19,7 @@ import type { VisualGuideRules, ImageStatus } from '@/types';
 
 export function Visual() {
   const { t } = useTranslation('step-visual');
+  const { t: tCommon } = useTranslation('common');
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -27,6 +29,7 @@ export function Visual() {
   const deleteImage = useDeleteImage();
   const importImageFromUrl = useImportImageFromUrl();
   const saveVisualGuide = useSaveVisualGuide();
+  const saveDocument = useSaveDocument();
   const {
     analyzeImages,
     generateTestImages,
@@ -43,12 +46,13 @@ export function Visual() {
   const [isGeneratingTest, setIsGeneratingTest] = useState(false);
   const [isAnalyzingImages, setIsAnalyzingImages] = useState(false);
   const [activeTab, setActiveTab] = useState<string>("upload");
+  const [generatedTestImages, setGeneratedTestImages] = useState<Array<{ url: string; storage_path: string }>>([]);
 
   const handleImagesSelected = async (files: File[]) => {
     if (!session) {
       toast({
-        title: 'Error',
-        description: 'No active session found.',
+        title: tCommon('notifications.error.title'),
+        description: tCommon('notifications.error.noSession'),
         variant: 'destructive',
       });
       return;
@@ -72,14 +76,14 @@ export function Visual() {
       console.log('✅ All uploads completed:', results.length);
 
       toast({
-        title: 'Images Uploaded',
-        description: `${files.length} images uploaded successfully.`,
+        title: tCommon('toast.upload.success.title'),
+        description: tCommon('toast.upload.success.description', { count: files.length }),
       });
     } catch (error) {
       console.error('❌ Error uploading images:', error);
       toast({
-        title: 'Upload Failed',
-        description: 'Failed to upload images. Please try again.',
+        title: tCommon('toast.upload.failed.title'),
+        description: tCommon('toast.upload.failed.description'),
         variant: 'destructive',
       });
     }
@@ -88,8 +92,8 @@ export function Visual() {
   const handleUrlImport = async (url: string) => {
     if (!session) {
       toast({
-        title: 'Error',
-        description: 'No active session found.',
+        title: tCommon('notifications.error.title'),
+        description: tCommon('notifications.error.noSession'),
         variant: 'destructive',
       });
       return;
@@ -108,14 +112,14 @@ export function Visual() {
       console.log('✅ URL import completed:', result);
 
       toast({
-        title: 'Image Imported',
-        description: 'Image imported successfully from URL.',
+        title: tCommon('toast.upload.imported.title'),
+        description: tCommon('toast.upload.imported.description'),
       });
     } catch (error) {
       console.error('❌ Error importing image:', error);
       toast({
-        title: 'Import Failed',
-        description: 'Failed to import image from URL. Please check the URL and try again.',
+        title: tCommon('toast.upload.importFailed.title'),
+        description: tCommon('toast.upload.importFailed.description'),
         variant: 'destructive',
       });
     }
@@ -132,8 +136,8 @@ export function Visual() {
     if (selectedImages.length === 0) {
       console.error('❌ No images selected');
       toast({
-        title: 'No Images Selected',
-        description: 'Please upload images first.',
+        title: tCommon('toast.upload.noImages.title'),
+        description: tCommon('toast.upload.noImages.description'),
         variant: 'destructive',
       });
       return;
@@ -205,9 +209,55 @@ export function Visual() {
 
     setIsGeneratingTest(true);
 
+    // Create a comprehensive prompt using the visual guidelines
+    const guidelines = analysisResult.visual_guide;
+    
+    // Build a rich prompt from the analysis
+    // Extract subject matter and context from types_of_images
+    const firstImageType = guidelines.types_of_images[0];
+    const subjectMatter = firstImageType?.subject_matter || firstImageType?.examples[0] || 'Professional photography';
+    const context = firstImageType?.context || 'Professional setting';
+    
+    const basePrompt = `
+Professional brand photography: ${subjectMatter} in ${context}
+
+Subject & Context:
+- What to show: ${subjectMatter}
+- Setting: ${context}
+- Category: ${firstImageType?.category_name || 'Brand imagery'}
+
+Style Direction:
+- Lighting: ${guidelines.style_direction.lighting}
+- Color: ${guidelines.style_direction.colour}
+- Composition: ${guidelines.style_direction.composition}
+- Format: ${guidelines.style_direction.format}
+
+Color Palette:
+- Primary: ${guidelines.palette.primary.join(', ')}
+- Secondary: ${guidelines.palette.secondary.join(', ')}
+
+Producer Notes:
+- Camera: ${guidelines.producer_notes.camera}
+- Lighting: ${guidelines.producer_notes.lighting}
+- Angle: ${guidelines.producer_notes.angle}
+- Scene: ${guidelines.producer_notes.scene}
+
+Key Guidelines:
+${guidelines.prompting_guidance.join('\n')}
+    `.trim();
+
+    // Combine negative aspects from variation rules
+    const negativePrompt = 'artificial, staged, overly processed, low quality, cluttered, inconsistent branding';
+
+    console.log('🎨 ========== IMAGE GENERATION PROMPT ==========');
+    console.log('📝 Base Prompt:', basePrompt);
+    console.log('❌ Negative Prompt:', negativePrompt);
+    console.log('📊 Full Guidelines:', JSON.stringify(guidelines, null, 2));
+    console.log('🎨 ===============================================');
+
     const result = await generateTestImages(
-      analysisResult.visual_guide.base_prompts[0],
-      analysisResult.visual_guide.negative_prompts[0],
+      basePrompt,
+      negativePrompt,
       2,
       session.id
     );
@@ -215,14 +265,16 @@ export function Visual() {
     setIsGeneratingTest(false);
 
     if (result.success && result.data) {
+      setGeneratedTestImages(result.data);
       toast({
-        title: 'Test Images Generated',
-        description: `${result.data.length} test images created.`,
+        variant: 'success',
+        title: tCommon('toast.generation.testImages.title'),
+        description: tCommon('toast.generation.testImages.description', { count: result.data.length }),
       });
     } else {
       toast({
-        title: 'Generation Failed',
-        description: result.error || 'Please try again.',
+        title: tCommon('toast.generation.failed.title'),
+        description: result.error || tCommon('toast.generation.failed.description'),
         variant: 'destructive',
       });
     }
@@ -232,21 +284,32 @@ export function Visual() {
     if (!analysisResult || !session) return;
 
     try {
+      // Save the visual guide rules (JSON)
       await saveVisualGuide.mutateAsync({
         sessionId: session.id,
         rules_json: analysisResult.visual_guide,
       });
 
+      // Also save the markdown document to kb_documents
+      await saveDocument.mutateAsync({
+        sessionId: session.id,
+        docType: 'visual',
+        content_md: analysisResult.guide_md,
+        title: 'Visual Brand Guidelines',
+        status: 'approved',
+      });
+
       toast({
-        title: 'Guidelines Saved',
-        description: 'Visual brand guidelines have been saved.',
+        variant: 'success',
+        title: t('notifications.guidelinesSaved.title'),
+        description: t('notifications.guidelinesSaved.description'),
       });
 
       navigate('/export');
     } catch (error) {
       toast({
-        title: 'Save Failed',
-        description: 'Failed to save visual guidelines.',
+        title: t('notifications.saveFailed.title'),
+        description: t('notifications.saveFailed.description'),
         variant: 'destructive',
       });
     }
@@ -284,9 +347,9 @@ export function Visual() {
 
       <Tabs defaultValue="upload" value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-3" id="main-tabs">
-          <TabsTrigger value="upload">Upload Images</TabsTrigger>
-          <TabsTrigger value="analyze">Analysis</TabsTrigger>
-          <TabsTrigger value="results" id="results-tab">Results</TabsTrigger>
+          <TabsTrigger value="upload">{t('tabs.upload')}</TabsTrigger>
+          <TabsTrigger value="analyze">{t('tabs.analyze')}</TabsTrigger>
+          <TabsTrigger value="results" id="results-tab">{t('tabs.results')}</TabsTrigger>
         </TabsList>
 
         {/* Upload Tab */}
@@ -446,11 +509,11 @@ export function Visual() {
               {selectedImages.length > 0 ? (
                 <>
                   <div className="p-4 bg-muted/50 rounded-md">
-                    <p className="text-sm font-medium mb-2">Selected Images ({selectedImages.length})</p>
+                    <p className="text-sm font-medium mb-2">{t('analysis.selectedImages', { count: selectedImages.length })}</p>
                     <div className="flex flex-wrap gap-2">
                       {selectedImages.map((_url, index) => (
                         <Badge key={index} variant="secondary">
-                          Image {index + 1}
+                          {t('analysis.imageNumber', { number: index + 1 })}
                         </Badge>
                       ))}
                     </div>
@@ -476,7 +539,7 @@ export function Visual() {
                 </>
               ) : (
                 <div className="text-center p-8 text-muted-foreground">
-                  <p>Select images from the Upload tab to analyze them.</p>
+                  <p>{t('analysis.noImagesSelected')}</p>
                 </div>
               )}
             </CardContent>
@@ -502,7 +565,7 @@ export function Visual() {
                   <p className="text-sm">{analysisError.message}</p>
                 </div>
                 <Button onClick={() => reset()} variant="outline">
-                  Try Again
+                  {t('actions.tryAgain')}
                 </Button>
               </CardContent>
             </Card>
@@ -518,22 +581,22 @@ export function Visual() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Eye className="w-5 h-5 text-witfy-500" />
-                    Visual Brand Guidelines
+                    {t('analysis.visualGuidelines')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Tabs defaultValue="palette" className="w-full">
                     <TabsList className="grid w-full grid-cols-4">
-                      <TabsTrigger value="palette">Colors</TabsTrigger>
-                      <TabsTrigger value="style">Style</TabsTrigger>
-                      <TabsTrigger value="guidelines">Guidelines</TabsTrigger>
-                      <TabsTrigger value="prompts">AI Prompts</TabsTrigger>
+                      <TabsTrigger value="palette">{t('analysis.tabs.colors')}</TabsTrigger>
+                      <TabsTrigger value="style">{t('analysis.tabs.style')}</TabsTrigger>
+                      <TabsTrigger value="guidelines">{t('analysis.tabs.guidelines')}</TabsTrigger>
+                      <TabsTrigger value="producer">{t('analysis.tabs.producer')}</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="palette" className="mt-4">
                       <div className="space-y-4">
                         <div>
-                          <h4 className="font-semibold mb-2">Primary Colors</h4>
+                          <h4 className="font-semibold mb-2">{t('analysis.sections.palette.primary')}</h4>
                           <div className="flex gap-2">
                             {analysisResult.visual_guide.palette.primary.map((color: string, index: number) => (
                               <div key={index} className="flex items-center gap-2">
@@ -548,7 +611,7 @@ export function Visual() {
                         </div>
 
                         <div>
-                          <h4 className="font-semibold mb-2">Secondary Colors</h4>
+                          <h4 className="font-semibold mb-2">{t('analysis.sections.palette.secondary')}</h4>
                           <div className="flex gap-2">
                             {analysisResult.visual_guide.palette.secondary.map((color: string, index: number) => (
                               <div key={index} className="flex items-center gap-2">
@@ -563,7 +626,7 @@ export function Visual() {
                         </div>
 
                         <div>
-                          <h4 className="font-semibold mb-2">Neutral Colors</h4>
+                          <h4 className="font-semibold mb-2">{t('analysis.sections.palette.neutrals')}</h4>
                           <div className="flex gap-2">
                             {analysisResult.visual_guide.palette.neutrals.map((color: string, index: number) => (
                               <div key={index} className="flex items-center gap-2">
@@ -580,81 +643,139 @@ export function Visual() {
                     </TabsContent>
 
                     <TabsContent value="style" className="mt-4">
-                      <div className="grid grid-cols-2 gap-6">
+                      <div className="space-y-6">
                         <div>
-                          <h4 className="font-semibold mb-2">Lighting Style</h4>
-                          <p className="text-sm text-muted-foreground">
-                            {analysisResult.visual_guide.lighting}
-                          </p>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-2">Composition</h4>
-                          <p className="text-sm text-muted-foreground">
-                            {analysisResult.visual_guide.composition}
-                          </p>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-2">Common Subjects</h4>
-                          <div className="flex flex-wrap gap-1">
-                            {analysisResult.visual_guide.subjects.map((subject: string, index: number) => (
-                              <Badge key={index} variant="outline">{subject}</Badge>
+                          <h4 className="font-semibold mb-3">{t('analysis.sections.generalPrinciples.title')}</h4>
+                          <ul className="space-y-2">
+                            {analysisResult.visual_guide.general_principles.map((principle: string, index: number) => (
+                              <li key={index} className="text-sm text-muted-foreground">• {principle}</li>
                             ))}
+                          </ul>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-6">
+                          <div>
+                            <h4 className="font-semibold mb-2">{t('analysis.sections.styleDirection.lighting')}</h4>
+                            <p className="text-sm text-muted-foreground">
+                              {analysisResult.visual_guide.style_direction.lighting}
+                            </p>
+                          </div>
+                          <div>
+                            <h4 className="font-semibold mb-2">{t('analysis.sections.styleDirection.colour')}</h4>
+                            <p className="text-sm text-muted-foreground">
+                              {analysisResult.visual_guide.style_direction.colour}
+                            </p>
+                          </div>
+                          <div>
+                            <h4 className="font-semibold mb-2">{t('analysis.sections.styleDirection.composition')}</h4>
+                            <p className="text-sm text-muted-foreground">
+                              {analysisResult.visual_guide.style_direction.composition}
+                            </p>
+                          </div>
+                          <div>
+                            <h4 className="font-semibold mb-2">{t('analysis.sections.styleDirection.format')}</h4>
+                            <p className="text-sm text-muted-foreground">
+                              {analysisResult.visual_guide.style_direction.format}
+                            </p>
                           </div>
                         </div>
+
                         <div>
-                          <h4 className="font-semibold mb-2">Textures</h4>
-                          <div className="flex flex-wrap gap-1">
-                            {analysisResult.visual_guide.textures.map((texture: string, index: number) => (
-                              <Badge key={index} variant="outline">{texture}</Badge>
+                          <h4 className="font-semibold mb-3">{t('analysis.sections.peopleEmotions.title')}</h4>
+                          <ul className="space-y-2">
+                            {analysisResult.visual_guide.people_and_emotions.map((item: string, index: number) => (
+                              <li key={index} className="text-sm text-muted-foreground">• {item}</li>
                             ))}
-                          </div>
+                          </ul>
                         </div>
                       </div>
                     </TabsContent>
 
                     <TabsContent value="guidelines" className="mt-4">
-                      <div className="grid grid-cols-2 gap-6">
+                      <div className="space-y-6">
                         <div>
-                          <h4 className="font-semibold mb-2 text-green-600">Do's</h4>
-                          <ul className="space-y-1">
-                            {analysisResult.visual_guide.dos.map((doItem: string, index: number) => (
-                              <li key={index} className="text-sm">• {doItem}</li>
+                          <h4 className="font-semibold mb-3">{t('analysis.sections.typesOfImages.title')}</h4>
+                          {analysisResult.visual_guide.types_of_images.map((category, catIndex) => (
+                            <div key={catIndex} className="mb-4">
+                              <h5 className="font-medium text-sm mb-2 text-witfy-600">{category.category_name}</h5>
+                              <ul className="space-y-1">
+                                {category.examples.map((example: string, exIndex: number) => (
+                                  <li key={exIndex} className="text-sm text-muted-foreground">• {example}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div>
+                          <h4 className="font-semibold mb-3">{t('analysis.sections.neuroTriggers.title')}</h4>
+                          <ul className="space-y-2">
+                            {analysisResult.visual_guide.neuro_triggers.map((trigger: string, index: number) => (
+                              <li key={index} className="text-sm text-muted-foreground">• {trigger}</li>
                             ))}
                           </ul>
                         </div>
+
                         <div>
-                          <h4 className="font-semibold mb-2 text-destructive">Don'ts</h4>
-                          <ul className="space-y-1">
-                            {analysisResult.visual_guide.donts.map((dont: string, index: number) => (
-                              <li key={index} className="text-sm">• {dont}</li>
+                          <h4 className="font-semibold mb-3">{t('analysis.sections.variationRules.title')}</h4>
+                          <ul className="space-y-2">
+                            {analysisResult.visual_guide.variation_rules.map((rule: string, index: number) => (
+                              <li key={index} className="text-sm text-muted-foreground">• {rule}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div>
+                          <h4 className="font-semibold mb-3">{t('analysis.sections.promptingGuidance.title')}</h4>
+                          <ul className="space-y-2">
+                            {analysisResult.visual_guide.prompting_guidance.map((guidance: string, index: number) => (
+                              <li key={index} className="text-sm text-muted-foreground">• {guidance}</li>
                             ))}
                           </ul>
                         </div>
                       </div>
                     </TabsContent>
 
-                    <TabsContent value="prompts" className="mt-4">
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="font-semibold mb-2">Base Prompts</h4>
-                          <div className="space-y-2">
-                            {analysisResult.visual_guide.base_prompts.map((prompt: string, index: number) => (
-                              <div key={index} className="p-3 bg-muted rounded-md">
-                                <p className="text-sm">{prompt}</p>
-                              </div>
-                            ))}
-                          </div>
+                    <TabsContent value="producer" className="mt-4">
+                      <div className="space-y-6">
+                        <div className="bg-witfy-50 p-4 rounded-lg border border-witfy-200">
+                          <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <span className="text-2xl">📷</span>
+                            {t('analysis.sections.producer.camera')}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            {analysisResult.visual_guide.producer_notes.camera}
+                          </p>
                         </div>
 
-                        <div>
-                          <h4 className="font-semibold mb-2">Negative Prompts</h4>
-                          <div className="space-y-2">
-                            {analysisResult.visual_guide.negative_prompts.map((prompt: string, index: number) => (
-                              <div key={index} className="p-3 bg-muted rounded-md">
-                                <p className="text-sm">{prompt}</p>
-                              </div>
-                            ))}
-                          </div>
+                        <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                          <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <span className="text-2xl">💡</span>
+                            {t('analysis.sections.producer.lighting')}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            {analysisResult.visual_guide.producer_notes.lighting}
+                          </p>
+                        </div>
+
+                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                          <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <span className="text-2xl">📐</span>
+                            {t('analysis.sections.producer.angle')}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            {analysisResult.visual_guide.producer_notes.angle}
+                          </p>
+                        </div>
+
+                        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                          <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <span className="text-2xl">🎬</span>
+                            {t('analysis.sections.producer.scene')}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            {analysisResult.visual_guide.producer_notes.scene}
+                          </p>
                         </div>
                       </div>
                     </TabsContent>
@@ -691,6 +812,24 @@ export function Visual() {
                       </>
                     )}
                   </Button>
+
+                  {/* Display Generated Test Images */}
+                  {generatedTestImages.length > 0 && (
+                    <div className="mt-6 space-y-4">
+                      <h4 className="font-semibold text-sm">{t('analysis.generatedTestImages')}</h4>
+                      <div className="grid grid-cols-2 gap-4">
+                        {generatedTestImages.map((img, idx) => (
+                          <div key={idx} className="relative aspect-square rounded-lg overflow-hidden border border-border">
+                            <img
+                              src={img.url}
+                              alt={`Generated test image ${idx + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -710,7 +849,7 @@ export function Visual() {
             <Card>
               <CardContent className="p-8 text-center text-muted-foreground">
                 <Eye className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                <p>Complete image analysis to see visual guidelines</p>
+                <p>{t('analysis.noResults')}</p>
               </CardContent>
             </Card>
           )}

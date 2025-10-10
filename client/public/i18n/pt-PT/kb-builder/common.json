@@ -1,0 +1,181 @@
+{
+  "actions": {
+    "next": "Seguinte",
+    "back": "Voltar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "approve": "Aprovar",
+    "regenerate": "Regenerar",
+    "search": "Pesquisar",
+    "exportJSON": "Exportar JSON",
+    "downloadZIP": "Descarregar ZIP",
+    "launchWitfy": "Abrir Witfy"
+  },
+  "tabs": {
+    "summary": "Resumo",
+    "sources": "Fontes",
+    "documents": "Documentos",
+    "visual": "Visual",
+    "export": "Exportar"
+  },
+  "status": {
+    "loading": "A carregar...",
+    "analyzing": "A analisar...",
+    "researching": "A pesquisar...",
+    "generating": "A gerar...",
+    "uploading": "A carregar...",
+    "exporting": "A exportar..."
+  },
+  "errors": {
+    "generic": "Algo correu mal. Por favor, tente novamente.",
+    "network": "Erro de rede. Verifique a sua ligação.",
+    "validation": "Por favor, corrija os erros acima.",
+    "retry": "Tentar Novamente"
+  },
+  "notifications": {
+    "retrying": {
+      "title": "A tentar novamente...",
+      "description": "Tentativa {{attempt}} de {{max}}. Os serviços de IA podem ser imprevisíveis, a tentar novamente automaticamente..."
+    },
+    "retryFailed": {
+      "title": "Todas as Tentativas Falharam",
+      "description": "A operação falhou após {{max}} tentativas. Por favor, tente novamente ou contacte o suporte se isto persistir."
+    },
+    "unexpectedResult": {
+      "title": "Resultado Inesperado",
+      "description": "A IA devolveu uma resposta incompleta. Pode regenerar ou tentar editar os resultados manualmente."
+    }
+  },
+  "chat": {
+    "title": "Chat IA",
+    "noSession": "Inicie uma sessão para conversar com a IA sobre a sua pesquisa.",
+    "emptyState": {
+      "title": "Pergunte ao Wit sobre a sua pesquisa",
+      "examples": "Experimente: \"Pode resumir isto?\" ou \"Quais são os pontos principais?\""
+    },
+    "placeholder": "Faça uma pergunta...",
+    "thinking": "Wit está a pensar...",
+    "clearChat": "Limpar histórico de conversa",
+    "clearConfirm": "Tem a certeza de que deseja limpar todas as mensagens? Esta ação não pode ser revertida.",
+    "cleared": {
+      "title": "Conversa Limpa",
+      "description": "Todas as mensagens foram eliminadas"
+    },
+    "error": {
+      "title": "Erro de Conversa",
+      "description": "Falha ao enviar mensagem. Por favor, tente novamente."
+    },
+    "clearError": {
+      "title": "Erro ao Limpar",
+      "description": "Falha ao limpar histórico de conversa"
+    }
+  },
+  "sidebar": {
+    "summary": {
+      "title": "Resumo do Projeto",
+      "placeholder": "O resumo da sua base de conhecimento aparecerá aqui à medida que progride através do assistente."
+    },
+    "sources": {
+      "title": "Fontes",
+      "placeholder": "Fontes de pesquisa e citações aparecerão aqui.",
+      "noSources": "Ainda não há fontes disponíveis. Complete o passo de pesquisa para ver fontes."
+    }
+  },
+  "toast": {
+    "export": {
+      "generated": {
+        "title": "Exportação Gerada",
+        "description": "Exportação {{format}} descarregada com sucesso"
+      },
+      "failed": {
+        "title": "Exportação Falhada",
+        "description": "Falha ao gerar exportação"
+      },
+      "downloadStarted": {
+        "title": "Transferência Iniciada",
+        "description": "A transferir {{filename}}"
+      },
+      "downloadFailed": {
+        "title": "Transferência Falhada",
+        "description": "Falha ao transferir ficheiro"
+      },
+      "pdfDownloaded": {
+        "title": "PDF Transferido",
+        "description": "Documento {{docType}} exportado com sucesso"
+      },
+      "pdfFailed": {
+        "title": "Exportação PDF Falhada",
+        "description": "Falha ao exportar PDF"
+      },
+      "complete": {
+        "title": "Base de Conhecimento Completa!",
+        "description": "A sua base de conhecimento foi gerada e exportada com sucesso."
+      }
+    },
+    "upload": {
+      "success": {
+        "title": "Imagens Carregadas",
+        "description": "{{count}} imagens carregadas com sucesso."
+      },
+      "failed": {
+        "title": "Carregamento Falhado",
+        "description": "Falha ao carregar imagens. Por favor, tente novamente."
+      },
+      "imported": {
+        "title": "Imagem Importada",
+        "description": "Imagem importada com sucesso do URL."
+      },
+      "importFailed": {
+        "title": "Importação Falhada",
+        "description": "Falha ao importar imagem do URL. Verifique o URL e tente novamente."
+      },
+      "noImages": {
+        "title": "Nenhuma Imagem Selecionada",
+        "description": "Por favor, carregue imagens primeiro."
+      }
+    },
+    "generation": {
+      "testImages": {
+        "title": "Imagens de Teste Geradas",
+        "description": "{{count}} imagens de teste criadas."
+      },
+      "failed": {
+        "title": "Geração Falhada",
+        "description": "Por favor, tente novamente."
+      }
+    },
+    "document": {
+      "generated": {
+        "title": "{{type}} Gerado",
+        "description": "A IA gerou o seu {{type}}"
+      },
+      "saved": {
+        "title": "{{type}} Guardado",
+        "description": "As suas alterações foram guardadas com sucesso"
+      },
+      "generateFirst": {
+        "title": "Gerar {{type}}",
+        "description": "Por favor, gere o seu {{type}} antes de continuar"
+      },
+      "saveFailed": {
+        "title": "Falha ao Guardar",
+        "description": "Falha ao guardar {{type}}"
+      }
+    },
+    "research": {
+      "complete": {
+        "title": "Pesquisa Completa",
+        "description": "A IA analisou as informações da sua empresa."
+      },
+      "failed": {
+        "title": "Pesquisa Falhada",
+        "description": "Por favor, tente novamente."
+      },
+      "saved": {
+        "title": "Conteúdo Guardado",
+        "description": "Os resultados da pesquisa foram guardados."
+      }
+    }
+  }
+}
+

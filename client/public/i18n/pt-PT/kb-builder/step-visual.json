@@ -6,18 +6,60 @@
     "title": "Enviar Imagens da Marca",
     "description": "Adicione imagens que representam a sua marca",
     "dropzone": {
-      "prompt": "Arraste e largue imagens ou clique para navegar",
+      "uploadingTitle": "A enviar imagens...",
+      "uploadingDescription": "Por favor aguarde enquanto as imagens estão a ser enviadas",
+      "dropHere": "Largue as imagens aqui",
+      "uploadBrandImages": "Enviar imagens da marca",
+      "dragAndDrop": "Arraste e largue imagens, ou clique para seleccionar ficheiros",
+      "supports": "Suporta: JPG, PNG, WebP, GIF, SVG, BMP, TIFF • Máx {{maxSize}}MB por ficheiro",
       "urlPrompt": "Ou importe de URL",
       "urlPlaceholder": "https://exemplo.pt/imagem.jpg",
-      "supported": "Suporta JPG, PNG, WebP até 10MB",
-      "tips": "Envie 3-5 imagens de alta qualidade incluindo logos, capturas de ecrã do sítio web e imagens de produto"
+      "importButton": "Importar",
+      "tips": "💡 Dicas: Envie 3-5 imagens de alta qualidade que representam a sua marca. Inclua logos, capturas de ecrã do sítio web, publicações de redes sociais e imagens de produtos."
+    },
+    "grid": {
+      "noImages": "Nenhuma imagem enviada ainda",
+      "noImagesDescription": "Use a área de upload acima para adicionar imagens da marca",
+      "uploadedImages": "Imagens Enviadas ({{count}})",
+      "analyzing": "A analisar...",
+      "analyzeButton": "Analisar Imagens",
+      "status": {
+        "uploading": "a enviar",
+        "analyzing": "a analisar",
+        "analyzed": "analisada",
+        "error": "erro",
+        "rejected": "rejeitada"
+      },
+      "summary": {
+        "analyzed": "{{count}} analisada(s)",
+        "uploading": "{{count}} a enviar",
+        "errors": "{{count}} erro(s)",
+        "total": "{{count}} total"
+      }
     },
     "analyzing": "A analisar imagens...",
     "analyzed": "Análise completa",
     "error": "Upload falhou"
   },
+  "tabs": {
+    "upload": "Enviar Imagens",
+    "analyze": "Análise",
+    "results": "Resultados"
+  },
   "analysis": {
     "title": "Resultados da Análise Visual",
+    "visualGuidelines": "Diretrizes Visuais da Marca",
+    "generatedTestImages": "Imagens de Teste Geradas:",
+    "selectedImages": "Imagens Seleccionadas ({{count}})",
+    "imageNumber": "Imagem {{number}}",
+    "noImagesSelected": "Selecione imagens do separador Enviar para as analisar.",
+    "noResults": "Complete a análise de imagem para ver as diretrizes visuais",
+    "tabs": {
+      "colors": "Cores",
+      "style": "Estilo",
+      "guidelines": "Diretrizes",
+      "producer": "Produção"
+    },
     "sections": {
       "palette": {
         "title": "Paleta de Cores",
@@ -25,35 +67,37 @@
         "secondary": "Cores Secundárias",
         "neutrals": "Cores Neutras"
       },
-      "lighting": {
-        "title": "Estilo de Iluminação",
-        "description": "Iluminação e ambiente preferidos"
+      "generalPrinciples": {
+        "title": "Princípios Gerais"
       },
-      "composition": {
-        "title": "Estilo de Composição",
-        "description": "Preferências de composição visual"
+      "styleDirection": {
+        "title": "Direção de Estilo",
+        "lighting": "Iluminação",
+        "colour": "Abordagem de Cor",
+        "composition": "Composição",
+        "format": "Formato"
       },
-      "subjects": {
-        "title": "Assuntos Comuns",
-        "description": "Elementos típicos nas suas imagens"
+      "peopleEmotions": {
+        "title": "Pessoas e Emoções"
       },
-      "textures": {
-        "title": "Texturas e Materiais",
-        "description": "Qualidades de superfície e materiais"
+      "typesOfImages": {
+        "title": "Tipos de Imagens"
       },
-      "mood": {
-        "title": "Ambiente da Marca",
-        "description": "Tom emocional transmitido"
+      "neuroTriggers": {
+        "title": "Gatilhos Neuromarketing"
       },
-      "guidelines": {
-        "title": "Faça e Não Faça",
-        "dos": "Faça Visuais",
-        "donts": "Não Faça Visuais"
+      "variationRules": {
+        "title": "Regras de Variação"
       },
-      "prompts": {
-        "title": "Prompts de IA",
-        "basePrompts": "Prompts Base",
-        "negativePrompts": "Prompts Negativos"
+      "promptingGuidance": {
+        "title": "Orientação para Prompts"
+      },
+      "producer": {
+        "title": "Notas de Produção",
+        "camera": "Configuração de Câmara",
+        "lighting": "Configuração de Iluminação",
+        "angle": "Ângulo de Câmara",
+        "scene": "Direção de Cena"
       }
     }
   },
@@ -72,6 +116,7 @@
     "analyzeImages": "Analisar Imagens",
     "generateTest": "Gerar Imagens de Teste",
     "saveGuidelines": "Guardar Diretrizes Visuais",
+    "tryAgain": "Tentar Novamente",
     "next": "Continuar para Exportação",
     "back": "Voltar para Concorrentes"
   },
@@ -80,6 +125,39 @@
     "imageTooLarge": "Imagem é muito grande (máx 10MB)",
     "unsupportedFormat": "Formato de imagem não suportado",
     "analysisFailed": "Análise de imagem falhou. Tente novamente."
+  },
+  "notifications": {
+    "analyzing": {
+      "title": "A Analisar Imagens... 🔍",
+      "description": "A processar {{count}} imagem(ns) com visão IA. Isto pode demorar um minuto."
+    },
+    "analysisComplete": {
+      "title": "Análise Completa! ✨",
+      "description": "Diretrizes visuais da marca geradas com sucesso!"
+    },
+    "analysisFailed": {
+      "title": "Análise Falhou",
+      "description": "{{error}}"
+    },
+    "analysisError": {
+      "title": "Erro de Análise",
+      "description": "Ocorreu um erro inesperado. Tente novamente."
+    },
+    "imageRemoved": {
+      "title": "Imagem Removida",
+      "description": "Imagem eliminada com sucesso."
+    },
+    "deleteFailed": {
+      "title": "Eliminação Falhou",
+      "description": "Falha ao eliminar imagem. Tente novamente."
+    },
+    "guidelinesSaved": {
+      "title": "Diretrizes Guardadas",
+      "description": "Diretrizes visuais da marca foram guardadas."
+    },
+    "saveFailed": {
+      "title": "Guardar Falhou",
+      "description": "Falha ao guardar diretrizes visuais."
+    }
   }
 }
-

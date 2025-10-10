@@ -6,18 +6,60 @@
     "title": "Upload Brand Images",
     "description": "Add images that represent your brand",
     "dropzone": {
-      "prompt": "Drag & drop images or click to browse",
+      "uploadingTitle": "Uploading images...",
+      "uploadingDescription": "Please wait while images are being uploaded",
+      "dropHere": "Drop images here",
+      "uploadBrandImages": "Upload brand images",
+      "dragAndDrop": "Drag and drop images, or click to select files",
+      "supports": "Supports: JPG, PNG, WebP, GIF, SVG, BMP, TIFF • Max {{maxSize}}MB per file",
       "urlPrompt": "Or import from URL",
       "urlPlaceholder": "https://example.com/image.jpg",
-      "supported": "Supports JPG, PNG, WebP up to 10MB",
-      "tips": "Upload 3-5 high-quality images including logos, website screenshots, and product images"
+      "importButton": "Import",
+      "tips": "💡 Tips: Upload 3-5 high-quality images that represent your brand. Include logos, website screenshots, social media posts, and product images."
+    },
+    "grid": {
+      "noImages": "No images uploaded yet",
+      "noImagesDescription": "Use the dropzone above to add brand images",
+      "uploadedImages": "Uploaded Images ({{count}})",
+      "analyzing": "Analyzing...",
+      "analyzeButton": "Analyze Images",
+      "status": {
+        "uploading": "uploading",
+        "analyzing": "analyzing",
+        "analyzed": "analyzed",
+        "error": "error",
+        "rejected": "rejected"
+      },
+      "summary": {
+        "analyzed": "{{count}} analyzed",
+        "uploading": "{{count}} uploading",
+        "errors": "{{count}} errors",
+        "total": "{{count}} total"
+      }
     },
     "analyzing": "Analyzing images...",
     "analyzed": "Analysis complete",
     "error": "Upload failed"
   },
+  "tabs": {
+    "upload": "Upload Images",
+    "analyze": "Analysis",
+    "results": "Results"
+  },
   "analysis": {
     "title": "Visual Analysis Results",
+    "visualGuidelines": "Visual Brand Guidelines",
+    "generatedTestImages": "Generated Test Images:",
+    "selectedImages": "Selected Images ({{count}})",
+    "imageNumber": "Image {{number}}",
+    "noImagesSelected": "Select images from the Upload tab to analyze them.",
+    "noResults": "Complete image analysis to see visual guidelines",
+    "tabs": {
+      "colors": "Colors",
+      "style": "Style",
+      "guidelines": "Guidelines",
+      "producer": "Producer"
+    },
     "sections": {
       "palette": {
         "title": "Color Palette",
@@ -25,35 +67,37 @@
         "secondary": "Secondary Colors",
         "neutrals": "Neutral Colors"
       },
-      "lighting": {
-        "title": "Lighting Style",
-        "description": "Preferred lighting and mood"
+      "generalPrinciples": {
+        "title": "General Principles"
       },
-      "composition": {
-        "title": "Composition Style",
-        "description": "Visual composition preferences"
+      "styleDirection": {
+        "title": "Style Direction",
+        "lighting": "Lighting",
+        "colour": "Color Approach",
+        "composition": "Composition",
+        "format": "Format"
       },
-      "subjects": {
-        "title": "Common Subjects",
-        "description": "Typical elements in your visuals"
+      "peopleEmotions": {
+        "title": "People and Emotions"
       },
-      "textures": {
-        "title": "Textures & Materials",
-        "description": "Surface qualities and materials"
+      "typesOfImages": {
+        "title": "Types of Images"
       },
-      "mood": {
-        "title": "Brand Mood",
-        "description": "Emotional tone conveyed"
+      "neuroTriggers": {
+        "title": "Neuro-Marketing Triggers"
       },
-      "guidelines": {
-        "title": "Do's and Don'ts",
-        "dos": "Visual Do's",
-        "donts": "Visual Don'ts"
+      "variationRules": {
+        "title": "Variation Rules"
       },
-      "prompts": {
-        "title": "AI Prompts",
-        "basePrompts": "Base Prompts",
-        "negativePrompts": "Negative Prompts"
+      "promptingGuidance": {
+        "title": "Prompting Guidance"
+      },
+      "producer": {
+        "title": "Producer Notes",
+        "camera": "Camera Setup",
+        "lighting": "Lighting Setup",
+        "angle": "Camera Angle",
+        "scene": "Scene Direction"
       }
     }
   },
@@ -72,6 +116,7 @@
     "analyzeImages": "Analyze Images",
     "generateTest": "Generate Test Images",
     "saveGuidelines": "Save Visual Guidelines",
+    "tryAgain": "Try Again",
     "next": "Continue to Export",
     "back": "Back to Competitors"
   },
@@ -105,6 +150,14 @@
     "deleteFailed": {
       "title": "Delete Failed",
       "description": "Failed to delete image. Please try again."
+    },
+    "guidelinesSaved": {
+      "title": "Guidelines Saved",
+      "description": "Visual brand guidelines have been saved."
+    },
+    "saveFailed": {
+      "title": "Save Failed",
+      "description": "Failed to save visual guidelines."
     }
   }
 }

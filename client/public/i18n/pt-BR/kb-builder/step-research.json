@@ -3,8 +3,8 @@
   "subtitle": "Pesquisa com IA do seu site",
   "description": "Com base na URL da sua empresa, vamos pesquisar sua marca, público e posicionamento usando IA. Você pode revisar e editar os resultados antes de continuar.",
   "loading": {
-    "title": "Pesquisando sua empresa...",
-    "description": "Analisando conteúdo do site e informações públicas"
+    "title": "Pesquise sua empresa",
+    "description": "Analise conteúdo do site e informações públicas"
   },
   "results": {
     "title": "Resultados da Pesquisa",

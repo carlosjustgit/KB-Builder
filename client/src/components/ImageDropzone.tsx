@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Upload, Image as ImageIcon, Link } from 'lucide-react';
@@ -19,6 +20,7 @@ export function ImageDropzone({
   className,
   isLoading = false,
 }: ImageDropzoneProps) {
+  const { t } = useTranslation('step-visual');
   const [urlInput, setUrlInput] = useState('');
   const [isDragActive, setIsDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -135,18 +137,18 @@ export function ImageDropzone({
             <div>
               <p className="text-lg font-medium mb-2">
                 {isLoading
-                  ? 'Uploading images...'
+                  ? t('upload.dropzone.uploadingTitle')
                   : isDragActive
-                  ? 'Drop images here'
-                  : 'Upload brand images'}
+                  ? t('upload.dropzone.dropHere')
+                  : t('upload.dropzone.uploadBrandImages')}
               </p>
               <p className="text-sm text-muted-foreground mb-4">
                 {isLoading
-                  ? 'Please wait while images are being uploaded'
-                  : 'Drag and drop images, or click to select files'}
+                  ? t('upload.dropzone.uploadingDescription')
+                  : t('upload.dropzone.dragAndDrop')}
               </p>
               <p className="text-xs text-muted-foreground">
-                Supports: JPG, PNG, WebP, GIF, SVG, BMP, TIFF • Max {Math.round(maxSize / 1024 / 1024)}MB per file
+                {t('upload.dropzone.supports', { maxSize: Math.round(maxSize / 1024 / 1024) })}
               </p>
             </div>
           </div>
@@ -154,7 +156,7 @@ export function ImageDropzone({
 
         {/* URL import */}
         <div className="mt-4 pt-4 border-t">
-          <p className="text-sm font-medium mb-2">Or import from URL</p>
+          <p className="text-sm font-medium mb-2">{t('upload.dropzone.urlPrompt')}</p>
           <div className="flex gap-2">
             <div className="relative flex-1">
               <ImageIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -162,7 +164,7 @@ export function ImageDropzone({
                 type="url"
                 value={urlInput}
                 onChange={(e) => setUrlInput(e.target.value)}
-                placeholder="https://example.com/image.jpg"
+                placeholder={t('upload.dropzone.urlPlaceholder')}
                 className="w-full pl-10 pr-3 py-2 border rounded-md text-sm"
                 onKeyPress={(e) => e.key === 'Enter' && handleUrlImport()}
                 disabled={isLoading}
@@ -174,7 +176,7 @@ export function ImageDropzone({
               size="sm"
             >
               <Link className="w-4 h-4 mr-2" />
-              Import
+              {t('upload.dropzone.importButton')}
             </Button>
           </div>
         </div>
@@ -182,8 +184,7 @@ export function ImageDropzone({
         {/* Tips */}
         <div className="mt-4 p-3 bg-muted/50 rounded-md">
           <p className="text-xs text-muted-foreground">
-            💡 <strong>Tips:</strong> Upload 3-5 high-quality images that represent your brand.
-            Include logos, website screenshots, social media posts, and product images.
+            {t('upload.dropzone.tips')}
           </p>
         </div>
       </CardContent>

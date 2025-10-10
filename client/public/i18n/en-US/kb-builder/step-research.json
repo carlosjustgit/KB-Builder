@@ -3,8 +3,8 @@
   "subtitle": "AI-powered research from your website",
   "description": "Based on your company URL, we'll research your brand, audience, and positioning using AI. You can review and edit the results before proceeding.",
   "loading": {
-    "title": "Researching your company...",
-    "description": "Analyzing website content and public information"
+    "title": "Research your company",
+    "description": "Analyze website content and public information"
   },
   "results": {
     "title": "Research Results",

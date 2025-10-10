@@ -1,42 +1,60 @@
 {
-  "title": "Services & Proof Points",
-  "subtitle": "Showcase what you do and why clients choose you",
-  "description": "Define your core services and the specific benefits or proof points that demonstrate your expertise.",
-  "sections": {
-    "services": {
-      "title": "Core Services",
-      "description": "List your main services or offerings",
-      "addService": "Add Service",
-      "removeService": "Remove",
-      "serviceTitle": "Service Title",
-      "serviceDescription": "Service Description",
-      "serviceBenefits": "Key Benefits"
-    },
-    "proofPoints": {
-      "title": "Proof Points",
-      "description": "Evidence of your expertise and results",
-      "addProof": "Add Proof Point",
-      "examples": "Examples: certifications, awards, case studies, testimonials"
+  "title": "Services & Products",
+  "subtitle": "Document your offerings, features, and value propositions",
+  "stepLabel": "Step 3 of 6",
+  "session": "Session:",
+  "generateCard": {
+    "title": "Generate Services Document",
+    "description": "Our AI will research and create a comprehensive services and products document including:",
+    "items": {
+      "overview": "Core Services/Products Overview",
+      "features": "Key Features & Benefits",
+      "pricing": "Pricing Structure",
+      "packages": "Service Packages/Tiers",
+      "valueProps": "Unique Value Propositions",
+      "implementation": "Implementation Process"
     }
   },
+  "documentCard": {
+    "title": "Services & Products Document"
+  },
+  "error": {
+    "title": "Generation Failed",
+    "tryAgain": "Try Again"
+  },
   "loading": {
-    "title": "Analyzing services...",
-    "description": "Generating service descriptions and proof points"
+    "generating": "Generating Services Document...",
+    "saving": "Saving..."
   },
   "actions": {
-    "generate": "Generate Services",
+    "generate": "Generate Services Document",
     "edit": "Edit",
+    "save": "Save Changes",
+    "cancel": "Cancel",
     "regenerate": "Regenerate",
-    "addService": "Add Service",
-    "addProof": "Add Proof Point",
-    "save": "Save Services",
-    "next": "Continue to Market",
+    "next": "Continue to Market Analysis",
     "back": "Back to Brand"
   },
-  "validation": {
-    "atLeastOneService": "Please add at least one service",
-    "serviceTitleRequired": "Service title is required",
-    "serviceDescriptionRequired": "Service description is required"
+  "placeholders": {
+    "editDocument": "Edit your services document..."
+  },
+  "notifications": {
+    "generated": {
+      "title": "Services Document Generated",
+      "description": "AI has generated your services and products document"
+    },
+    "saved": {
+      "title": "Services Document Saved",
+      "description": "Your changes have been saved successfully"
+    },
+    "generateRequired": {
+      "title": "Generate Services Document",
+      "description": "Please generate your services document before continuing"
+    }
+  },
+  "noSession": {
+    "message": "No active session found",
+    "action": "Start New Session"
   }
 }
 

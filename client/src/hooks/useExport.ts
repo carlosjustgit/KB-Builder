@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast.tsx';
+import { useTranslation } from 'react-i18next';
 
 const QUERY_KEYS = {
   exportStats: (sessionId: string) => ['exportStats', sessionId] as const,
@@ -17,6 +18,8 @@ export interface ExportStats {
   total_exports: number;
   json_exports: number;
   zip_exports: number;
+  total_images: number;
+  total_sources: number;
   latest_export?: {
     file_type: 'json' | 'zip';
     created_at: string;
@@ -30,6 +33,7 @@ export interface ExportStats {
 export function useGenerateExport() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const { t } = useTranslation('common');
 
   return useMutation({
     mutationFn: async (data: {
@@ -85,14 +89,14 @@ export function useGenerateExport() {
       });
 
       toast({
-        title: 'Export Generated',
-        description: `${variables.options.format.toUpperCase()} export downloaded successfully`,
+        title: t('toast.export.generated.title'),
+        description: t('toast.export.generated.description', { format: variables.options.format.toUpperCase() }),
       });
     },
     onError: (error) => {
       toast({
-        title: 'Export Failed',
-        description: error instanceof Error ? error.message : 'Failed to generate export',
+        title: t('toast.export.failed.title'),
+        description: error instanceof Error ? error.message : t('toast.export.failed.description'),
         variant: 'destructive',
       });
     },
@@ -148,6 +152,7 @@ export function useExportList(sessionId: string) {
  */
 export function useDownloadExport() {
   const { toast } = useToast();
+  const { t } = useTranslation('common');
 
   return useMutation({
     mutationFn: async (filename: string) => {
@@ -173,14 +178,60 @@ export function useDownloadExport() {
     },
     onSuccess: (data) => {
       toast({
-        title: 'Download Started',
-        description: `Downloading ${data.filename}`,
+        title: t('toast.export.downloadStarted.title'),
+        description: t('toast.export.downloadStarted.description', { filename: data.filename }),
       });
     },
     onError: (error) => {
       toast({
-        title: 'Download Failed',
-        description: error instanceof Error ? error.message : 'Failed to download file',
+        title: t('toast.export.downloadFailed.title'),
+        description: error instanceof Error ? error.message : t('toast.export.downloadFailed.description'),
+        variant: 'destructive',
+      });
+    },
+  });
+}
+
+/**
+ * Hook for downloading PDF for a specific document
+ */
+export function useDownloadPDF() {
+  const { toast } = useToast();
+  const { t } = useTranslation('common');
+
+  return useMutation({
+    mutationFn: async ({ sessionId, documentId, docType }: { sessionId: string; documentId: string; docType: string }) => {
+      const response = await fetch(`/api/export/pdf/${sessionId}/${documentId}`);
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to generate PDF');
+      }
+
+      // Handle file download
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${docType}-${documentId}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      return { success: true, docType };
+    },
+    onSuccess: (data) => {
+      toast({
+        variant: 'success',
+        title: t('toast.export.pdfDownloaded.title'),
+        description: t('toast.export.pdfDownloaded.description', { docType: data.docType }),
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: t('toast.export.pdfFailed.title'),
+        description: error instanceof Error ? error.message : t('toast.export.pdfFailed.description'),
         variant: 'destructive',
       });
     },

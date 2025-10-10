@@ -1,5 +1,5 @@
 {
-  "title": "Welcome to KB Builder",
+  "title": "Welcome to Witfy Origin",
   "subtitle": "Create comprehensive brand documentation in minutes",
   "description": "This wizard will guide you through 7 steps to build your knowledge base using AI-powered research and visual analysis.",
   "locale": {
@@ -14,7 +14,7 @@
       "invalid": "Please enter a valid URL"
     }
   },
-  "estimatedTime": "Estimated time: 15-20 minutes",
+  "estimatedTime": "Build your complete brand documentation in minutes for Free",
   "session": {
     "checking": "Checking for existing session...",
     "found": {
@@ -24,14 +24,30 @@
     },
     "cleared": {
       "title": "Session Cleared",
-      "description": "Starting fresh with a new session"
+      "description": "New session created. All previous data has been cleared."
     },
+    "startFreshConfirm": "Starting fresh will create a completely new session. This will clear all your research, documents, and chat history. Are you sure you want to continue?",
     "continue": "Continue Session",
     "startFresh": "🗑️ Start Fresh (New Session)"
   },
+  "notifications": {
+    "error": {
+      "title": "Error",
+      "sessionCreation": "Failed to create session. Please try again.",
+      "startFresh": "Failed to start fresh. Please try again.",
+      "noSession": "No active session found."
+    },
+    "success": {
+      "title": "Success!",
+      "description": "Session created successfully"
+    }
+  },
   "buttons": {
     "next": "Start Building",
-    "back": "Back"
+    "back": "Back",
+    "cancel": "Cancel",
+    "confirm": "OK",
+    "starting": "Starting..."
   }
 }
 

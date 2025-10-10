@@ -1,12 +1,18 @@
 {
-  "title": "Exportar e Transferir",
-  "subtitle": "Obtenha a sua base de conhecimento completa",
-  "description": "Reveja a sua base de conhecimento concluída e transfira-a em formatos prontos para integração com Witfy.",
+  "title": "Exportar Base de Conhecimento",
+  "subtitle": "Descarregue a sua base de conhecimento completa em formato JSON ou ZIP",
+  "description": "Reveja a sua base de conhecimento completa e descarregue em formatos prontos para integração Witfy.",
+  "stepLabel": "Passo 6 de 6",
+  "status": {
+    "researchComplete": "Pesquisa Completa",
+    "visualGuideGenerated": "Guia Visual Gerado",
+    "readyToExport": "Pronto para Exportar"
+  },
   "preview": {
     "title": "Pré-visualização da Base de Conhecimento",
     "sections": {
       "brand": "Informações da Marca",
-      "services": "Serviços e Pontos de Prova",
+      "services": "Serviços e Provas",
       "market": "Análise de Mercado",
       "competitors": "Análise Competitiva",
       "visual": "Diretrizes Visuais",
@@ -16,55 +22,109 @@
   "exports": {
     "json": {
       "title": "Exportação JSON",
-      "description": "Dados estruturados para importação no Witfy",
+      "description": "Dados estruturados para importação Witfy",
       "filename": "witfy-kb.json",
       "generating": "A gerar JSON...",
-      "ready": "JSON pronto para transferência"
+      "ready": "JSON pronto para descarregar"
     },
     "zip": {
       "title": "Pacote ZIP",
-      "description": "Pacote completo com ficheiros markdown e ativos",
+      "description": "Pacote completo com ficheiros markdown e activos",
       "filename": "witfy-kb-package.zip",
       "contents": [
         "Documentação da marca (Markdown)",
         "Diretrizes visuais (Markdown + JSON)",
         "Citações de fontes (JSON)",
-        "Imagens de exemplo (se geradas)"
+        "Imagens de amostra (se geradas)"
       ],
       "generating": "A criar pacote ZIP...",
-      "ready": "Pacote ZIP pronto para transferência"
+      "ready": "Pacote ZIP pronto para descarregar"
     }
   },
   "instructions": {
-    "title": "Como Importar no Witfy",
+    "title": "Como Importar para Witfy",
     "steps": [
-      "1. Inicie sessão na sua conta Witfy",
-      "2. Vá para Definições > Base de Conhecimento",
+      "1. Entre na sua conta Witfy",
+      "2. Vá a Definições > Base de Conhecimento",
       "3. Clique em 'Importar do JSON'",
-      "4. Faça upload do seu ficheiro witfy-kb.json",
+      "4. Carregue o seu ficheiro witfy-kb.json",
       "5. Reveja e confirme a importação"
     ],
     "note": "A sua base de conhecimento estará disponível imediatamente após a importação."
   },
   "loading": {
     "title": "A preparar exportações...",
-    "description": "A criar os seus ficheiros da base de conhecimento"
+    "description": "A criar ficheiros da base de conhecimento",
+    "exportInfo": "A carregar informações de exportação..."
   },
   "actions": {
     "exportJSON": "Exportar JSON",
-    "downloadZIP": "Transferir ZIP",
+    "downloadZIP": "Descarregar ZIP",
     "startOver": "Iniciar Nova KB",
     "back": "Voltar para Visual"
   },
   "validation": {
     "exportFailed": "Exportação falhou. Tente novamente.",
-    "noContent": "Nenhum conteúdo para exportar. Complete todas as etapas primeiro."
+    "noContent": "Nenhum conteúdo para exportar. Complete todos os passos primeiro."
   },
   "success": {
-    "title": "Exportação Concluída!",
-    "description": "A sua base de conhecimento foi exportada com êxito.",
-    "jsonDownloaded": "Ficheiro JSON transferido",
-    "zipDownloaded": "Pacote ZIP transferido"
+    "title": "Exportação Completa!",
+    "description": "A sua base de conhecimento foi exportada com sucesso.",
+    "jsonDownloaded": "Ficheiro JSON descarregado",
+    "zipDownloaded": "Pacote ZIP descarregado"
+  },
+  "pdf": {
+    "title": "Exportar Documentos Individuais como PDF",
+    "description": "Descarregue cada documento separadamente como ficheiro PDF",
+    "downloading": "A descarregar PDF...",
+    "downloaded": "PDF descarregado com sucesso",
+    "failed": "Exportação PDF falhou",
+    "noDocuments": "Nenhum documento disponível",
+    "noDocumentsDescription": "Complete os passos para gerar documentos"
+  },
+  "generate": {
+    "title": "Gerar Nova Exportação",
+    "formatLabel": "Formato de Exportação",
+    "formatJson": "JSON",
+    "formatJsonDesc": "Dados estruturados",
+    "formatZip": "ZIP",
+    "formatZipDesc": "Pacote completo",
+    "includeLabel": "Incluir na Exportação",
+    "includeImages": "Imagens ({{count}})",
+    "includeSources": "Fontes de Pesquisa ({{count}})",
+    "includeVisualGuide": "Diretrizes Visuais",
+    "generating": "A Gerar Exportação...",
+    "generateButton": "Gerar Exportação"
+  },
+  "history": {
+    "title": "Histórico de Exportações",
+    "noExports": "Nenhuma exportação gerada ainda",
+    "noExportsDescription": "Gere a sua primeira exportação para a ver aqui",
+    "totalExports": "Total de Exportações",
+    "jsonFiles": "Ficheiros JSON",
+    "zipFiles": "Ficheiros ZIP",
+    "latestExport": "Última Exportação",
+    "exportType": "Exportação {{type}}",
+    "downloading": "A descarregar...",
+    "downloadAgain": "Descarregar Novamente"
+  },
+  "error": {
+    "loadFailed": "Falha ao carregar informações de exportação"
+  },
+  "navigation": {
+    "back": "Voltar para Guia Visual",
+    "complete": "Concluir",
+    "session": "Sessão:",
+    "id": "ID:"
+  },
+  "notifications": {
+    "complete": {
+      "title": "Base de Conhecimento Completa!",
+      "description": "A sua base de conhecimento foi gerada e exportada com sucesso."
+    }
+  },
+  "noSession": {
+    "message": "Nenhuma sessão activa encontrada",
+    "action": "Iniciar Nova Sessão"
   }
 }
-

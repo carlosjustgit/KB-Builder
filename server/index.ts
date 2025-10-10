@@ -9,6 +9,7 @@ console.log('  - VITE_SUPABASE_URL:', process.env.VITE_SUPABASE_URL ? '✓' : '�
 console.log('  - SUPABASE_SERVICE_ROLE_KEY:', process.env.SUPABASE_SERVICE_ROLE_KEY ? '✓' : '✗');
 console.log('  - OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? '✓' : '✗');
 console.log('  - PERPLEXITY_API_KEY:', process.env.PERPLEXITY_API_KEY ? '✓' : '✗');
+console.log('  - GEMINI_API_KEY:', process.env.GEMINI_API_KEY ? '✓' : '✗');
 
 // Now import everything else
 import express from 'express';
