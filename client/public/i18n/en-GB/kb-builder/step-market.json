@@ -1,59 +1,59 @@
 {
-  "title": "Market Analysis",
+  "title": "Market analysis",
   "subtitle": "Analyse market trends, opportunities, and industry insights",
   "stepLabel": "Step 4 of 6",
   "session": "Session:",
   "generateCard": {
-    "title": "Generate Market Analysis",
+    "title": "Generate market analysis",
     "description": "Our AI will research and create a comprehensive market analysis document including:",
     "items": {
-      "marketSize": "Market Size & Growth Potential",
-      "industryTrends": "Industry Trends & Dynamics",
-      "targetMarket": "Target Market Segments",
-      "opportunities": "Market Opportunities",
-      "barriers": "Barriers to Entry",
-      "regulatory": "Regulatory Environment"
+      "marketSize": "Market size and growth potential",
+      "industryTrends": "Industry trends and dynamics",
+      "targetMarket": "Target market segments",
+      "opportunities": "Market opportunities",
+      "barriers": "Barriers to entry",
+      "regulatory": "Regulatory environment"
     }
   },
   "documentCard": {
-    "title": "Market Analysis Document"
+    "title": "Market analysis document"
   },
   "error": {
-    "title": "Generation Failed",
-    "tryAgain": "Try Again"
+    "title": "Generation failed",
+    "tryAgain": "Try again"
   },
   "loading": {
-    "generating": "Generating Market Analysis...",
+    "generating": "Generating market analysis...",
     "saving": "Saving..."
   },
   "actions": {
-    "generate": "Generate Market Analysis",
+    "generate": "Generate market analysis",
     "edit": "Edit",
-    "save": "Save Changes",
+    "save": "Save changes",
     "cancel": "Cancel",
     "regenerate": "Regenerate",
-    "next": "Continue to Competitors",
-    "back": "Back to Services"
+    "next": "Continue to competitors",
+    "back": "Back to services"
   },
   "placeholders": {
     "editDocument": "Edit your market analysis..."
   },
   "notifications": {
     "generated": {
-      "title": "Market Analysis Generated",
+      "title": "Market analysis generated",
       "description": "AI has generated your market analysis document"
     },
     "saved": {
-      "title": "Market Analysis Saved",
+      "title": "Market analysis saved",
       "description": "Your changes have been saved successfully"
     },
     "generateRequired": {
-      "title": "Generate Market Analysis",
+      "title": "Generate market analysis",
       "description": "Please generate your market analysis before continuing"
     }
   },
   "noSession": {
     "message": "No active session found",
-    "action": "Start New Session"
+    "action": "Start new session"
   }
 }

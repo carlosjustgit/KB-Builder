@@ -1,29 +1,28 @@
 {
-  "title": "Pesquisa e Análise",
-  "subtitle": "Pesquisa com IA do seu site",
-  "description": "Com base na URL da sua empresa, vamos pesquisar sua marca, público e posicionamento usando IA. Você pode revisar e editar os resultados antes de continuar.",
+  "title": "Pesquisa e análise",
+  "subtitle": "Pesquisa alimentada por IA a partir do seu website",
+  "description": "Com base no URL da sua empresa, iremos pesquisar sua marca, audiência e posicionamento usando IA. Você pode revisar e editar os resultados antes de prosseguir.",
   "loading": {
-    "title": "Pesquise sua empresa",
-    "description": "Analise conteúdo do site e informações públicas"
+    "title": "Pesquisar sua empresa",
+    "description": "Analisar conteúdo do website e informação pública"
   },
   "results": {
-    "title": "Resultados da Pesquisa",
+    "title": "Resultados da pesquisa",
     "subtitle": "Aqui está o que encontramos sobre sua empresa",
-    "brandOverview": "Visão Geral da Marca",
+    "brandOverview": "Visão geral da marca",
     "sources": "Fontes",
     "noSources": "Nenhuma fonte encontrada",
-    "edit": "Editar Resultados",
+    "edit": "Editar resultados",
     "regenerate": "Regenerar",
-    "approve": "Parece Bom"
+    "approve": "Parece bom"
   },
   "actions": {
-    "analyze": "Analisar Site",
-    "next": "Continuar para Marca e Tom",
-    "back": "Voltar para Boas-vindas"
+    "analyze": "Analisar website",
+    "next": "Continuar para marca e tom",
+    "back": "Voltar para bem-vindo"
   },
   "validation": {
-    "noContent": "Nenhum conteúdo de pesquisa gerado. Tente novamente.",
-    "researchFailed": "Pesquisa falhou. Verifique sua URL e tente novamente."
+    "noContent": "Nenhum conteúdo de pesquisa gerado. Por favor, tente novamente.",
+    "researchFailed": "Pesquisa falhou. Por favor, verifique seu URL e tente novamente."
   }
 }
-

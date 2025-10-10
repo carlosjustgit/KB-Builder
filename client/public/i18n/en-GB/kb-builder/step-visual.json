@@ -1,9 +1,9 @@
 {
-  "title": "Visual Brand Guidelines",
+  "title": "Visual brand guidelines",
   "subtitle": "Create consistent visual identity",
   "description": "Upload images from your website, social media, or brand assets. We'll analyse them to create comprehensive visual guidelines.",
   "upload": {
-    "title": "Upload Brand Images",
+    "title": "Upload brand images",
     "description": "Add images that represent your brand",
     "dropzone": {
       "uploadingTitle": "Uploading images...",
@@ -20,9 +20,9 @@
     "grid": {
       "noImages": "No images uploaded yet",
       "noImagesDescription": "Use the dropzone above to add brand images",
-      "uploadedImages": "Uploaded Images ({{count}})",
+      "uploadedImages": "Uploaded images ({{count}})",
       "analyzing": "Analysing...",
-      "analyzeButton": "Analyse Images",
+      "analyzeButton": "Analyse images",
       "status": {
         "uploading": "uploading",
         "analyzing": "analysing",
@@ -42,15 +42,15 @@
     "error": "Upload failed"
   },
   "tabs": {
-    "upload": "Upload Images",
+    "upload": "Upload images",
     "analyze": "Analysis",
     "results": "Results"
   },
   "analysis": {
-    "title": "Visual Analysis Results",
-    "visualGuidelines": "Visual Brand Guidelines",
-    "generatedTestImages": "Generated Test Images:",
-    "selectedImages": "Selected Images ({{count}})",
+    "title": "Visual analysis results",
+    "visualGuidelines": "Visual brand guidelines",
+    "generatedTestImages": "Generated test images:",
+    "selectedImages": "Selected images ({{count}})",
     "imageNumber": "Image {{number}}",
     "noImagesSelected": "Select images from the Upload tab to analyse them.",
     "noResults": "Complete image analysis to see visual guidelines",
@@ -62,47 +62,47 @@
     },
     "sections": {
       "palette": {
-        "title": "Colour Palette",
-        "primary": "Primary Colours",
-        "secondary": "Secondary Colours",
-        "neutrals": "Neutral Colours"
+        "title": "Colour palette",
+        "primary": "Primary colours",
+        "secondary": "Secondary colours",
+        "neutrals": "Neutral colours"
       },
       "generalPrinciples": {
-        "title": "General Principles"
+        "title": "General principles"
       },
       "styleDirection": {
-        "title": "Style Direction",
+        "title": "Style direction",
         "lighting": "Lighting",
-        "colour": "Colour Approach",
+        "colour": "Colour approach",
         "composition": "Composition",
         "format": "Format"
       },
       "peopleEmotions": {
-        "title": "People and Emotions"
+        "title": "People and emotions"
       },
       "typesOfImages": {
-        "title": "Types of Images"
+        "title": "Types of images"
       },
       "neuroTriggers": {
-        "title": "Neuro-Marketing Triggers"
+        "title": "Neuro-marketing triggers"
       },
       "variationRules": {
-        "title": "Variation Rules"
+        "title": "Variation rules"
       },
       "promptingGuidance": {
-        "title": "Prompting Guidance"
+        "title": "Prompting guidance"
       },
       "producer": {
-        "title": "Producer Notes",
-        "camera": "Camera Setup",
-        "lighting": "Lighting Setup",
-        "angle": "Camera Angle",
-        "scene": "Scene Direction"
+        "title": "Producer notes",
+        "camera": "Camera setup",
+        "lighting": "Lighting setup",
+        "angle": "Camera angle",
+        "scene": "Scene direction"
       }
     }
   },
   "generation": {
-    "title": "Generate Test Images",
+    "title": "Generate test images",
     "description": "Create sample images based on your visual guidelines",
     "generating": "Generating images...",
     "generated": "Images generated",
@@ -113,13 +113,13 @@
     "description": "Extracting colour palettes, lighting, and composition from your images"
   },
   "actions": {
-    "analyseImages": "Analyse Images",
-    "analyzeImages": "Analyse Images",
-    "generateTest": "Generate Test Images",
-    "saveGuidelines": "Save Visual Guidelines",
-    "tryAgain": "Try Again",
-    "next": "Continue to Export",
-    "back": "Back to Competitors"
+    "analyseImages": "Analyse images",
+    "analyzeImages": "Analyse images",
+    "generateTest": "Generate test images",
+    "saveGuidelines": "Save visual guidelines",
+    "tryAgain": "Try again",
+    "next": "Continue to export",
+    "back": "Back to competitors"
   },
   "validation": {
     "atLeastOneImage": "Please upload at least one image",
@@ -129,35 +129,35 @@
   },
   "notifications": {
     "analyzing": {
-      "title": "Analysing Images... 🔍",
+      "title": "Analysing images... 🔍",
       "description": "Processing {{count}} image(s) with AI vision. This may take a minute."
     },
     "analysisComplete": {
-      "title": "Analysis Complete! ✨",
+      "title": "Analysis complete! ✨",
       "description": "Visual brand guidelines generated successfully!"
     },
     "analysisFailed": {
-      "title": "Analysis Failed",
+      "title": "Analysis failed",
       "description": "{{error}}"
     },
     "analysisError": {
-      "title": "Analysis Error",
+      "title": "Analysis error",
       "description": "An unexpected error occurred. Please try again."
     },
     "imageRemoved": {
-      "title": "Image Removed",
+      "title": "Image removed",
       "description": "Image deleted successfully."
     },
     "deleteFailed": {
-      "title": "Delete Failed",
+      "title": "Delete failed",
       "description": "Failed to delete image. Please try again."
     },
     "guidelinesSaved": {
-      "title": "Guidelines Saved",
+      "title": "Guidelines saved",
       "description": "Visual brand guidelines have been saved."
     },
     "saveFailed": {
-      "title": "Save Failed",
+      "title": "Save failed",
       "description": "Failed to save visual guidelines."
     }
   }

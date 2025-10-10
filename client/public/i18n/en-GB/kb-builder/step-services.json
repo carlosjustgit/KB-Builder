@@ -1,60 +1,60 @@
 {
-  "title": "Services & Products",
+  "title": "Services and products",
   "subtitle": "Document your offerings, features, and value propositions",
   "stepLabel": "Step 3 of 6",
   "session": "Session:",
   "generateCard": {
-    "title": "Generate Services Document",
+    "title": "Generate services document",
     "description": "Our AI will research and create a comprehensive services and products document including:",
     "items": {
-      "overview": "Core Services/Products Overview",
-      "features": "Key Features & Benefits",
-      "pricing": "Pricing Structure",
-      "packages": "Service Packages/Tiers",
-      "valueProps": "Unique Value Propositions",
-      "implementation": "Implementation Process"
+      "overview": "Core services/products overview",
+      "features": "Key features and benefits",
+      "pricing": "Pricing structure",
+      "packages": "Service packages/tiers",
+      "valueProps": "Unique value propositions",
+      "implementation": "Implementation process"
     }
   },
   "documentCard": {
-    "title": "Services & Products Document"
+    "title": "Services and products document"
   },
   "error": {
-    "title": "Generation Failed",
-    "tryAgain": "Try Again"
+    "title": "Generation failed",
+    "tryAgain": "Try again"
   },
   "loading": {
-    "generating": "Generating Services Document...",
+    "generating": "Generating services document...",
     "saving": "Saving..."
   },
   "actions": {
-    "generate": "Generate Services Document",
+    "generate": "Generate services document",
     "edit": "Edit",
-    "save": "Save Changes",
+    "save": "Save changes",
     "cancel": "Cancel",
     "regenerate": "Regenerate",
-    "next": "Continue to Market Analysis",
-    "back": "Back to Brand"
+    "next": "Continue to market analysis",
+    "back": "Back to brand"
   },
   "placeholders": {
     "editDocument": "Edit your services document..."
   },
   "notifications": {
     "generated": {
-      "title": "Services Document Generated",
+      "title": "Services document generated",
       "description": "AI has generated your services and products document"
     },
     "saved": {
-      "title": "Services Document Saved",
+      "title": "Services document saved",
       "description": "Your changes have been saved successfully"
     },
     "generateRequired": {
-      "title": "Generate Services Document",
+      "title": "Generate services document",
       "description": "Please generate your services document before continuing"
     }
   },
   "noSession": {
     "message": "No active session found",
-    "action": "Start New Session"
+    "action": "Start new session"
   }
 }
 

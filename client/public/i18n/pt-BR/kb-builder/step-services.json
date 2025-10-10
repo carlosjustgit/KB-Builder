@@ -1,60 +1,59 @@
 {
-  "title": "Serviços e Produtos",
-  "subtitle": "Documente suas ofertas, recursos e propostas de valor",
+  "title": "Serviços e produtos",
+  "subtitle": "Documente suas ofertas, características e propostas de valor",
   "stepLabel": "Etapa 3 de 6",
   "session": "Sessão:",
   "generateCard": {
-    "title": "Gerar Documento de Serviços",
+    "title": "Gerar documento de serviços",
     "description": "Nossa IA irá pesquisar e criar um documento abrangente de serviços e produtos incluindo:",
     "items": {
-      "overview": "Visão Geral dos Serviços/Produtos Principais",
-      "features": "Principais Recursos e Benefícios",
-      "pricing": "Estrutura de Preços",
-      "packages": "Pacotes/Níveis de Serviço",
-      "valueProps": "Propostas de Valor Únicas",
-      "implementation": "Processo de Implementação"
+      "overview": "Visão geral de serviços/produtos principais",
+      "features": "Características e benefícios principais",
+      "pricing": "Estrutura de preços",
+      "packages": "Pacotes/níveis de serviço",
+      "valueProps": "Propostas de valor únicas",
+      "implementation": "Processo de implementação"
     }
   },
   "documentCard": {
-    "title": "Documento de Serviços e Produtos"
+    "title": "Documento de serviços e produtos"
   },
   "error": {
-    "title": "Falha na Geração",
-    "tryAgain": "Tentar Novamente"
+    "title": "Falha na geração",
+    "tryAgain": "Tentar novamente"
   },
   "loading": {
-    "generating": "Gerando Documento de Serviços...",
+    "generating": "Gerando documento de serviços...",
     "saving": "Salvando..."
   },
   "actions": {
-    "generate": "Gerar Documento de Serviços",
+    "generate": "Gerar documento de serviços",
     "edit": "Editar",
-    "save": "Salvar Alterações",
+    "save": "Salvar alterações",
     "cancel": "Cancelar",
     "regenerate": "Regenerar",
-    "next": "Continuar para Análise de Mercado",
-    "back": "Voltar para Marca"
+    "next": "Continuar para análise de mercado",
+    "back": "Voltar para marca"
   },
   "placeholders": {
     "editDocument": "Edite seu documento de serviços..."
   },
   "notifications": {
     "generated": {
-      "title": "Documento de Serviços Gerado",
-      "description": "A IA gerou seu documento de serviços e produtos"
+      "title": "Documento de serviços gerado",
+      "description": "IA gerou seu documento de serviços e produtos"
     },
     "saved": {
-      "title": "Documento de Serviços Salvo",
+      "title": "Documento de serviços salvo",
       "description": "Suas alterações foram salvas com sucesso"
     },
     "generateRequired": {
-      "title": "Gerar Documento de Serviços",
+      "title": "Gerar documento de serviços",
       "description": "Por favor, gere seu documento de serviços antes de continuar"
     }
   },
   "noSession": {
     "message": "Nenhuma sessão ativa encontrada",
-    "action": "Iniciar Nova Sessão"
+    "action": "Iniciar nova sessão"
   }
 }
-

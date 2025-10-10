@@ -7,7 +7,7 @@
     "placeholder": "Select language"
   },
   "url": {
-    "label": "Company Website URL",
+    "label": "Company website URL",
     "placeholder": "https://example.com",
     "validation": {
       "required": "Please enter your company website",
@@ -18,17 +18,17 @@
   "session": {
     "checking": "Checking for existing session...",
     "found": {
-      "title": "Existing Session Found",
-      "description": "Found session for {{url}}. Click \"Continue\" or \"Start Fresh\"",
+      "title": "Existing session found",
+      "description": "Found session for {{url}}. Click \"Continue\" or \"Start fresh\"",
       "defaultUrl": "your website"
     },
     "cleared": {
-      "title": "Session Cleared",
+      "title": "Session cleared",
       "description": "New session created. All previous data has been cleared."
     },
     "startFreshConfirm": "Starting fresh will create a completely new session. This will clear all your research, documents, and chat history. Are you sure you want to continue?",
-    "continue": "Continue Session",
-    "startFresh": "🗑️ Start Fresh (New Session)"
+    "continue": "Continue session",
+    "startFresh": "🗑️ Start fresh (new session)"
   },
   "notifications": {
     "error": {
@@ -43,7 +43,7 @@
     }
   },
   "buttons": {
-    "next": "Start Building",
+    "next": "Start building",
     "back": "Back",
     "cancel": "Cancel",
     "confirm": "OK",

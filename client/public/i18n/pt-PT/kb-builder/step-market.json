@@ -1,59 +1,59 @@
 {
-  "title": "Análise de Mercado",
-  "subtitle": "Analise tendências de mercado, oportunidades e insights do setor",
+  "title": "Análise de mercado",
+  "subtitle": "Analise tendências de mercado, oportunidades e insights da indústria",
   "stepLabel": "Etapa 4 de 6",
   "session": "Sessão:",
   "generateCard": {
-    "title": "Gerar Análise de Mercado",
+    "title": "Gerar análise de mercado",
     "description": "A nossa IA irá pesquisar e criar um documento abrangente de análise de mercado incluindo:",
     "items": {
-      "marketSize": "Tamanho do Mercado e Potencial de Crescimento",
-      "industryTrends": "Tendências e Dinâmicas do Setor",
-      "targetMarket": "Segmentos de Mercado-alvo",
-      "opportunities": "Oportunidades de Mercado",
-      "barriers": "Barreiras à Entrada",
-      "regulatory": "Ambiente Regulatório"
+      "marketSize": "Dimensão do mercado e potencial de crescimento",
+      "industryTrends": "Tendências e dinâmicas da indústria",
+      "targetMarket": "Segmentos de mercado-alvo",
+      "opportunities": "Oportunidades de mercado",
+      "barriers": "Barreiras à entrada",
+      "regulatory": "Ambiente regulamentar"
     }
   },
   "documentCard": {
-    "title": "Documento de Análise de Mercado"
+    "title": "Documento de análise de mercado"
   },
   "error": {
-    "title": "Falha na Geração",
-    "tryAgain": "Tentar Novamente"
+    "title": "Falha na geração",
+    "tryAgain": "Tentar novamente"
   },
   "loading": {
-    "generating": "A gerar Análise de Mercado...",
+    "generating": "A gerar análise de mercado...",
     "saving": "A guardar..."
   },
   "actions": {
-    "generate": "Gerar Análise de Mercado",
+    "generate": "Gerar análise de mercado",
     "edit": "Editar",
-    "save": "Guardar Alterações",
+    "save": "Guardar alterações",
     "cancel": "Cancelar",
     "regenerate": "Regenerar",
-    "next": "Continuar para Concorrentes",
-    "back": "Voltar para Serviços"
+    "next": "Continuar para concorrentes",
+    "back": "Voltar para serviços"
   },
   "placeholders": {
     "editDocument": "Edite a sua análise de mercado..."
   },
   "notifications": {
     "generated": {
-      "title": "Análise de Mercado Gerada",
+      "title": "Análise de mercado gerada",
       "description": "A IA gerou o seu documento de análise de mercado"
     },
     "saved": {
-      "title": "Análise de Mercado Guardada",
+      "title": "Análise de mercado guardada",
       "description": "As suas alterações foram guardadas com sucesso"
     },
     "generateRequired": {
-      "title": "Gerar Análise de Mercado",
+      "title": "Gerar análise de mercado",
       "description": "Por favor, gere a sua análise de mercado antes de continuar"
     }
   },
   "noSession": {
     "message": "Nenhuma sessão ativa encontrada",
-    "action": "Iniciar Nova Sessão"
+    "action": "Iniciar nova sessão"
   }
 }

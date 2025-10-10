@@ -9,7 +9,9 @@
     "search": "Pesquisar",
     "exportJSON": "Exportar JSON",
     "downloadZIP": "Baixar ZIP",
-    "launchWitfy": "Abrir Witfy"
+    "launchWitfy": "Abrir Witfy",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
   },
   "tabs": {
     "summary": "Resumo",
@@ -33,7 +35,7 @@
     "generic": "Algo deu errado. Por favor, tente novamente.",
     "network": "Erro de rede. Verifique sua conexão.",
     "validation": "Por favor, corrija os erros acima.",
-    "retry": "Tentar Novamente"
+    "retry": "Tentar novamente"
   },
   "notifications": {
     "retrying": {
@@ -41,11 +43,11 @@
       "description": "Tentativa {{attempt}} de {{max}}. Os serviços de IA podem ser imprevisíveis, tentando novamente automaticamente..."
     },
     "retryFailed": {
-      "title": "Todas as Tentativas Falharam",
+      "title": "Todas as tentativas falharam",
       "description": "A operação falhou após {{max}} tentativas. Por favor, tente novamente ou entre em contato com o suporte se isso persistir."
     },
     "unexpectedResult": {
-      "title": "Resultado Inesperado",
+      "title": "Resultado inesperado",
       "description": "A IA retornou uma resposta incompleta. Você pode regenerar ou tentar editar os resultados manualmente."
     }
   },
@@ -59,23 +61,24 @@
     "placeholder": "Faça uma pergunta...",
     "thinking": "Wit está pensando...",
     "clearChat": "Limpar histórico de conversa",
-    "clearConfirm": "Tem certeza de que deseja limpar todas as mensagens? Esta ação não pode ser revertida.",
+    "clearConfirm": "Limpar histórico de conversa?",
+    "clearConfirmDescription": "Tem certeza de que deseja limpar todas as mensagens? Esta ação não pode ser revertida.",
     "cleared": {
-      "title": "Conversa Limpa",
+      "title": "Conversa limpa",
       "description": "Todas as mensagens foram excluídas"
     },
     "error": {
-      "title": "Erro de Conversa",
+      "title": "Erro de conversa",
       "description": "Falha ao enviar mensagem. Por favor, tente novamente."
     },
     "clearError": {
-      "title": "Erro ao Limpar",
+      "title": "Erro ao limpar",
       "description": "Falha ao limpar histórico de conversa"
     }
   },
   "sidebar": {
     "summary": {
-      "title": "Resumo do Projeto",
+      "title": "Resumo do projeto",
       "placeholder": "O resumo da sua base de conhecimento aparecerá aqui conforme você progride pelo assistente."
     },
     "sources": {
@@ -87,73 +90,73 @@
   "toast": {
     "export": {
       "generated": {
-        "title": "Exportação Gerada",
+        "title": "Exportação gerada",
         "description": "Exportação {{format}} baixada com sucesso"
       },
       "failed": {
-        "title": "Exportação Falhou",
+        "title": "Exportação falhou",
         "description": "Falha ao gerar exportação"
       },
       "downloadStarted": {
-        "title": "Download Iniciado",
+        "title": "Download iniciado",
         "description": "Baixando {{filename}}"
       },
       "downloadFailed": {
-        "title": "Download Falhou",
+        "title": "Download falhou",
         "description": "Falha ao baixar arquivo"
       },
       "pdfDownloaded": {
-        "title": "PDF Baixado",
+        "title": "PDF baixado",
         "description": "Documento {{docType}} exportado com sucesso"
       },
       "pdfFailed": {
-        "title": "Exportação PDF Falhou",
+        "title": "Exportação PDF falhou",
         "description": "Falha ao exportar PDF"
       },
       "complete": {
-        "title": "Base de Conhecimento Completa!",
+        "title": "Base de conhecimento completa!",
         "description": "Sua base de conhecimento foi gerada e exportada com sucesso."
       }
     },
     "upload": {
       "success": {
-        "title": "Imagens Enviadas",
+        "title": "Imagens enviadas",
         "description": "{{count}} imagens enviadas com sucesso."
       },
       "failed": {
-        "title": "Envio Falhou",
+        "title": "Envio falhou",
         "description": "Falha ao enviar imagens. Por favor, tente novamente."
       },
       "imported": {
-        "title": "Imagem Importada",
+        "title": "Imagem importada",
         "description": "Imagem importada com sucesso da URL."
       },
       "importFailed": {
-        "title": "Importação Falhou",
+        "title": "Importação falhou",
         "description": "Falha ao importar imagem da URL. Verifique a URL e tente novamente."
       },
       "noImages": {
-        "title": "Nenhuma Imagem Selecionada",
+        "title": "Nenhuma imagem selecionada",
         "description": "Por favor, envie imagens primeiro."
       }
     },
     "generation": {
       "testImages": {
-        "title": "Imagens de Teste Geradas",
+        "title": "Imagens de teste geradas",
         "description": "{{count}} imagens de teste criadas."
       },
       "failed": {
-        "title": "Geração Falhou",
+        "title": "Geração falhou",
         "description": "Por favor, tente novamente."
       }
     },
     "document": {
       "generated": {
-        "title": "{{type}} Gerado",
+        "title": "{{type}} gerado",
         "description": "IA gerou seu {{type}}"
       },
       "saved": {
-        "title": "{{type}} Salvo",
+        "title": "{{type}} salvo",
         "description": "Suas alterações foram salvas com sucesso"
       },
       "generateFirst": {
@@ -161,24 +164,23 @@
         "description": "Por favor, gere seu {{type}} antes de continuar"
       },
       "saveFailed": {
-        "title": "Falha ao Salvar",
+        "title": "Falha ao salvar",
         "description": "Falha ao salvar {{type}}"
       }
     },
     "research": {
       "complete": {
-        "title": "Pesquisa Completa",
+        "title": "Pesquisa completa",
         "description": "IA analisou as informações da sua empresa."
       },
       "failed": {
-        "title": "Pesquisa Falhou",
+        "title": "Pesquisa falhou",
         "description": "Por favor, tente novamente."
       },
       "saved": {
-        "title": "Conteúdo Salvo",
+        "title": "Conteúdo salvo",
         "description": "Resultados da pesquisa foram salvos."
       }
     }
   }
 }
-

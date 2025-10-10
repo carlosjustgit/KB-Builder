@@ -1,60 +1,59 @@
 {
-  "title": "Identidade da Marca",
+  "title": "Identidade da marca",
   "subtitle": "Defina a missão, visão e valores essenciais da sua marca",
   "stepLabel": "Etapa 2 de 6",
   "session": "Sessão:",
   "generateCard": {
-    "title": "Gerar Documento da Marca",
+    "title": "Gerar documento da marca",
     "description": "Nossa IA irá pesquisar e criar um documento abrangente de identidade da marca incluindo:",
     "items": {
-      "missionStatement": "Declaração de Missão",
-      "visionStatement": "Declaração de Visão",
-      "coreValues": "Valores Essenciais",
-      "brandPromise": "Promessa da Marca",
-      "brandPersonality": "Personalidade da Marca",
+      "missionStatement": "Declaração de missão",
+      "visionStatement": "Declaração de visão",
+      "coreValues": "Valores essenciais",
+      "brandPromise": "Promessa da marca",
+      "brandPersonality": "Personalidade da marca",
       "targetAudience": "Público-alvo"
     }
   },
   "documentCard": {
-    "title": "Documento de Identidade da Marca"
+    "title": "Documento de identidade da marca"
   },
   "error": {
-    "title": "Falha na Geração",
-    "tryAgain": "Tentar Novamente"
+    "title": "Falha na geração",
+    "tryAgain": "Tentar novamente"
   },
   "loading": {
-    "generating": "Gerando Documento da Marca...",
+    "generating": "Gerando documento da marca...",
     "saving": "Salvando..."
   },
   "actions": {
-    "generate": "Gerar Documento da Marca",
+    "generate": "Gerar documento da marca",
     "edit": "Editar",
-    "save": "Salvar Alterações",
+    "save": "Salvar alterações",
     "cancel": "Cancelar",
     "regenerate": "Regenerar",
-    "next": "Continuar para Serviços",
-    "back": "Voltar para Pesquisa"
+    "next": "Continuar para serviços",
+    "back": "Voltar para pesquisa"
   },
   "placeholders": {
     "editDocument": "Edite seu documento de marca..."
   },
   "notifications": {
     "generated": {
-      "title": "Documento da Marca Gerado",
-      "description": "A IA gerou seu documento de identidade da marca"
+      "title": "Documento da marca gerado",
+      "description": "IA gerou seu documento de identidade da marca"
     },
     "saved": {
-      "title": "Documento da Marca Salvo",
+      "title": "Documento da marca salvo",
       "description": "Suas alterações foram salvas com sucesso"
     },
     "generateRequired": {
-      "title": "Gerar Documento da Marca",
+      "title": "Gerar documento da marca",
       "description": "Por favor, gere seu documento de marca antes de continuar"
     }
   },
   "noSession": {
     "message": "Nenhuma sessão ativa encontrada",
-    "action": "Iniciar Nova Sessão"
+    "action": "Iniciar nova sessão"
   }
 }
-

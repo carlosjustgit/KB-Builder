@@ -1,59 +1,59 @@
 {
-  "title": "Competitor Analysis",
+  "title": "Competitor analysis",
   "subtitle": "Identify and analyze key competitors and market positioning",
   "stepLabel": "Step 5 of 6",
   "session": "Session:",
   "generateCard": {
-    "title": "Generate Competitor Analysis",
+    "title": "Generate competitor analysis",
     "description": "Our AI will research and create a comprehensive competitor analysis document including:",
     "items": {
-      "overview": "Key Competitors Overview",
-      "advantages": "Competitive Advantages & Weaknesses",
-      "marketShare": "Market Share & Positioning",
-      "pricing": "Pricing Strategies",
-      "differentiation": "Differentiation Opportunities",
-      "response": "Competitive Response Strategies"
+      "overview": "Key competitors overview",
+      "advantages": "Competitive advantages and weaknesses",
+      "marketShare": "Market share and positioning",
+      "pricing": "Pricing strategies",
+      "differentiation": "Differentiation opportunities",
+      "response": "Competitive response strategies"
     }
   },
   "documentCard": {
-    "title": "Competitor Analysis Document"
+    "title": "Competitor analysis document"
   },
   "error": {
-    "title": "Generation Failed",
-    "tryAgain": "Try Again"
+    "title": "Generation failed",
+    "tryAgain": "Try again"
   },
   "loading": {
-    "generating": "Generating Competitor Analysis...",
+    "generating": "Generating competitor analysis...",
     "saving": "Saving..."
   },
   "actions": {
-    "generate": "Generate Competitor Analysis",
+    "generate": "Generate competitor analysis",
     "edit": "Edit",
-    "save": "Save Changes",
+    "save": "Save changes",
     "cancel": "Cancel",
     "regenerate": "Regenerate",
-    "next": "Continue to Visual Guide",
-    "back": "Back to Market Analysis"
+    "next": "Continue to visual guide",
+    "back": "Back to market analysis"
   },
   "placeholders": {
     "editDocument": "Edit your competitor analysis..."
   },
   "notifications": {
     "generated": {
-      "title": "Competitor Analysis Generated",
+      "title": "Competitor analysis generated",
       "description": "AI has generated your competitor analysis document"
     },
     "saved": {
-      "title": "Competitor Analysis Saved",
+      "title": "Competitor analysis saved",
       "description": "Your changes have been saved successfully"
     },
     "generateRequired": {
-      "title": "Generate Competitor Analysis",
+      "title": "Generate competitor analysis",
       "description": "Please generate your competitor analysis before continuing"
     }
   },
   "noSession": {
     "message": "No active session found",
-    "action": "Start New Session"
+    "action": "Start new session"
   }
 }

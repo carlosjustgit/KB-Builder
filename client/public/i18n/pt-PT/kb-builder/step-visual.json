@@ -1,162 +1,163 @@
 {
-  "title": "Diretrizes Visuais da Marca",
-  "subtitle": "Crie identidade visual consistente",
-  "description": "Envie imagens do seu sítio web, redes sociais ou ativos da marca. Vamos analisá-las para criar diretrizes visuais abrangentes.",
+  "title": "Diretrizes visuais da marca",
+  "subtitle": "Crie uma identidade visual consistente",
+  "description": "Carregue imagens do seu website, redes sociais ou ativos da marca. Iremos analisá-las para criar diretrizes visuais abrangentes.",
   "upload": {
-    "title": "Enviar Imagens da Marca",
-    "description": "Adicione imagens que representam a sua marca",
+    "title": "Carregar imagens da marca",
+    "description": "Adicione imagens que representem a sua marca",
     "dropzone": {
-      "uploadingTitle": "A enviar imagens...",
-      "uploadingDescription": "Por favor aguarde enquanto as imagens estão a ser enviadas",
-      "dropHere": "Largue as imagens aqui",
-      "uploadBrandImages": "Enviar imagens da marca",
-      "dragAndDrop": "Arraste e largue imagens, ou clique para seleccionar ficheiros",
+      "uploadingTitle": "A carregar imagens...",
+      "uploadingDescription": "Por favor aguarde enquanto as imagens estão a ser carregadas",
+      "dropHere": "Solte as imagens aqui",
+      "uploadBrandImages": "Carregar imagens da marca",
+      "dragAndDrop": "Arraste e solte imagens, ou clique para selecionar ficheiros",
       "supports": "Suporta: JPG, PNG, WebP, GIF, SVG, BMP, TIFF • Máx {{maxSize}}MB por ficheiro",
-      "urlPrompt": "Ou importe de URL",
-      "urlPlaceholder": "https://exemplo.pt/imagem.jpg",
+      "urlPrompt": "Ou importar de URL",
+      "urlPlaceholder": "https://exemplo.com/imagem.jpg",
       "importButton": "Importar",
-      "tips": "💡 Dicas: Envie 3-5 imagens de alta qualidade que representam a sua marca. Inclua logos, capturas de ecrã do sítio web, publicações de redes sociais e imagens de produtos."
+      "tips": "💡 Dicas: Carregue 3-5 imagens de alta qualidade que representem a sua marca. Inclua logótipos, capturas de ecrã do website, publicações de redes sociais e imagens de produtos."
     },
     "grid": {
-      "noImages": "Nenhuma imagem enviada ainda",
-      "noImagesDescription": "Use a área de upload acima para adicionar imagens da marca",
-      "uploadedImages": "Imagens Enviadas ({{count}})",
+      "noImages": "Ainda não há imagens carregadas",
+      "noImagesDescription": "Use a zona de soltar acima para adicionar imagens da marca",
+      "uploadedImages": "Imagens carregadas ({{count}})",
       "analyzing": "A analisar...",
-      "analyzeButton": "Analisar Imagens",
+      "analyzeButton": "Analisar imagens",
       "status": {
-        "uploading": "a enviar",
+        "uploading": "a carregar",
         "analyzing": "a analisar",
-        "analyzed": "analisada",
+        "analyzed": "analisado",
         "error": "erro",
-        "rejected": "rejeitada"
+        "rejected": "rejeitado"
       },
       "summary": {
-        "analyzed": "{{count}} analisada(s)",
-        "uploading": "{{count}} a enviar",
-        "errors": "{{count}} erro(s)",
+        "analyzed": "{{count}} analisadas",
+        "uploading": "{{count}} a carregar",
+        "errors": "{{count}} erros",
         "total": "{{count}} total"
       }
     },
-    "analyzing": "A analisar imagens...",
-    "analyzed": "Análise completa",
-    "error": "Upload falhou"
+    "analysing": "A analisar imagens...",
+    "analysed": "Análise completa",
+    "error": "Carregamento falhado"
   },
   "tabs": {
-    "upload": "Enviar Imagens",
+    "upload": "Carregar imagens",
     "analyze": "Análise",
     "results": "Resultados"
   },
   "analysis": {
-    "title": "Resultados da Análise Visual",
-    "visualGuidelines": "Diretrizes Visuais da Marca",
-    "generatedTestImages": "Imagens de Teste Geradas:",
-    "selectedImages": "Imagens Seleccionadas ({{count}})",
+    "title": "Resultados da análise visual",
+    "visualGuidelines": "Diretrizes visuais da marca",
+    "generatedTestImages": "Imagens de teste geradas:",
+    "selectedImages": "Imagens selecionadas ({{count}})",
     "imageNumber": "Imagem {{number}}",
-    "noImagesSelected": "Selecione imagens do separador Enviar para as analisar.",
-    "noResults": "Complete a análise de imagem para ver as diretrizes visuais",
+    "noImagesSelected": "Selecione imagens do separador Carregar para analisá-las.",
+    "noResults": "Complete a análise de imagens para ver as diretrizes visuais",
     "tabs": {
       "colors": "Cores",
       "style": "Estilo",
       "guidelines": "Diretrizes",
-      "producer": "Produção"
+      "producer": "Produtor"
     },
     "sections": {
       "palette": {
-        "title": "Paleta de Cores",
-        "primary": "Cores Primárias",
-        "secondary": "Cores Secundárias",
-        "neutrals": "Cores Neutras"
+        "title": "Paleta de cores",
+        "primary": "Cores primárias",
+        "secondary": "Cores secundárias",
+        "neutrals": "Cores neutras"
       },
       "generalPrinciples": {
-        "title": "Princípios Gerais"
+        "title": "Princípios gerais"
       },
       "styleDirection": {
-        "title": "Direção de Estilo",
+        "title": "Direção de estilo",
         "lighting": "Iluminação",
-        "colour": "Abordagem de Cor",
+        "colour": "Abordagem de cor",
         "composition": "Composição",
         "format": "Formato"
       },
       "peopleEmotions": {
-        "title": "Pessoas e Emoções"
+        "title": "Pessoas e emoções"
       },
       "typesOfImages": {
-        "title": "Tipos de Imagens"
+        "title": "Tipos de imagens"
       },
       "neuroTriggers": {
-        "title": "Gatilhos Neuromarketing"
+        "title": "Gatilhos de neuro-marketing"
       },
       "variationRules": {
-        "title": "Regras de Variação"
+        "title": "Regras de variação"
       },
       "promptingGuidance": {
-        "title": "Orientação para Prompts"
+        "title": "Orientação de prompts"
       },
       "producer": {
-        "title": "Notas de Produção",
-        "camera": "Configuração de Câmara",
-        "lighting": "Configuração de Iluminação",
-        "angle": "Ângulo de Câmara",
-        "scene": "Direção de Cena"
+        "title": "Notas do produtor",
+        "camera": "Configuração da câmara",
+        "lighting": "Configuração de iluminação",
+        "angle": "Ângulo da câmara",
+        "scene": "Direção de cena"
       }
     }
   },
   "generation": {
-    "title": "Gerar Imagens de Teste",
-    "description": "Crie imagens de exemplo baseadas nas suas diretrizes visuais",
+    "title": "Gerar imagens de teste",
+    "description": "Crie imagens de amostra baseadas nas suas diretrizes visuais",
     "generating": "A gerar imagens...",
     "generated": "Imagens geradas",
-    "error": "Geração falhou"
+    "error": "Geração falhada"
   },
   "loading": {
     "title": "A analisar elementos visuais...",
     "description": "A extrair paletas de cores, iluminação e composição das suas imagens"
   },
   "actions": {
-    "analyzeImages": "Analisar Imagens",
-    "generateTest": "Gerar Imagens de Teste",
-    "saveGuidelines": "Guardar Diretrizes Visuais",
-    "tryAgain": "Tentar Novamente",
-    "next": "Continuar para Exportação",
-    "back": "Voltar para Concorrentes"
+    "analyseImages": "Analisar imagens",
+    "analyzeImages": "Analisar imagens",
+    "generateTest": "Gerar imagens de teste",
+    "saveGuidelines": "Guardar diretrizes visuais",
+    "tryAgain": "Tentar novamente",
+    "next": "Continuar para exportar",
+    "back": "Voltar para concorrentes"
   },
   "validation": {
-    "atLeastOneImage": "Por favor, envie pelo menos uma imagem",
-    "imageTooLarge": "Imagem é muito grande (máx 10MB)",
+    "atLeastOneImage": "Por favor carregue pelo menos uma imagem",
+    "imageTooLarge": "Imagem demasiado grande (máx 10MB)",
     "unsupportedFormat": "Formato de imagem não suportado",
-    "analysisFailed": "Análise de imagem falhou. Tente novamente."
+    "analysisFailed": "Análise de imagem falhada. Por favor tente novamente."
   },
   "notifications": {
     "analyzing": {
-      "title": "A Analisar Imagens... 🔍",
+      "title": "A analisar imagens... 🔍",
       "description": "A processar {{count}} imagem(ns) com visão IA. Isto pode demorar um minuto."
     },
     "analysisComplete": {
-      "title": "Análise Completa! ✨",
+      "title": "Análise completa! ✨",
       "description": "Diretrizes visuais da marca geradas com sucesso!"
     },
     "analysisFailed": {
-      "title": "Análise Falhou",
+      "title": "Análise falhada",
       "description": "{{error}}"
     },
     "analysisError": {
-      "title": "Erro de Análise",
-      "description": "Ocorreu um erro inesperado. Tente novamente."
+      "title": "Erro de análise",
+      "description": "Ocorreu um erro inesperado. Por favor tente novamente."
     },
     "imageRemoved": {
-      "title": "Imagem Removida",
+      "title": "Imagem removida",
       "description": "Imagem eliminada com sucesso."
     },
     "deleteFailed": {
-      "title": "Eliminação Falhou",
-      "description": "Falha ao eliminar imagem. Tente novamente."
+      "title": "Eliminação falhada",
+      "description": "Falha ao eliminar imagem. Por favor tente novamente."
     },
     "guidelinesSaved": {
-      "title": "Diretrizes Guardadas",
+      "title": "Diretrizes guardadas",
       "description": "Diretrizes visuais da marca foram guardadas."
     },
     "saveFailed": {
-      "title": "Guardar Falhou",
+      "title": "Falha ao guardar",
       "description": "Falha ao guardar diretrizes visuais."
     }
   }

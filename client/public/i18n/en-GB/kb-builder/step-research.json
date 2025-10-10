@@ -1,5 +1,5 @@
 {
-  "title": "Research & Analysis",
+  "title": "Research and analysis",
   "subtitle": "AI-powered research from your website",
   "description": "Based on your company URL, we'll research your brand, audience, and positioning using AI. You can review and edit the results before proceeding.",
   "loading": {
@@ -7,19 +7,20 @@
     "description": "Analyse website content and public information"
   },
   "results": {
-    "title": "Research Results",
+    "title": "Research results",
     "subtitle": "Here's what we found about your company",
-    "brandOverview": "Brand Overview",
+    "brandOverview": "Brand overview",
     "sources": "Sources",
     "noSources": "No sources found",
-    "edit": "Edit Results",
+    "edit": "Edit results",
     "regenerate": "Regenerate",
-    "approve": "Looks Good"
+    "approve": "Looks good"
   },
   "actions": {
-    "analyse": "Analyse Website",
-    "next": "Continue to Brand & Tone",
-    "back": "Back to Welcome"
+    "analyse": "Analyse website",
+    "analyze": "Analyse website",
+    "next": "Continue to brand and tone",
+    "back": "Back to welcome"
   },
   "validation": {
     "noContent": "No research content generated. Please try again.",

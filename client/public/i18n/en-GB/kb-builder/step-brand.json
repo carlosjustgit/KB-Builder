@@ -1,60 +1,60 @@
 {
-  "title": "Brand Identity",
+  "title": "Brand identity",
   "subtitle": "Define your brand's mission, vision, and core values",
   "stepLabel": "Step 2 of 6",
   "session": "Session:",
   "generateCard": {
-    "title": "Generate Brand Document",
+    "title": "Generate brand document",
     "description": "Our AI will research and create a comprehensive brand identity document including:",
     "items": {
-      "missionStatement": "Mission Statement",
-      "visionStatement": "Vision Statement",
-      "coreValues": "Core Values",
-      "brandPromise": "Brand Promise",
-      "brandPersonality": "Brand Personality",
-      "targetAudience": "Target Audience"
+      "missionStatement": "Mission statement",
+      "visionStatement": "Vision statement",
+      "coreValues": "Core values",
+      "brandPromise": "Brand promise",
+      "brandPersonality": "Brand personality",
+      "targetAudience": "Target audience"
     }
   },
   "documentCard": {
-    "title": "Brand Identity Document"
+    "title": "Brand identity document"
   },
   "error": {
-    "title": "Generation Failed",
-    "tryAgain": "Try Again"
+    "title": "Generation failed",
+    "tryAgain": "Try again"
   },
   "loading": {
-    "generating": "Generating Brand Document...",
+    "generating": "Generating brand document...",
     "saving": "Saving..."
   },
   "actions": {
-    "generate": "Generate Brand Document",
+    "generate": "Generate brand document",
     "edit": "Edit",
-    "save": "Save Changes",
+    "save": "Save changes",
     "cancel": "Cancel",
     "regenerate": "Regenerate",
-    "next": "Continue to Services",
-    "back": "Back to Research"
+    "next": "Continue to services",
+    "back": "Back to research"
   },
   "placeholders": {
     "editDocument": "Edit your brand document..."
   },
   "notifications": {
     "generated": {
-      "title": "Brand Document Generated",
+      "title": "Brand document generated",
       "description": "AI has generated your brand identity document"
     },
     "saved": {
-      "title": "Brand Document Saved",
+      "title": "Brand document saved",
       "description": "Your changes have been saved successfully"
     },
     "generateRequired": {
-      "title": "Generate Brand Document",
+      "title": "Generate brand document",
       "description": "Please generate your brand document before continuing"
     }
   },
   "noSession": {
     "message": "No active session found",
-    "action": "Start New Session"
+    "action": "Start new session"
   }
 }
 

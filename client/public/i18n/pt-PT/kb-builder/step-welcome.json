@@ -1,40 +1,40 @@
 {
   "title": "Bem-vindo ao Witfy Origin",
-  "subtitle": "Crie documentação completa da marca em minutos",
-  "description": "Este assistente irá guiá-lo através de 7 etapas para construir a sua base de conhecimento usando pesquisa com IA e análise visual.",
+  "subtitle": "Crie documentação de marca abrangente em minutos",
+  "description": "Este assistente irá guiá-lo através de 7 etapas para construir a sua base de conhecimento usando pesquisa e análise visual alimentadas por IA.",
   "locale": {
     "label": "Escolha o seu idioma",
-    "placeholder": "Selecione o idioma"
+    "placeholder": "Selecionar idioma"
   },
   "url": {
-    "label": "URL do site da empresa",
-    "placeholder": "https://exemplo.pt",
+    "label": "URL do website da empresa",
+    "placeholder": "https://exemplo.com",
     "validation": {
-      "required": "Por favor, insira o site da sua empresa",
+      "required": "Por favor, insira o website da sua empresa",
       "invalid": "Por favor, insira um URL válido"
     }
   },
-  "estimatedTime": "Construa a sua documentação completa da marca em minutos gratuitamente",
+  "estimatedTime": "Construa a sua documentação de marca completa em minutos gratuitamente",
   "session": {
-    "checking": "Verificando sessão existente...",
+    "checking": "A verificar sessão existente...",
     "found": {
-      "title": "Sessão Existente Encontrada",
-      "description": "Encontrada sessão para {{url}}. Clique em \"Continuar\" ou \"Começar Do Zero\"",
-      "defaultUrl": "o seu site"
+      "title": "Sessão existente encontrada",
+      "description": "Encontrada sessão para {{url}}. Clique em \"Continuar\" ou \"Começar de novo\"",
+      "defaultUrl": "o seu website"
     },
     "cleared": {
-      "title": "Sessão Limpa",
+      "title": "Sessão limpa",
       "description": "Nova sessão criada. Todos os dados anteriores foram eliminados."
     },
-    "startFreshConfirm": "Começar do zero irá criar uma sessão completamente nova. Isto eliminará toda a sua pesquisa, documentos e histórico de conversa. Tem a certeza de que deseja continuar?",
-    "continue": "Continuar Sessão",
-    "startFresh": "🗑️ Começar Do Zero"
+    "startFreshConfirm": "Começar de novo irá criar uma sessão completamente nova. Isto irá eliminar toda a sua pesquisa, documentos e histórico de chat. Tem a certeza de que deseja continuar?",
+    "continue": "Continuar sessão",
+    "startFresh": "🗑️ Começar de novo (nova sessão)"
   },
   "notifications": {
     "error": {
       "title": "Erro",
       "sessionCreation": "Falha ao criar sessão. Por favor, tente novamente.",
-      "startFresh": "Falha ao começar do zero. Por favor, tente novamente.",
+      "startFresh": "Falha ao começar de novo. Por favor, tente novamente.",
       "noSession": "Nenhuma sessão ativa encontrada."
     },
     "success": {
@@ -43,11 +43,10 @@
     }
   },
   "buttons": {
-    "next": "Começar",
+    "next": "Começar a construir",
     "back": "Voltar",
     "cancel": "Cancelar",
     "confirm": "OK",
     "starting": "A iniciar..."
   }
 }
-
