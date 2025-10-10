@@ -36,14 +36,14 @@ export function AnimatedText({ items, intervalMs = 7000 }: AnimatedTextProps) {
 
   return (
     <div
-      className="relative flex items-center justify-center min-h-[24px]"
+      className="relative flex items-center justify-center min-h-[20px] md:min-h-[24px]"
       aria-live="polite"
       aria-label="Tips about Witfy features"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       <p
-        className={`text-sm text-muted-foreground text-center transition-opacity duration-200 ${
+        className={`text-xs md:text-sm text-muted-foreground text-center transition-opacity duration-200 leading-tight ${
           isVisible ? 'opacity-100' : 'opacity-0'
         }`}
       >

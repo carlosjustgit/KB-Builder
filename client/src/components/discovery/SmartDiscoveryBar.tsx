@@ -67,31 +67,32 @@ export function SmartDiscoveryBar() {
   }, [isStandalone, t]);
 
   return (
-    <footer className="border-t border-border bg-muted/30 h-16 flex items-center px-6">
-      <div className="flex items-center justify-between w-full max-w-screen-2xl mx-auto">
-        {/* Left: Witfy Icon */}
-        <div className="flex items-center">
+    <footer className="border-t border-border bg-muted/30 min-h-12 md:h-16 flex items-center px-3 md:px-6 py-2 md:py-0">
+      <div className="flex items-center justify-between w-full max-w-screen-2xl mx-auto gap-2 md:gap-4">
+        {/* Left: Witfy Icon - hidden on very small screens */}
+        <div className="hidden sm:flex items-center flex-shrink-0">
           <img 
             src="/logo-Witfy-icon-main.png" 
             alt="Witfy" 
-            className="h-8 w-8 object-contain"
+            className="h-6 w-6 md:h-8 md:w-8 object-contain"
           />
         </div>
 
         {/* Center: Animated Tips */}
-        <div className="flex-1 px-8">
+        <div className="flex-1 min-w-0 px-2 md:px-8">
           <AnimatedText items={tips} intervalMs={7000} />
         </div>
 
         {/* Right: CTA */}
-        <div className="flex items-center">
+        <div className="flex items-center flex-shrink-0">
           <a
             href={ctaConfig.href}
             target={ctaConfig.target}
             rel={ctaConfig.rel}
-            className="text-sm font-medium text-primary hover:text-primary/80 transition-colors underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded px-2 py-1"
+            className="text-xs md:text-sm font-medium text-primary hover:text-primary/80 transition-colors underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded px-1 md:px-2 py-1 whitespace-nowrap"
           >
-            {ctaConfig.text}
+            <span className="hidden sm:inline">{ctaConfig.text}</span>
+            <span className="sm:hidden">Explore →</span>
           </a>
         </div>
       </div>

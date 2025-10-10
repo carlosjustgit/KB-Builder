@@ -148,11 +148,11 @@ export function Welcome() {
   // Show loading state while checking for existing session
   if (sessionLoading) {
     return (
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto px-2 sm:px-4">
         <Card>
-          <CardContent className="p-8 text-center">
+          <CardContent className="p-6 sm:p-8 text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-witfy-500 mx-auto mb-4"></div>
-            <p className="text-muted-foreground">{t('session.checking')}</p>
+            <p className="text-sm sm:text-base text-muted-foreground">{t('session.checking')}</p>
           </CardContent>
         </Card>
       </div>
@@ -165,18 +165,18 @@ export function Welcome() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto px-2 sm:px-4">
       <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl witfy-text-gradient">
+        <CardHeader className="text-center px-4 sm:px-6">
+          <CardTitle className="text-2xl sm:text-3xl witfy-text-gradient">
             {t('title')}
           </CardTitle>
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             {t('subtitle')}
           </p>
         </CardHeader>
 
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6">
           <p className="text-center text-muted-foreground">
             {t('description')}
           </p>
@@ -271,25 +271,26 @@ export function Welcome() {
 
       {/* Start Fresh Confirmation Dialog */}
       {showStartFreshDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <Card className="w-full max-w-md mx-4">
-            <CardHeader>
-              <CardTitle>{t('session.startFresh')}</CardTitle>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <Card className="w-full max-w-md">
+            <CardHeader className="px-4 sm:px-6">
+              <CardTitle className="text-lg sm:text-xl">{t('session.startFresh')}</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-muted-foreground">
+            <CardContent className="space-y-4 px-4 sm:px-6">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 {t('session.startFreshConfirm')}
               </p>
-              <div className="flex gap-3 justify-end">
+              <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 sm:justify-end">
                 <Button
                   variant="outline"
                   onClick={() => setShowStartFreshDialog(false)}
+                  className="w-full sm:w-auto"
                 >
                   {t('buttons.cancel')}
                 </Button>
                 <Button
                   onClick={confirmStartFresh}
-                  className="witfy-gradient text-white"
+                  className="witfy-gradient text-white w-full sm:w-auto"
                 >
                   {t('buttons.confirm')}
                 </Button>

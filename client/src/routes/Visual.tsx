@@ -326,20 +326,20 @@ ${guidelines.prompting_guidance.join('\n')}
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-4 sm:space-y-6">
       {/* Header */}
       <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl witfy-text-gradient flex items-center gap-2">
-            <Eye className="w-6 h-6" />
+        <CardHeader className="px-4 sm:px-6">
+          <CardTitle className="text-xl sm:text-2xl witfy-text-gradient flex items-center gap-2">
+            <Eye className="w-5 h-5 sm:w-6 sm:h-6" />
             {t('title')}
           </CardTitle>
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             {t('subtitle')}
           </p>
         </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground mb-4">
+        <CardContent className="px-4 sm:px-6">
+          <p className="text-xs sm:text-sm text-muted-foreground mb-4">
             {t('description')}
           </p>
         </CardContent>

@@ -138,19 +138,19 @@ export function Research() {
   }
 
   return (
-    <div className="max-w-full mx-auto space-y-6">
+    <div className="max-w-full mx-auto space-y-4 sm:space-y-6">
       {/* Header */}
       <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl witfy-text-gradient">
+        <CardHeader className="px-4 sm:px-6">
+          <CardTitle className="text-xl sm:text-2xl witfy-text-gradient">
             {t('title')}
           </CardTitle>
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             {t('subtitle')}
           </p>
         </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground mb-4">
+        <CardContent className="px-4 sm:px-6">
+          <p className="text-xs sm:text-sm text-muted-foreground mb-4">
             {t('description')}
           </p>
         </CardContent>
@@ -211,16 +211,16 @@ export function Research() {
               <MarkdownRenderer content={researchResult.content_md} />
 
               {/* Action Buttons */}
-              <div className="flex gap-2 pt-4 border-t">
-                <Button variant="outline" onClick={() => setIsEditing(true)}>
+              <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
+                <Button variant="outline" onClick={() => setIsEditing(true)} className="w-full sm:w-auto">
                   <Edit className="w-4 h-4 mr-2" />
                   {t('results.edit')}
                 </Button>
-                <Button variant="outline" onClick={handleRegenerate}>
+                <Button variant="outline" onClick={handleRegenerate} className="w-full sm:w-auto">
                   <RotateCcw className="w-4 h-4 mr-2" />
                   {t('results.regenerate')}
                 </Button>
-                <Button onClick={handleApprove} className="ml-auto">
+                <Button onClick={handleApprove} className="w-full sm:w-auto sm:ml-auto">
                   {t('results.approve')}
                 </Button>
               </div>
@@ -275,11 +275,11 @@ export function Research() {
               title="Edit Research Results"
             />
 
-            <div className="flex gap-2 mt-4">
-              <Button variant="outline" onClick={() => setIsEditing(false)}>
+            <div className="flex flex-col sm:flex-row gap-2 mt-4">
+              <Button variant="outline" onClick={() => setIsEditing(false)} className="w-full sm:w-auto">
                 Cancel
               </Button>
-              <Button onClick={handleApprove}>
+              <Button onClick={handleApprove} className="w-full sm:w-auto">
                 Save & Continue
               </Button>
             </div>
@@ -307,13 +307,13 @@ export function Research() {
       )}
 
       {/* Navigation */}
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={() => navigate('/')}>
+      <div className="flex flex-col sm:flex-row gap-2 sm:justify-between">
+        <Button variant="outline" onClick={() => navigate('/')} className="w-full sm:w-auto">
           {t('actions.back')}
         </Button>
 
         {researchResult && (
-          <Button onClick={handleApprove}>
+          <Button onClick={handleApprove} className="w-full sm:w-auto">
             {t('actions.next')}
           </Button>
         )}
