@@ -111,12 +111,30 @@ export function useExportStats(sessionId: string) {
     queryKey: QUERY_KEYS.exportStats(sessionId),
     queryFn: async (): Promise<ExportStats> => {
       console.log('📊 [Export] Fetching stats for session:', sessionId);
-      const response = await fetch(`/api/export-stats?sessionId=${sessionId}`);
+      
+      // Add cache busting and explicit headers
+      const response = await fetch(`/api/export-stats?sessionId=${sessionId}&t=${Date.now()}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache',
+        },
+      });
+      
+      console.log('📡 [Export] Response status:', response.status);
+      console.log('📡 [Export] Response headers:', Object.fromEntries(response.headers.entries()));
+      
+      // Check if we got HTML instead of JSON (authentication issue)
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('text/html')) {
+        console.error('❌ [Export] Got HTML instead of JSON - authentication issue');
+        throw new Error('API authentication error. Please refresh and try again.');
+      }
       
       if (!response.ok) {
         console.error('❌ [Export] Stats fetch failed:', response.status, response.statusText);
         const error = await response.json().catch(() => ({ error: 'Failed to fetch export stats' }));
-        throw new Error(error.error || 'Failed to fetch export stats');
+        throw new Error(error.error || error.message || 'Failed to fetch export stats');
       }
 
       const result = await response.json();
@@ -125,6 +143,8 @@ export function useExportStats(sessionId: string) {
     },
     enabled: !!sessionId,
     staleTime: 30 * 1000, // 30 seconds
+    retry: 3,
+    retryDelay: 1000,
   });
 }
 
