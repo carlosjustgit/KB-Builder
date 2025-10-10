@@ -284,13 +284,18 @@ ${guidelines.prompting_guidance.join('\n')}
     if (!analysisResult || !session) return;
 
     try {
+      console.log('💾 [Visual] Saving visual guidelines...');
+      
       // Save the visual guide rules (JSON)
+      console.log('💾 [Visual] Saving to kb_visual_guides...');
       await saveVisualGuide.mutateAsync({
         sessionId: session.id,
         rules_json: analysisResult.visual_guide,
       });
+      console.log('✅ [Visual] Saved to kb_visual_guides');
 
       // Also save the markdown document to kb_documents
+      console.log('💾 [Visual] Saving to kb_documents...');
       await saveDocument.mutateAsync({
         sessionId: session.id,
         docType: 'visual',
@@ -298,6 +303,7 @@ ${guidelines.prompting_guidance.join('\n')}
         title: 'Visual Brand Guidelines',
         status: 'approved',
       });
+      console.log('✅ [Visual] Saved to kb_documents');
 
       toast({
         variant: 'success',
@@ -307,6 +313,7 @@ ${guidelines.prompting_guidance.join('\n')}
 
       navigate('/export');
     } catch (error) {
+      console.error('❌ [Visual] Save failed:', error);
       toast({
         title: t('notifications.saveFailed.title'),
         description: t('notifications.saveFailed.description'),
