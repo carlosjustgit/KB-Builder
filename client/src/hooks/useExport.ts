@@ -112,13 +112,18 @@ export function useExportStats(sessionId: string) {
     queryFn: async (): Promise<ExportStats> => {
       console.log('📊 [Export] Fetching stats for session:', sessionId);
       
-      // Add cache busting and explicit headers
-      const response = await fetch(`/api/export-stats?sessionId=${sessionId}&t=${Date.now()}`, {
+      // Add EXTREME cache busting and explicit headers
+      const cacheBuster = `${Date.now()}_${Math.random().toString(36).substring(7)}`;
+      const response = await fetch(`/api/export-stats?sessionId=${sessionId}&_cb=${cacheBuster}`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
-          'Cache-Control': 'no-cache',
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0',
         },
+        cache: 'no-store',
       });
       
       console.log('📡 [Export] Response status:', response.status);
@@ -126,9 +131,12 @@ export function useExportStats(sessionId: string) {
       
       // Check if we got HTML instead of JSON (authentication issue)
       const contentType = response.headers.get('content-type');
+      console.log('📡 [Export] Content-Type:', contentType);
+      
       if (contentType && contentType.includes('text/html')) {
-        console.error('❌ [Export] Got HTML instead of JSON - authentication issue');
-        throw new Error('API authentication error. Please refresh and try again.');
+        const htmlText = await response.text();
+        console.error('❌ [Export] Got HTML instead of JSON:', htmlText.substring(0, 200));
+        throw new Error('Browser cache issue. Close all tabs, reopen in new incognito window, and try again.');
       }
       
       if (!response.ok) {
@@ -137,7 +145,16 @@ export function useExportStats(sessionId: string) {
         throw new Error(error.error || error.message || 'Failed to fetch export stats');
       }
 
-      const result = await response.json();
+      let result;
+      try {
+        const text = await response.text();
+        console.log('📡 [Export] Raw response:', text.substring(0, 200));
+        result = JSON.parse(text);
+      } catch (parseError) {
+        console.error('❌ [Export] JSON parse failed:', parseError);
+        throw new Error('Invalid response format. Clear browser cache and try again.');
+      }
+      
       console.log('✅ [Export] Stats loaded:', result.data);
       return result.data;
     },
