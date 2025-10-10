@@ -93,6 +93,38 @@ router.post('/', async (req: Request, res: Response) => {
       researchResult = await performResearch(company_url, locale, step);
     }
 
+    // Save document to database
+    console.log(`💾 Saving ${step} document to database...`);
+    const { data: existingDoc } = await supabase
+      .from('kb_documents')
+      .select('id')
+      .eq('session_id', session_id)
+      .eq('doc_type', step)
+      .single();
+
+    if (existingDoc) {
+      // Update existing document
+      console.log(`📝 Updating existing ${step} document`);
+      await supabase
+        .from('kb_documents')
+        .update({
+          content_md: researchResult.content_md,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', existingDoc.id);
+    } else {
+      // Create new document
+      console.log(`✨ Creating new ${step} document`);
+      await supabase
+        .from('kb_documents')
+        .insert({
+          session_id,
+          doc_type: step,
+          content_md: researchResult.content_md,
+          status: 'draft',
+        });
+    }
+
     // Save sources to database
     if (researchResult.sources && researchResult.sources.length > 0) {
       await supabase
