@@ -47,13 +47,18 @@ export function useCreateVisualGuide() {
       rules_json: VisualGuideRules;
       derived_palettes_json?: Record<string, unknown>;
     }) => {
+      console.log('💾 [VG] Creating visual guide for session:', data.session_id);
       const { data: visualGuide, error } = await supabase
         .from('kb_visual_guides')
         .insert(data)
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ [VG] Create failed:', error);
+        throw new Error(error.message || 'Failed to create visual guide');
+      }
+      console.log('✅ [VG] Created successfully');
       return visualGuide;
     },
     onSuccess: (newVisualGuide) => {
@@ -78,6 +83,7 @@ export function useUpdateVisualGuide() {
       rules_json?: VisualGuideRules;
       derived_palettes_json?: Record<string, unknown>;
     }) => {
+      console.log('💾 [VG] Updating visual guide:', data.visualGuideId);
       const { data: visualGuide, error } = await supabase
         .from('kb_visual_guides')
         .update({
@@ -89,7 +95,11 @@ export function useUpdateVisualGuide() {
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ [VG] Update failed:', error);
+        throw new Error(error.message || 'Failed to update visual guide');
+      }
+      console.log('✅ [VG] Updated successfully');
       return visualGuide;
     },
     onSuccess: (updatedVisualGuide) => {
@@ -115,14 +125,21 @@ export function useSaveVisualGuide() {
       rules_json: VisualGuideRules;
       derived_palettes_json?: Record<string, unknown>;
     }) => {
+      console.log('💾 [VG] Checking for existing guide...');
       // Check if visual guide exists
-      const { data: existingGuide } = await supabase
+      const { data: existingGuide, error: checkError } = await supabase
         .from('kb_visual_guides')
         .select('id')
         .eq('session_id', data.sessionId)
         .single();
 
+      if (checkError && checkError.code !== 'PGRST116') {
+        console.error('❌ [VG] Check failed:', checkError);
+        throw new Error(checkError.message || 'Failed to check for existing guide');
+      }
+
       if (existingGuide) {
+        console.log('📝 [VG] Updating existing guide');
         // Update existing visual guide
         const result = await updateVisualGuide.mutateAsync({
           visualGuideId: existingGuide.id,
@@ -131,6 +148,7 @@ export function useSaveVisualGuide() {
         });
         return result;
       } else {
+        console.log('✨ [VG] Creating new guide');
         // Create new visual guide
         const result = await createVisualGuide.mutateAsync({
           session_id: data.sessionId,
