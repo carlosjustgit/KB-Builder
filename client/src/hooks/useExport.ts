@@ -110,14 +110,17 @@ export function useExportStats(sessionId: string) {
   return useQuery({
     queryKey: QUERY_KEYS.exportStats(sessionId),
     queryFn: async (): Promise<ExportStats> => {
-      const response = await fetch(`/api/export/stats/${sessionId}`);
+      console.log('📊 [Export] Fetching stats for session:', sessionId);
+      const response = await fetch(`/api/export/stats?sessionId=${sessionId}`);
       
       if (!response.ok) {
-        const error = await response.json();
+        console.error('❌ [Export] Stats fetch failed:', response.status, response.statusText);
+        const error = await response.json().catch(() => ({ error: 'Failed to fetch export stats' }));
         throw new Error(error.error || 'Failed to fetch export stats');
       }
 
       const result = await response.json();
+      console.log('✅ [Export] Stats loaded:', result.data);
       return result.data;
     },
     enabled: !!sessionId,
