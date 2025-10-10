@@ -126,13 +126,18 @@ export function Welcome() {
   const onSubmit = async (formData: WelcomeForm) => {
     // Auto-prepend https:// if no protocol is present
     let companyUrl = formData.company_url;
+    console.log('🔍 Original URL from form:', companyUrl);
     if (companyUrl && !companyUrl.match(/^https?:\/\//i)) {
       companyUrl = `https://${companyUrl}`;
+      console.log('✅ Prepended https:// → New URL:', companyUrl);
+    } else {
+      console.log('✅ URL already has protocol:', companyUrl);
     }
 
     console.log('🚀 Form submitted with:', formData);
     console.log('📍 Selected locale:', selectedLocale);
     console.log('💾 Current localStorage session ID:', localStorage.getItem('kb_session_id'));
+    console.log('🌐 Final URL being saved:', companyUrl);
 
     try {
       // Create a new session (RLS is disabled for development)
