@@ -12,6 +12,7 @@ import { z } from 'zod';
 import type { Locale } from '@/lib/i18n';
 import { useCreateSession, useSessionFromParams } from '@/hooks/useSession';
 import { useToast } from '@/hooks/use-toast.tsx';
+import { useQueryClient } from '@tanstack/react-query';
 
 type WelcomeForm = {
   company_url: string;
@@ -19,6 +20,7 @@ type WelcomeForm = {
 
 export function Welcome() {
   const { t, i18n } = useTranslation('step-welcome');
+  const queryClient = useQueryClient();
   
   // Define schema inside component to access translations
   const welcomeSchema = z.object({
@@ -26,10 +28,19 @@ export function Welcome() {
   });
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [selectedLocale, setSelectedLocale] = useState<Locale>('en-US');
+  // Initialize from current i18n language instead of hardcoding 'en-US'
+  const [selectedLocale, setSelectedLocale] = useState<Locale>((i18n.language as Locale) || 'en-US');
   const [showStartFreshDialog, setShowStartFreshDialog] = useState(false);
   const createSession = useCreateSession();
   const { data: existingSession, isLoading: sessionLoading } = useSessionFromParams();
+
+  // Sync selectedLocale with current i18n language on mount
+  useEffect(() => {
+    const currentLang = i18n.language as Locale;
+    if (currentLang && currentLang !== selectedLocale) {
+      setSelectedLocale(currentLang);
+    }
+  }, [i18n.language]);
 
   // Check for existing session on component mount
   useEffect(() => {
@@ -54,7 +65,17 @@ export function Welcome() {
     console.log('🗑️ Starting fresh - creating new session...');
     
     try {
+      // Clear session ID from localStorage
       localStorage.removeItem('kb_session_id');
+      
+      // Clear i18n language from localStorage and reset to default
+      localStorage.removeItem('i18nextLng');
+      const defaultLanguage: Locale = 'en-US';
+      await i18n.changeLanguage(defaultLanguage);
+      setSelectedLocale(defaultLanguage);
+      
+      // Clear all cached queries to ensure fresh state
+      queryClient.clear();
       
       toast({
         title: t('session.cleared.title'),

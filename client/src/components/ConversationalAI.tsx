@@ -5,6 +5,16 @@ import { Send, User, Loader2, Trash2 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast.tsx";
 import { useTranslation } from "react-i18next";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface ChatMessage {
   id: string;
@@ -24,6 +34,7 @@ interface ConversationalAIProps {
 
 export function ConversationalAI({ currentStep, companyUrl, sessionId, currentContent, userLanguage }: ConversationalAIProps) {
   const [inputValue, setInputValue] = useState("");
+  const [showClearDialog, setShowClearDialog] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -138,11 +149,12 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
   };
 
   const handleClearChat = () => {
-    const confirmed = window.confirm(t('chat.clearConfirm'));
-    
-    if (confirmed) {
-      clearChatMutation.mutate();
-    }
+    setShowClearDialog(true);
+  };
+
+  const confirmClearChat = () => {
+    clearChatMutation.mutate();
+    setShowClearDialog(false);
   };
 
   useEffect(() => {
@@ -257,6 +269,24 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
           )}
         </div>
       </div>
+
+      {/* Clear Chat Confirmation Dialog */}
+      <AlertDialog open={showClearDialog} onOpenChange={setShowClearDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('chat.clearConfirm')}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {t('chat.clearConfirmDescription')}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{t('actions.cancel')}</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmClearChat} className="bg-red-600 hover:bg-red-700">
+              {t('actions.confirm')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
