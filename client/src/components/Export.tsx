@@ -131,7 +131,9 @@ export function Export({ sessionId, className }: ExportProps) {
                 >
                   <FileText className="w-5 h-5" />
                   <span>{t('generate.formatJson')}</span>
-                  <span className="text-xs text-muted-foreground">{t('generate.formatJsonDesc')}</span>
+                  <span className={`text-xs ${exportOptions.format === 'json' ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
+                    {t('generate.formatJsonDesc')}
+                  </span>
                 </Button>
                 <Button
                   variant={exportOptions.format === 'zip' ? 'default' : 'outline'}
@@ -140,7 +142,9 @@ export function Export({ sessionId, className }: ExportProps) {
                 >
                   <Archive className="w-5 h-5" />
                   <span>{t('generate.formatZip')}</span>
-                  <span className="text-xs text-muted-foreground">{t('generate.formatZipDesc')}</span>
+                  <span className={`text-xs ${exportOptions.format === 'zip' ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
+                    {t('generate.formatZipDesc')}
+                  </span>
                 </Button>
               </div>
             </div>

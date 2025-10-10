@@ -24,7 +24,10 @@
     "researching": "A pesquisar...",
     "generating": "A gerar...",
     "uploading": "A carregar...",
-    "exporting": "A exportar..."
+    "exporting": "A exportar...",
+    "approved": "aprovado",
+    "draft": "rascunho",
+    "pending": "pendente"
   },
   "errors": {
     "generic": "Algo correu mal. Por favor, tente novamente.",

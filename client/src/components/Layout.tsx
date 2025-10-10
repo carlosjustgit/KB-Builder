@@ -185,7 +185,7 @@ export function Layout({ children }: LayoutProps) {
                                   ? 'bg-green-100 text-green-800' 
                                   : 'bg-yellow-100 text-yellow-800'
                               }`}>
-                                {doc.status}
+                                {t(`status.${doc.status}`)}
                               </span>
                             </div>
                             {doc.title && (
@@ -214,9 +214,11 @@ export function Layout({ children }: LayoutProps) {
                       <div className="space-y-3">
                         {sources.map((source) => (
                           <div key={source.id} className="border rounded-lg p-3">
-                            <div className="flex items-start justify-between mb-2">
-                              <h4 className="font-medium text-sm">{source.url}</h4>
-                              <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded">
+                            <div className="flex items-start justify-between gap-2 mb-2">
+                              <h4 className="font-medium text-sm truncate flex-1 min-w-0">
+                                {source.url}
+                              </h4>
+                              <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded whitespace-nowrap flex-shrink-0">
                                 {source.provider || 'Unknown'}
                               </span>
                             </div>
@@ -224,12 +226,12 @@ export function Layout({ children }: LayoutProps) {
                               href={source.url} 
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="text-xs text-blue-600 hover:underline block mb-2"
+                              className="text-xs text-blue-600 hover:underline block mb-2 break-all"
                             >
                               {source.url}
                             </a>
                             {source.snippet && (
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-xs text-muted-foreground break-words">
                                 {source.snippet.substring(0, 150)}...
                               </p>
                             )}

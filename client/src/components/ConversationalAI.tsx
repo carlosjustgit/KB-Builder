@@ -146,7 +146,9 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
   };
 
   useEffect(() => {
-    scrollAreaRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    }
   }, [messages, sendMessageMutation.isPending]);
 
   const isLoading = sendMessageMutation.isPending;
@@ -188,7 +190,11 @@ export function ConversationalAI({ currentStep, companyUrl, sessionId, currentCo
                   }`}
                 >
                   <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                  <span className="block text-xs text-muted-foreground mt-1">
+                  <span className={`block text-xs mt-1 ${
+                    message.role === "user"
+                      ? "text-primary-foreground/70"
+                      : "text-muted-foreground"
+                  }`}>
                     {new Date(message.timestamp).toLocaleTimeString()}
                   </span>
                 </div>

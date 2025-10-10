@@ -24,7 +24,10 @@
     "researching": "Researching...",
     "generating": "Generating...",
     "uploading": "Uploading...",
-    "exporting": "Exporting..."
+    "exporting": "Exporting...",
+    "approved": "approved",
+    "draft": "draft",
+    "pending": "pending"
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",

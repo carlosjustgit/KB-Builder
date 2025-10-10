@@ -24,7 +24,10 @@
     "researching": "Pesquisando...",
     "generating": "Gerando...",
     "uploading": "Enviando...",
-    "exporting": "Exportando..."
+    "exporting": "Exportando...",
+    "approved": "aprovado",
+    "draft": "rascunho",
+    "pending": "pendente"
   },
   "errors": {
     "generic": "Algo deu errado. Por favor, tente novamente.",
