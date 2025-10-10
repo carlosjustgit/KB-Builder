@@ -20,35 +20,72 @@ export function useResearch() {
       step: 'research' | 'brand' | 'services' | 'market' | 'competitors';
       sessionId: string;
     }): Promise<ResearchResponse> => {
-      const response = await fetch('/api/research', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          company_url: data.companyUrl,
-          locale: data.locale,
-          step: data.step,
-          session_id: data.sessionId,
-        }),
+      console.log('🔍 [Research] Starting API call:', { 
+        url: data.companyUrl, 
+        step: data.step,
+        locale: data.locale 
       });
 
-      if (!response.ok) {
+      // Create abort controller for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
+
+      try {
+        const response = await fetch('/api/research', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            company_url: data.companyUrl,
+            locale: data.locale,
+            step: data.step,
+            session_id: data.sessionId,
+          }),
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+        console.log('📡 [Research] Response received:', { status: response.status, ok: response.ok });
+
+        if (!response.ok) {
         let errorMessage = 'Research failed';
         try {
           const error = await response.json();
           errorMessage = error.message || error.error || 'Research failed';
-        } catch {
+          console.error('❌ [Research] API Error:', { status: response.status, error });
+        } catch (parseError) {
           // If response is not JSON, use status text
           errorMessage = response.statusText || 'Research failed';
+          console.error('❌ [Research] Non-JSON Error:', { 
+            status: response.status, 
+            statusText: response.statusText,
+            parseError 
+          });
         }
         throw new Error(errorMessage);
       }
 
-      try {
-        return await response.json();
+        try {
+          return await response.json();
+        } catch (error) {
+          console.error('❌ [Research] JSON Parse Error:', error);
+          throw new Error('Invalid response format from server');
+        }
       } catch (error) {
-        throw new Error('Invalid response format from server');
+        clearTimeout(timeoutId);
+        
+        if (error instanceof Error) {
+          if (error.name === 'AbortError') {
+            console.error('❌ [Research] Timeout - Request took longer than 60 seconds');
+            throw new Error('Request timed out. Please try again or check your internet connection.');
+          }
+          console.error('❌ [Research] Network Error:', error);
+          throw error;
+        }
+        
+        console.error('❌ [Research] Unknown Error:', error);
+        throw new Error('Network error. Please check your internet connection and try again.');
       }
     },
     onSuccess: (_, variables) => {
