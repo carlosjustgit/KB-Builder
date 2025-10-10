@@ -108,7 +108,7 @@ export function useGenerateExport() {
  */
 export function useExportStats(sessionId: string) {
   return useQuery({
-    queryKey: QUERY_KEYS.exportStats(sessionId),
+    queryKey: [...QUERY_KEYS.exportStats(sessionId), 'v2'], // Added version to break cache
     queryFn: async (): Promise<ExportStats> => {
       console.log('📊 [Export] Fetching stats for session:', sessionId);
       
@@ -159,9 +159,12 @@ export function useExportStats(sessionId: string) {
       return result.data;
     },
     enabled: !!sessionId,
-    staleTime: 30 * 1000, // 30 seconds
+    staleTime: 0, // No cache - always fetch fresh
+    gcTime: 0, // No garbage collection cache
     retry: 3,
     retryDelay: 1000,
+    refetchOnMount: 'always', // Always refetch on mount
+    refetchOnWindowFocus: false,
   });
 }
 
