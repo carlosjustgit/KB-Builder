@@ -9,6 +9,9 @@ import { useStepContent } from '@/contexts/StepContentContext';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
+import { useDocuments } from '@/hooks/useDocuments';
+import { useSources } from '@/hooks/useSources';
+import { SmartDiscoveryBar } from './discovery/SmartDiscoveryBar';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -34,6 +37,10 @@ export function Layout({ children }: LayoutProps) {
 
   const currentStep = getCurrentStep();
   const { currentStepContent } = useStepContent();
+
+  // Fetch documents and sources for sidebar
+  const { data: documents } = useDocuments(session?.id || '');
+  const { data: sources } = useSources(session?.id || '');
 
   // Fetch current step content from database
   const { data: dbStepContent } = useQuery({
@@ -99,19 +106,27 @@ export function Layout({ children }: LayoutProps) {
       {/* Header */}
       <header className="border-b border-border p-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="witfy-gradient rounded-md p-2">
-              <span className="text-white font-bold text-lg">KB</span>
-            </div>
+          <div className="flex items-center space-x-3">
+            <img 
+              src="/logo-Witfy-icon-main.png" 
+              alt="Witfy Logo" 
+              className="h-10 w-10 object-contain"
+            />
             <h1 className="text-2xl font-bold witfy-text-gradient">
-              Builder
+              Witfy Origin
             </h1>
           </div>
 
-          {/* Progress indicator (placeholder) */}
-          <div className="text-sm text-muted-foreground">
-            Step 1 of 7
-          </div>
+          {/* Launch Witfy Button */}
+          <a 
+            href="https://app.witfy.social/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <Button className="witfy-gradient text-white hover:opacity-90 transition-opacity">
+              🚀 {t('actions.launchWitfy')}
+            </Button>
+          </a>
         </div>
       </header>
 
@@ -146,9 +161,9 @@ export function Layout({ children }: LayoutProps) {
                 ) : (
                   <Card className="m-4 border-0 shadow-none">
                     <CardContent className="p-4">
-                      <h3 className="font-semibold mb-2">AI Chat</h3>
+                      <h3 className="font-semibold mb-2">{t('chat.title')}</h3>
                       <p className="text-sm text-muted-foreground">
-                        Start a session to chat with the AI about your research.
+                        {t('chat.noSession')}
                       </p>
                     </CardContent>
                   </Card>
@@ -158,10 +173,35 @@ export function Layout({ children }: LayoutProps) {
               <TabsContent value="summary" className="mt-0 h-full">
                 <Card className="m-4 border-0 shadow-none">
                   <CardContent className="p-4">
-                    <h3 className="font-semibold mb-2">Project Summary</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Your knowledge base summary will appear here as you progress through the wizard.
-                    </p>
+                    <h3 className="font-semibold mb-2">{t('sidebar.summary.title')}</h3>
+                    {documents && documents.length > 0 ? (
+                      <div className="space-y-3">
+                        {documents.map((doc) => (
+                          <div key={doc.id} className="border rounded-lg p-3">
+                            <div className="flex items-center justify-between mb-2">
+                              <h4 className="font-medium capitalize">{doc.doc_type}</h4>
+                              <span className={`text-xs px-2 py-1 rounded ${
+                                doc.status === 'approved' 
+                                  ? 'bg-green-100 text-green-800' 
+                                  : 'bg-yellow-100 text-yellow-800'
+                              }`}>
+                                {doc.status}
+                              </span>
+                            </div>
+                            {doc.title && (
+                              <p className="text-sm text-muted-foreground mb-2">{doc.title}</p>
+                            )}
+                            <p className="text-xs text-muted-foreground">
+                              {doc.content_md?.substring(0, 100)}...
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        {t('sidebar.summary.placeholder')}
+                      </p>
+                    )}
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -169,10 +209,38 @@ export function Layout({ children }: LayoutProps) {
               <TabsContent value="sources" className="mt-0 h-full">
                 <Card className="m-4 border-0 shadow-none">
                   <CardContent className="p-4">
-                    <h3 className="font-semibold mb-2">Sources</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Research sources and citations will appear here.
-                    </p>
+                    <h3 className="font-semibold mb-2">{t('sidebar.sources.title')}</h3>
+                    {sources && sources.length > 0 ? (
+                      <div className="space-y-3">
+                        {sources.map((source) => (
+                          <div key={source.id} className="border rounded-lg p-3">
+                            <div className="flex items-start justify-between mb-2">
+                              <h4 className="font-medium text-sm">{source.url}</h4>
+                              <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded">
+                                {source.provider || 'Unknown'}
+                              </span>
+                            </div>
+                            <a 
+                              href={source.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-xs text-blue-600 hover:underline block mb-2"
+                            >
+                              {source.url}
+                            </a>
+                            {source.snippet && (
+                              <p className="text-xs text-muted-foreground">
+                                {source.snippet.substring(0, 150)}...
+                              </p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        {t('sidebar.sources.noSources')}
+                      </p>
+                    )}
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -181,30 +249,8 @@ export function Layout({ children }: LayoutProps) {
         </aside>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t border-border p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            {/* Locale selector placeholder */}
-            <div className="text-sm">
-              <span className="text-muted-foreground">Language: </span>
-              <span className="font-medium">en-US</span>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm">
-              {t('actions.save')}
-            </Button>
-            <Button variant="outline" size="sm">
-              {t('actions.exportJSON')}
-            </Button>
-            <Button size="sm">
-              {t('actions.downloadZIP')}
-            </Button>
-          </div>
-        </div>
-      </footer>
+      {/* Footer - Smart Discovery Bar */}
+      <SmartDiscoveryBar />
     </div>
   );
 }
