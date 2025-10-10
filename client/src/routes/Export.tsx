@@ -89,17 +89,17 @@ export function ExportStep() {
 
       {/* Navigation */}
       <Card>
-        <CardContent className="flex items-center justify-between p-6">
+        <CardContent className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 p-4 sm:p-6">
           <Button
             variant="outline"
             onClick={handlePrevious}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full sm:w-auto"
           >
             <ArrowLeft className="w-4 h-4" />
             {t('navigation.back')}
           </Button>
 
-          <div className="text-center">
+          <div className="text-center order-first sm:order-none">
             <p className="text-sm text-muted-foreground">
               {t('navigation.session')} {session.id.slice(0, 8)}...
             </p>
@@ -110,7 +110,7 @@ export function ExportStep() {
 
           <Button
             onClick={handleComplete}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 w-full sm:w-auto"
           >
             {t('navigation.complete')}
             <ArrowRight className="w-4 h-4" />

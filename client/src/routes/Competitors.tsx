@@ -306,11 +306,11 @@ export function Competitors() {
 
       {/* Navigation */}
       <Card>
-        <CardContent className="flex items-center justify-between p-6">
+        <CardContent className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 p-4 sm:p-6">
           <Button
             variant="outline"
             onClick={() => navigate('/market')}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full sm:w-auto"
           >
             <ArrowLeft className="w-4 h-4" />
             {t('actions.back')}
@@ -319,7 +319,7 @@ export function Competitors() {
           <Button
             onClick={handleNext}
             disabled={!hasGenerated}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full sm:w-auto"
           >
             {t('actions.next')}
             <ArrowRight className="w-4 h-4" />

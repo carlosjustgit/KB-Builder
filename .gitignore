@@ -46,3 +46,4 @@ exports/
 *.zip
 
 .env.backup
+.vercel

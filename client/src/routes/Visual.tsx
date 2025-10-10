@@ -834,12 +834,12 @@ ${guidelines.prompting_guidance.join('\n')}
               </Card>
 
               {/* Actions */}
-              <div className="flex justify-between">
-                <Button variant="outline" onClick={() => navigate('/competitors')}>
+              <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
+                <Button variant="outline" onClick={() => navigate('/competitors')} className="w-full sm:w-auto">
                   {t('actions.back')}
                 </Button>
 
-                <Button onClick={handleSaveGuidelines}>
+                <Button onClick={handleSaveGuidelines} className="w-full sm:w-auto">
                   {t('actions.saveGuidelines')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
