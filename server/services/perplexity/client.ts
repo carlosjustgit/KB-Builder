@@ -30,6 +30,10 @@ export async function performResearch(
     console.log(`🔍 Starting research for ${step} (attempt ${retryCount + 1}/${maxRetries + 1})`);
     
     const prompt = generatePrompt(companyUrl, locale, step);
+    
+    // Extract domain from URL for search filtering
+    const domain = extractDomainFromUrl(companyUrl);
+    console.log(`🔍 Filtering search to domain: ${domain}`);
 
     const response = await fetch(PERPLEXITY_API_URL, {
       method: 'POST',
@@ -45,10 +49,10 @@ export async function performResearch(
             content: `You are a professional business researcher. Your job is to provide ACCURATE, VERIFIED information about companies.
 
 🚨 CRITICAL ACCURACY REQUIREMENTS 🚨
-- ONLY use information from official company sources (website, social media, press releases)
-- VERIFY facts by cross-referencing multiple sources
-- If information conflicts, prioritize official company sources
-- If you cannot find specific information, state "Information not available" rather than guessing
+- ONLY use information from the company's official website and related sources
+- VERIFY facts by cross-referencing multiple pages from the same website
+- If information conflicts, prioritize the official website content
+- If you cannot find specific information on the website, state "Information not available" rather than guessing
 - NEVER make up or assume facts about founding dates, locations, or company history
 - Always cite your sources with URLs
 - DO NOT include reasoning tags like <think> or internal processing steps
@@ -57,7 +61,7 @@ export async function performResearch(
 ⚠️ ANTI-HALLUCINATION PROTOCOL:
 - Before stating ANY fact, ask yourself: "Do I have a direct source for this?"
 - If uncertain about ANY detail, write "Information not available" instead
-- Cross-reference founding dates, locations, and company history from multiple sources
+- Cross-reference information from multiple pages on the website
 - If sources conflict, state the conflict and cite both sources
 - NEVER fill in gaps with assumptions or generic information
 
@@ -70,6 +74,7 @@ Your credibility depends on accuracy. False information damages trust and busine
         ],
         temperature: 0.3, // Lower temperature for more factual responses
         max_tokens: 4000, // Increased for comprehensive responses
+        search_domain_filter: [domain], // Restrict search to specific domain
       }),
     });
 
@@ -177,6 +182,10 @@ export async function performResearchWithContext(
     console.log('🏢 Company URL:', companyUrl);
     
     const prompt = generatePromptWithContext(companyUrl, locale, step, context);
+    
+    // Extract domain from URL for search filtering
+    const domain = extractDomainFromUrl(companyUrl);
+    console.log(`🔍 Filtering search to domain: ${domain}`);
 
     const response = await fetch(PERPLEXITY_API_URL, {
       method: 'POST',
@@ -198,6 +207,7 @@ export async function performResearchWithContext(
         ],
         temperature: 0.7, // Balance creativity and consistency
         max_tokens: 2000, // Sufficient for research responses
+        search_domain_filter: [domain], // Restrict search to specific domain
       }),
     });
 
@@ -302,6 +312,19 @@ function extractBaseUrl(url: string): string {
   } catch {
     // If URL parsing fails, return as-is
     return url;
+  }
+}
+
+/**
+ * Extract domain from URL for search filtering (domain only, no protocol)
+ */
+function extractDomainFromUrl(url: string): string {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname; // Returns just the domain, e.g., "lionheart.business"
+  } catch {
+    // If URL parsing fails, try to clean up the string
+    return url.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
   }
 }
 
