@@ -3,6 +3,23 @@ import { z } from 'zod';
 import { performResearch, performResearchWithContext } from '../server/services/perplexity/client.js';
 import { supabase } from '../server/services/supabase/client.js';
 
+/**
+ * Normalize URL by adding https:// if no protocol is present
+ */
+function normalizeUrl(url: string): string {
+  if (!url) return url;
+  
+  const trimmed = url.trim();
+  
+  // If already has protocol, return as-is
+  if (trimmed.match(/^https?:\/\//i)) {
+    return trimmed;
+  }
+  
+  // Add https:// prefix
+  return `https://${trimmed}`;
+}
+
 // Validation schema
 const ResearchRequestSchema = z.object({
   company_url: z.string().url(),
@@ -35,6 +52,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    // Normalize URL before validation
+    if (req.body.company_url) {
+      req.body.company_url = normalizeUrl(req.body.company_url);
+      console.log('🔧 Normalized URL:', req.body.company_url);
+    }
+    
     // Validate request
     const result = ResearchRequestSchema.safeParse(req.body);
 

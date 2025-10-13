@@ -418,7 +418,9 @@ function performFactCheck(content: string, sources: Array<{ url: string; snippet
  * Generate brand overview research prompt
  */
 function generateBrandOverviewPrompt(companyUrl: string, locale: string): string {
-  return `Research the company at ${companyUrl} and provide a comprehensive brand overview.
+  return `Research the company with website ${companyUrl} and provide a comprehensive brand overview.
+
+IMPORTANT: Visit and analyze the website at ${companyUrl} to gather accurate information about this company.
 
 🚨 CRITICAL ACCURACY REQUIREMENTS 🚨
 - ONLY use information from official company sources (website, social media, press releases)
@@ -481,7 +483,9 @@ Format your response as:
  * Generate comprehensive brand identity document
  */
 function generateBrandTonePrompt(companyUrl: string, locale: string): string {
-  return `Create a comprehensive brand identity document for the company at ${companyUrl}. Reference the research data from step 1 to understand their business model, target audience, and market positioning.
+  return `Create a comprehensive brand identity document for the company with website ${companyUrl}. Reference the research data from step 1 to understand their business model, target audience, and market positioning.
+
+IMPORTANT: The company's website is ${companyUrl}. Use this information along with the research data provided.
 
 Requirements:
 - Output in ${locale} language
@@ -507,7 +511,9 @@ Provide 3-5 relevant sources with URLs and short snippets that support your anal
  * Generate services research prompt
  */
 function generateServicesPrompt(companyUrl: string, locale: string): string {
-  return `Research the main services offered by the company at ${companyUrl}. Reference the research data from step 1 to understand their business model and service offerings.
+  return `Research the main services offered by the company with website ${companyUrl}. Reference the research data from step 1 to understand their business model and service offerings.
+
+IMPORTANT: The company's website is ${companyUrl}. Visit this site if needed to identify their core services.
 
 Requirements:
 - Output in ${locale} language
@@ -534,7 +540,9 @@ Sources:
  * Generate market trends research prompt
  */
 function generateMarketTrendsPrompt(companyUrl: string, locale: string): string {
-  return `Research current market trends that affect the business at ${companyUrl}. Reference the research data from step 1 to understand their industry and market positioning.
+  return `Research current market trends that affect the business with website ${companyUrl}. Reference the research data from step 1 to understand their industry and market positioning.
+
+IMPORTANT: The company's website is ${companyUrl}. Use the research data to understand their industry context.
 
 Requirements:
 - Output in ${locale} language
@@ -569,7 +577,9 @@ Sources:
  * Generate competitors research prompt
  */
 function generateCompetitorsPrompt(companyUrl: string, locale: string): string {
-  return `You have access to detailed research data from step 1 about the company at ${companyUrl}. Use this information to identify and analyze 3 relevant competitors in their market space.
+  return `You have access to detailed research data from step 1 about the company with website ${companyUrl}. Use this information to identify and analyze 3 relevant competitors in their market space.
+
+IMPORTANT: The company's website is ${companyUrl}. Use the research data from step 1 to understand what market they operate in.
 
 IMPORTANT: You MUST use the research data provided in the context to understand:
 - What this company does (their business model, services, target audience)
