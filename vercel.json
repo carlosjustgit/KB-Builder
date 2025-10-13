@@ -1,7 +1,7 @@
 {
-  "buildCommand": "pnpm run build",
+  "buildCommand": "pnpm install && pnpm run build",
   "outputDirectory": "client/dist",
-  "installCommand": "pnpm install",
+  "installCommand": "pnpm install --frozen-lockfile",
   "framework": null,
   "functions": {
     "api/**/*.ts": {
