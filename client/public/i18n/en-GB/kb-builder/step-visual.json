@@ -25,6 +25,7 @@
       "analyzeButton": "Analyse images",
       "status": {
         "uploading": "uploading",
+        "uploaded": "uploaded",
         "analyzing": "analysing",
         "analyzed": "analysed",
         "error": "error",

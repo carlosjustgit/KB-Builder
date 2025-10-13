@@ -55,8 +55,8 @@ export function Layout({ children }: LayoutProps) {
         isWelcome: currentStep === 'welcome'
       });
 
-      if (!session?.id || !currentStep || currentStep === 'welcome') {
-        console.log('❌ Skipping content fetch - no session or welcome step');
+      if (!session?.id || !currentStep || currentStep === 'welcome' || currentStep === 'export') {
+        console.log('❌ Skipping content fetch - no session, welcome step, or export step');
         return null;
       }
 
@@ -97,7 +97,7 @@ export function Layout({ children }: LayoutProps) {
       console.log('✅ Found content for step:', currentStep, 'Length:', data[0].content_md.length);
       return data[0].content_md;
     },
-    enabled: !!session?.id && !!currentStep && currentStep !== 'welcome',
+    enabled: !!session?.id && !!currentStep && currentStep !== 'welcome' && currentStep !== 'export',
     refetchInterval: 2000, // Refetch every 2 seconds to catch updates
   });
 

@@ -11,6 +11,11 @@ export function useCurrentStepContent(sessionId: string, currentStep: string) {
     queryFn: async () => {
       if (!sessionId || !currentStep) return null;
 
+      // Skip export page - it's not a document-generating step
+      if (currentStep === 'export' || currentStep === 'welcome') {
+        return null;
+      }
+
       // First, try to get saved document
       const { data: savedDoc } = await supabase
         .from('kb_documents')
@@ -44,7 +49,7 @@ export function useCurrentStepContent(sessionId: string, currentStep: string) {
       // If still no content, return a helpful message
       return null;
     },
-    enabled: !!sessionId && !!currentStep && currentStep !== 'welcome',
+    enabled: !!sessionId && !!currentStep && currentStep !== 'welcome' && currentStep !== 'export',
     staleTime: 10000, // 10 seconds - shorter for more real-time updates
   });
 }
