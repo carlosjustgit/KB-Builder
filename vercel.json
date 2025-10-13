@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd client && pnpm install && pnpm run build",
+  "buildCommand": "pnpm run build",
   "outputDirectory": "client/dist",
   "installCommand": "pnpm install",
   "framework": null,
@@ -10,6 +10,10 @@
     }
   },
   "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
@@ -22,6 +26,14 @@
         {
           "key": "Access-Control-Allow-Origin",
           "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
         }
       ]
     }

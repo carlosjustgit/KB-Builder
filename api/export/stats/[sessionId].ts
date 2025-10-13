@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '../server/services/supabase/client.js';
+import { supabase } from '../../../server/services/supabase/client.js';
 
 /**
- * GET /api/export-stats?sessionId=xxx
+ * GET /api/export/stats/:sessionId
  * Get export statistics for a session
  */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
