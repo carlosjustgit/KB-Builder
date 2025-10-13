@@ -114,7 +114,7 @@ export function useExportStats(sessionId: string) {
       
       // Add EXTREME cache busting and explicit headers
       const cacheBuster = `${Date.now()}_${Math.random().toString(36).substring(7)}`;
-      const response = await fetch(`/api/export-stats?sessionId=${sessionId}&_cb=${cacheBuster}`, {
+      const response = await fetch(`/api/export/stats/${sessionId}?_cb=${cacheBuster}`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
