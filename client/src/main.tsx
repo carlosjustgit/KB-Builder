@@ -8,6 +8,7 @@ import './lib/i18n';
 // Components
 import { Layout } from './components/Layout';
 import { Toaster } from './components/ui/toaster';
+import { CookieConsent } from './components/CookieConsent';
 import { StepContentProvider } from './contexts/StepContentContext';
 import { ToastProvider } from './hooks/use-toast.tsx';
 
@@ -60,6 +61,7 @@ setTimeout(() => {
                 </Layout>
               </StepContentProvider>
               <Toaster />
+              <CookieConsent />
             </BrowserRouter>
           </ToastProvider>
         </QueryClientProvider>
