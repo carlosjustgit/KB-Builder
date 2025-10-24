@@ -87,7 +87,14 @@ export function useUploadImage() {
 
       // Upload file to storage
       const timestamp = Date.now();
-      const fileName = `${timestamp}-${data.file.name}`;
+      // Sanitize filename: remove special characters, replace spaces with hyphens
+      const sanitizedName = data.file.name
+        .normalize('NFD') // Decompose accented characters
+        .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+        .replace(/[^a-zA-Z0-9._-]/g, '-') // Replace non-alphanumeric with hyphens
+        .replace(/--+/g, '-') // Replace multiple hyphens with single hyphen
+        .toLowerCase();
+      const fileName = `${timestamp}-${sanitizedName}`;
       const filePath = `images/user/${data.sessionId}/${fileName}`;
 
       console.log('📤 Uploading to path:', filePath);
