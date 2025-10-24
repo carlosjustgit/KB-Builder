@@ -8,7 +8,7 @@ export default defineConfig({
   root: 'client',
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './client/src'),
     },
   },
   server: {
@@ -17,6 +17,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3001',
         changeOrigin: true,
+        rewrite: (path) => path,
       },
     },
   },
