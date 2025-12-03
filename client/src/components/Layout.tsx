@@ -112,11 +112,10 @@ export function Layout({ children }: LayoutProps) {
 
   // Sidebar Content Component (reusable for both desktop and mobile)
   const SidebarContent = () => (
-    <Tabs defaultValue="chat" className="h-full flex flex-col">
-      <TabsList className="grid w-full grid-cols-2 m-4 mb-0">
-        {/* <TabsTrigger value="chat">💬 Chat</TabsTrigger> */}
-        <TabsTrigger value="summary">{t('tabs.summary')}</TabsTrigger>
-        <TabsTrigger value="sources">{t('tabs.sources')}</TabsTrigger>
+    <Tabs defaultValue="summary" className="h-full flex flex-col">
+      <TabsList className="grid w-full grid-cols-2 gap-2 m-4 mb-2 h-11">
+        <TabsTrigger value="summary" className="text-base">{t('tabs.summary')}</TabsTrigger>
+        <TabsTrigger value="sources" className="text-base">{t('tabs.sources')}</TabsTrigger>
       </TabsList>
 
       <div className="flex-1 overflow-auto">
