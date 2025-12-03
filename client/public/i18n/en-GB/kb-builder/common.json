@@ -71,5 +71,39 @@
       "noSources": "No sources yet"
     }
   },
-  "optional": "Optional"
+  "optional": "Optional",
+  "toast": {
+    "upload": {
+      "success": {
+        "title": "Images uploaded",
+        "description": "{{count}} image(s) uploaded successfully"
+      },
+      "failed": {
+        "title": "Upload failed",
+        "description": "Failed to upload images. Please try again."
+      },
+      "imported": {
+        "title": "Image imported",
+        "description": "Image imported from URL successfully"
+      },
+      "importFailed": {
+        "title": "Import failed",
+        "description": "Failed to import image from URL"
+      },
+      "noImages": {
+        "title": "No images selected",
+        "description": "Please upload at least one image to analyse"
+      }
+    },
+    "generation": {
+      "testImages": {
+        "title": "Test images generated",
+        "description": "Generated {{count}} test image(s) successfully"
+      },
+      "failed": {
+        "title": "Generation failed",
+        "description": "Failed to generate images. Please try again."
+      }
+    }
+  }
 }

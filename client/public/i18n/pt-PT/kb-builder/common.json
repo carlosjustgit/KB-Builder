@@ -71,5 +71,39 @@
       "noSources": "Ainda não há fontes"
     }
   },
-  "optional": "Opcional"
+  "optional": "Opcional",
+  "toast": {
+    "upload": {
+      "success": {
+        "title": "Imagens carregadas",
+        "description": "{{count}} imagem(ns) carregada(s) com sucesso"
+      },
+      "failed": {
+        "title": "Carregamento falhou",
+        "description": "Falha ao carregar imagens. Por favor, tente novamente."
+      },
+      "imported": {
+        "title": "Imagem importada",
+        "description": "Imagem importada do URL com sucesso"
+      },
+      "importFailed": {
+        "title": "Importação falhou",
+        "description": "Falha ao importar imagem do URL"
+      },
+      "noImages": {
+        "title": "Nenhuma imagem selecionada",
+        "description": "Por favor, carregue pelo menos uma imagem para analisar"
+      }
+    },
+    "generation": {
+      "testImages": {
+        "title": "Imagens de teste geradas",
+        "description": "{{count}} imagem(ns) de teste gerada(s) com sucesso"
+      },
+      "failed": {
+        "title": "Geração falhou",
+        "description": "Falha ao gerar imagens. Por favor, tente novamente."
+      }
+    }
+  }
 }
