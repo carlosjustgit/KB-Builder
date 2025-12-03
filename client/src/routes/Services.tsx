@@ -22,7 +22,7 @@ export function Services() {
   
   const { data: session } = useSession();
   const { performResearch, isLoading, error, reset } = useResearchWithState();
-  const { performManualResearch, isLoading: isManualLoading, reset: resetManual } = useManualResearch();
+  const { performManualResearch, reset: resetManual } = useManualResearch();
   const saveDocument = useSaveDocument();
 
   const [servicesContent, setServicesContent] = useState('');
