@@ -282,7 +282,7 @@ async function validateSourceUrls(sources: Source[]): Promise<{
   const invalidUrls: string[] = [];
 
   // Basic URL validation (not making actual HTTP requests to avoid slowdown)
-  sources.forEach(source => {
+  for (const source of sources) {
     try {
       new URL(source.url);
       
@@ -295,7 +295,7 @@ async function validateSourceUrls(sources: Source[]): Promise<{
     } catch {
       invalidUrls.push(source.url);
     }
-  });
+  }
 
   return { invalidUrls };
 }
