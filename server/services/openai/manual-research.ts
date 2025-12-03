@@ -43,8 +43,8 @@ export async function performManualResearch(
           content: userPrompt,
         },
       ],
-      temperature: 0.7,
-      max_tokens: 3000,
+      temperature: 0.8, // Slightly higher for more creative brand content
+      max_tokens: 4000, // More tokens for detailed brand documentation
     });
 
     const content = completion.choices[0]?.message?.content || '';
@@ -103,21 +103,27 @@ For RESEARCH step, create a comprehensive company overview including:
 - Any other relevant information provided`,
 
     brand: `
-For BRAND step, create brand identity documentation:
-## Brand Identity
-- Brand mission and vision
-- Core values
-- Brand personality and tone of voice
+For BRAND step, create comprehensive brand identity documentation:
 
-## Visual Identity (if applicable)
-- Brand colors
-- Typography guidelines
-- Logo usage
+## Mission Statement
+Write a clear, compelling mission statement based on what the company does and why they exist. If not explicitly stated, infer from the company description.
+
+## Vision Statement  
+Articulate where the company aims to go and what they aspire to achieve. Create an aspirational vision based on the company's goals and purpose.
+
+## Core Values
+List 3-5 core values that guide the company. Infer these from the company description, culture clues, and business approach mentioned.
+
+## Brand Personality
+Describe the brand's personality traits (e.g., professional, innovative, friendly, authoritative, creative).
+
+## Target Audience
+Define who the company serves and their key characteristics.
 
 ## Brand Positioning
-- Target audience
-- Unique selling proposition
-- Brand promise`,
+Explain how the brand differentiates itself in the market and its unique value proposition.
+
+IMPORTANT: Do NOT write "Information not available" - instead, create well-reasoned content based on the company description provided. Be creative but authentic.`,
 
     services: `
 For SERVICES step, document products and services:
