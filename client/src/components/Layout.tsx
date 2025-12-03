@@ -39,14 +39,14 @@ export function Layout({ children }: LayoutProps) {
   };
 
   const currentStep = getCurrentStep();
-  const { currentStepContent } = useStepContent();
+  // const { currentStepContent } = useStepContent();
 
   // Fetch documents and sources for sidebar
   const { data: documents } = useDocuments(session?.id || '');
   const { data: sources } = useSources(session?.id || '');
 
   // Fetch current step content from database
-  const { data: dbStepContent } = useQuery({
+  // const { data: dbStepContent } = useQuery({
     queryKey: ['stepContent', session?.id, currentStep],
     queryFn: async () => {
       console.log('🔍 Fetching step content:', {
