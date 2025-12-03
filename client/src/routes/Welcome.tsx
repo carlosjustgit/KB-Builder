@@ -115,6 +115,17 @@ export function Welcome() {
       await i18n.changeLanguage(defaultLanguage);
       setSelectedLocale(defaultLanguage);
       
+      // Clear manual input form
+      setManualInput({
+        company_description: '',
+        competitors: '',
+        services: '',
+        additional_info: '',
+      });
+      
+      // Reset to URL input mode
+      setInputMode('url');
+      
       // Clear all cached queries to ensure fresh state
       queryClient.clear();
       
