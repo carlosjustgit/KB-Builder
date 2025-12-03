@@ -165,7 +165,7 @@ export function Export({ sessionId, className }: ExportProps) {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <FileDown className="w-5 h-5" />
+                <FileDown className="w-5 h-5 text-purple-600" />
                 {t('pdf.title')}
               </CardTitle>
               <p className="text-sm text-muted-foreground mt-2">
@@ -192,9 +192,9 @@ export function Export({ sessionId, className }: ExportProps) {
                       </div>
                     </div>
                     {downloadingDocId === doc.id ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 className="w-5 h-5 animate-spin text-purple-600" />
                     ) : (
-                      <Download className="w-4 h-4" />
+                      <Download className="w-5 h-5 text-purple-600" />
                     )}
                   </Button>
                 ))}
@@ -205,13 +205,13 @@ export function Export({ sessionId, className }: ExportProps) {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <FileDown className="w-5 h-5" />
+                <FileDown className="w-5 h-5 text-purple-600" />
                 {t('pdf.title')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
-                <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <FileDown className="w-12 h-12 text-purple-200 mx-auto mb-4" />
                 <p className="text-muted-foreground">{t('pdf.noDocuments')}</p>
                 <p className="text-sm text-muted-foreground mt-1">
                   {t('pdf.noDocumentsDescription')}
