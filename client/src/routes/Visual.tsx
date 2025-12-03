@@ -205,14 +205,6 @@ export function Visual() {
   };
 
   const handleGenerateTestImages = async () => {
-    // Test image generation is temporarily disabled
-    toast({
-      title: t('testImages.disabled.title'),
-      description: t('testImages.disabled.description'),
-    });
-    return;
-
-    /* Disabled for now
     if (!analysisResult || !session) return;
 
     setIsGeneratingTest(true);
