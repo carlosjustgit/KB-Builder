@@ -107,14 +107,15 @@ export function Layout({ children }: LayoutProps) {
   // Sidebar Content Component (reusable for both desktop and mobile)
   const SidebarContent = () => (
     <Tabs defaultValue="chat" className="h-full flex flex-col">
-      <TabsList className="grid w-full grid-cols-3 m-4 mb-0">
-        <TabsTrigger value="chat">💬 Chat</TabsTrigger>
+      <TabsList className="grid w-full grid-cols-2 m-4 mb-0">
+        {/* <TabsTrigger value="chat">💬 Chat</TabsTrigger> */}
         <TabsTrigger value="summary">{t('tabs.summary')}</TabsTrigger>
         <TabsTrigger value="sources">{t('tabs.sources')}</TabsTrigger>
       </TabsList>
 
       <div className="flex-1 overflow-auto">
-        <TabsContent value="chat" className="mt-0 h-full">
+        {/* Chat Tab - Temporarily Hidden */}
+        {/* <TabsContent value="chat" className="mt-0 h-full">
           {session ? (
             <ConversationalAI
               currentStep={currentStep}
@@ -133,7 +134,7 @@ export function Layout({ children }: LayoutProps) {
               </CardContent>
             </Card>
           )}
-        </TabsContent>
+        </TabsContent> */}
 
         <TabsContent value="summary" className="mt-0 h-full">
           <Card className="m-4 border-0 shadow-none">
