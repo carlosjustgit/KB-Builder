@@ -42,6 +42,10 @@
     "analysed": "Analysis complete",
     "error": "Upload failed"
   },
+  "uploadedImages": {
+    "title": "Uploaded Images",
+    "description": "Review your uploaded images and click 'Analyze Images' when ready."
+  },
   "tabs": {
     "upload": "Upload images",
     "analyze": "Analysis",

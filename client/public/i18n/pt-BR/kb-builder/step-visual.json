@@ -42,6 +42,10 @@
     "analysed": "Análise completa",
     "error": "Envio falhou"
   },
+  "uploadedImages": {
+    "title": "Imagens Enviadas",
+    "description": "Revise suas imagens enviadas e clique em 'Analisar Imagens' quando estiver pronto."
+  },
   "tabs": {
     "upload": "Enviar imagens",
     "analyze": "Análise",

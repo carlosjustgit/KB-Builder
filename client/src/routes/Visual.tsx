@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -47,6 +47,9 @@ export function Visual() {
   const [isAnalyzingImages, setIsAnalyzingImages] = useState(false);
   const [activeTab, setActiveTab] = useState<string>("upload");
   const [generatedTestImages, setGeneratedTestImages] = useState<Array<{ url: string; storage_path: string }>>([]);
+  
+  // Ref for scrolling to uploaded images
+  const uploadedImagesRef = useRef<HTMLDivElement>(null);
 
   const handleImagesSelected = async (files: File[]) => {
     if (!session) {
@@ -79,6 +82,14 @@ export function Visual() {
         title: tCommon('toast.upload.success.title'),
         description: tCommon('toast.upload.success.description', { count: files.length }),
       });
+
+      // Scroll to uploaded images section after a brief delay
+      setTimeout(() => {
+        uploadedImagesRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }, 500);
     } catch (error) {
       console.error('❌ Error uploading images:', error);
       toast({
@@ -115,6 +126,14 @@ export function Visual() {
         title: tCommon('toast.upload.imported.title'),
         description: tCommon('toast.upload.imported.description'),
       });
+
+      // Scroll to uploaded images section after a brief delay
+      setTimeout(() => {
+        uploadedImagesRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }, 500);
     } catch (error) {
       console.error('❌ Error importing image:', error);
       toast({
@@ -376,7 +395,16 @@ ${guidelines.prompting_guidance.join('\n')}
 
           {/* Uploaded Images Grid */}
           {uploadedImages && uploadedImages.length > 0 && (
-            <Card>
+            <Card ref={uploadedImagesRef}>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-primary" />
+                  {t('uploadedImages.title')}
+                </CardTitle>
+                <p className="text-sm text-muted-foreground">
+                  {t('uploadedImages.description')}
+                </p>
+              </CardHeader>
               <CardContent className="pt-6">
                  <ImageGrid
                   isAnalyzing={isAnalyzingImages}
