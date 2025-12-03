@@ -109,6 +109,12 @@
     "generated": "Images generated",
     "error": "Generation failed"
   },
+  "testImages": {
+    "disabled": {
+      "title": "Test Image Generation Disabled",
+      "description": "Test image generation is temporarily disabled. Please upload your own images or import from URL to continue."
+    }
+  },
   "loading": {
     "title": "Analyzing visual elements...",
     "description": "Extracting color palettes, lighting, and composition from your images"
