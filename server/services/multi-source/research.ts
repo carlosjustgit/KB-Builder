@@ -101,7 +101,7 @@ Generate the ${step} document now using the research data above.`;
             content: userPrompt,
           },
         ],
-        reasoning_effort: 'medium', // Balance quality and speed - completes tasks fully
+        reasoning_effort: 'low', // Fast responses
         // Note: GPT-5 reasoning models only support temperature=1 (default)
       }),
     });

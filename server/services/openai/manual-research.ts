@@ -43,7 +43,7 @@ export async function performManualResearch(
           content: userPrompt,
         },
       ],
-      reasoning_effort: 'medium', // Balance quality and speed
+      reasoning_effort: 'low', // Fast responses
       // Note: GPT-5 reasoning models only support temperature=1 (default)
     });
 
