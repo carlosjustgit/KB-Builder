@@ -28,7 +28,7 @@ export function useResearch() {
 
       // Create abort controller for timeout
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 180000); // 180 second timeout (3 min) for reasoning models
 
       try {
         const response = await fetch('/api/research', {
