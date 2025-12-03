@@ -50,6 +50,13 @@ export interface KBSession {
   company_url?: string;
   language: Locale;
   step: WizardStep;
+  input_mode?: 'url' | 'manual';
+  manual_input_data?: {
+    company_description: string;
+    competitors?: string[];
+    services?: string;
+    additional_info?: string;
+  };
   created_at: string;
   updated_at: string;
 }

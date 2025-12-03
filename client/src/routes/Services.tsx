@@ -58,6 +58,8 @@ export function Services() {
 
     let result;
 
+    let result;
+
     // Check if this is manual input mode
     if (session.input_mode === 'manual' && session.manual_input_data) {
       console.log('📝 [Services] Using manual input mode');
