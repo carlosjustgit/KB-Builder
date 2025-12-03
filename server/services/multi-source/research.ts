@@ -84,7 +84,7 @@ Generate the ${step} document now using the research data above.`;
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o',
+        model: 'gpt-4o', // GPT-4 Omni - latest with fresh training data (Dec 2024)
         messages: [
           {
             role: 'system',
@@ -135,7 +135,8 @@ async function queryGemini(
   context?: string
 ): Promise<ResearchResponse> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+    // Use Gemini 2.0 Flash Thinking Experimental - latest with advanced reasoning
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-thinking-exp' });
 
     let prompt;
     if (context) {
