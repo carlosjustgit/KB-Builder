@@ -74,7 +74,7 @@ export async function analyzeImagesForGuidelines(
 
     console.log('🤖 Calling OpenAI Vision API...');
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-5', // GPT-5 with vision capabilities
       messages,
       max_tokens: 2000,
       temperature: 0.7,

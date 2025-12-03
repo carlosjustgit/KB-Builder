@@ -84,7 +84,7 @@ Generate the ${step} document now using the research data above.`;
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o', // GPT-4 Omni - latest with fresh training data (Dec 2024)
+        model: 'gpt-5', // GPT-5 - Released August 2025, state-of-the-art reasoning
         messages: [
           {
             role: 'system',
@@ -135,8 +135,8 @@ async function queryGemini(
   context?: string
 ): Promise<ResearchResponse> {
   try {
-    // Use Gemini 2.0 Flash Thinking Experimental - advanced reasoning but clean output
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-thinking-exp' });
+    // Use Gemini 3 Pro - Released November 2025, best multimodal model globally
+    const model = genAI.getGenerativeModel({ model: 'gemini-3-pro' });
 
     let prompt;
     if (context) {

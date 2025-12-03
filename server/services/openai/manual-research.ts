@@ -32,7 +32,7 @@ export async function performManualResearch(
 
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-5', // GPT-5 - Released August 2025
       messages: [
         {
           role: 'system',
