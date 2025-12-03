@@ -80,7 +80,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // Upload to Supabase
       const fileName = `test-${session_id}-${Date.now()}-${i}.png`;
       const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('brand-images')
+        .from('kb-builder')
         .upload(`${session_id}/${fileName}`, imageBuffer, {
           contentType: 'image/png',
           upsert: false,
@@ -93,7 +93,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       // Get public URL
       const { data: { publicUrl } } = supabase.storage
-        .from('brand-images')
+        .from('kb-builder')
         .getPublicUrl(`${session_id}/${fileName}`);
 
       uploadedImages.push({
