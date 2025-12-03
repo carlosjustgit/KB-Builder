@@ -9,6 +9,7 @@ import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { BottomActionBar } from '@/components/BottomActionBar';
 import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
+import { useManualResearch } from '@/hooks/useManualResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
 import { useStepContent } from '@/contexts/StepContentContext';
 import { useToast } from '@/hooks/use-toast.tsx';
@@ -21,9 +22,12 @@ export function Brand() {
   const { t } = useTranslation('step-brand');
   
   const { data: session } = useSession();
-  const { performResearch, isLoading, error, reset } = useResearchWithState();
+  const { performResearch, isLoading: isUrlLoading, error, reset } = useResearchWithState();
+  const { performManualResearch, isLoading: isManualLoading, reset: resetManual } = useManualResearch();
   const saveDocument = useSaveDocument();
   const { setCurrentStepContent } = useStepContent();
+
+  const isLoading = isUrlLoading || isManualLoading;
 
   const [brandContent, setBrandContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -71,15 +75,28 @@ export function Brand() {
   const handleGenerate = async () => {
     if (!session) return;
 
-    // Use the company URL from the session
-    const companyUrl = session.company_url || 'https://example.com';
+    let result;
 
-    const result = await performResearch(
-      companyUrl,
-      session.language,
-      'brand',
-      session.id
-    );
+    // Check if this is manual input mode
+    if (session.input_mode === 'manual' && session.manual_input_data) {
+      console.log('📝 [Brand] Using manual input mode');
+      result = await performManualResearch(
+        session.id,
+        session.language,
+        'brand',
+        session.manual_input_data
+      );
+    } else {
+      // Use URL-based research
+      const companyUrl = session.company_url || 'https://example.com';
+      console.log('🔍 [Brand] Using URL-based research:', companyUrl);
+      result = await performResearch(
+        companyUrl,
+        session.language,
+        'brand',
+        session.id
+      );
+    }
 
     if (result.success && result.data) {
       setBrandContent(result.data.content_md);
@@ -144,7 +161,11 @@ export function Brand() {
     setBrandContent('');
     
     // Reset the research state
-    reset();
+    if (session.input_mode === 'manual') {
+      resetManual();
+    } else {
+      reset();
+    }
     
     // Generate new content
     await handleGenerate();

@@ -9,6 +9,7 @@ import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { BottomActionBar } from '@/components/BottomActionBar';
 import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
+import { useManualResearch } from '@/hooks/useManualResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
 import { useToast } from '@/hooks/use-toast.tsx';
 import { Loader2, Target, ArrowLeft, ArrowRight, Edit, Save, RotateCcw } from 'lucide-react';
@@ -20,8 +21,11 @@ export function Competitors() {
   const { t } = useTranslation('step-competitors');
   
   const { data: session } = useSession();
-  const { performResearch, isLoading, error, reset } = useResearchWithState();
+  const { performResearch, isLoading: isUrlLoading, error, reset } = useResearchWithState();
+  const { performManualResearch, isLoading: isManualLoading, reset: resetManual } = useManualResearch();
   const saveDocument = useSaveDocument();
+  
+  const isLoading = isUrlLoading || isManualLoading;
 
   const [competitorsContent, setCompetitorsContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -55,14 +59,28 @@ export function Competitors() {
   const handleGenerate = async () => {
     if (!session) return;
 
-    const companyUrl = session.company_url || 'https://example.com';
+    let result;
 
-    const result = await performResearch(
-      companyUrl,
-      session.language,
-      'competitors',
-      session.id
-    );
+    // Check if this is manual input mode
+    if (session.input_mode === 'manual' && session.manual_input_data) {
+      console.log('📝 [Competitors] Using manual input mode');
+      result = await performManualResearch(
+        session.id,
+        session.language,
+        'competitors',
+        session.manual_input_data
+      );
+    } else {
+      // Use URL-based research
+      const companyUrl = session.company_url || 'https://example.com';
+      console.log('🔍 [Competitors] Using URL-based research:', companyUrl);
+      result = await performResearch(
+        companyUrl,
+        session.language,
+        'competitors',
+        session.id
+      );
+    }
 
     if (result.success && result.data) {
       setCompetitorsContent(result.data.content_md);

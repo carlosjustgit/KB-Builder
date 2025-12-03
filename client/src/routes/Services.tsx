@@ -9,6 +9,7 @@ import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { BottomActionBar } from '@/components/BottomActionBar';
 import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
+import { useManualResearch } from '@/hooks/useManualResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
 import { useToast } from '@/hooks/use-toast.tsx';
 import { Loader2, Package, ArrowLeft, ArrowRight, Edit, Save, RotateCcw } from 'lucide-react';
@@ -55,14 +56,28 @@ export function Services() {
   const handleGenerate = async () => {
     if (!session) return;
 
-    const companyUrl = session.company_url || 'https://example.com';
+    let result;
 
-    const result = await performResearch(
-      companyUrl,
-      session.language,
-      'services',
-      session.id
-    );
+    // Check if this is manual input mode
+    if (session.input_mode === 'manual' && session.manual_input_data) {
+      console.log('📝 [Services] Using manual input mode');
+      result = await performManualResearch(
+        session.id,
+        session.language,
+        'services',
+        session.manual_input_data
+      );
+    } else {
+      // Use URL-based research
+      const companyUrl = session.company_url || 'https://example.com';
+      console.log('🔍 [Services] Using URL-based research:', companyUrl);
+      result = await performResearch(
+        companyUrl,
+        session.language,
+        'services',
+        session.id
+      );
+    }
 
     if (result.success && result.data) {
       setServicesContent(result.data.content_md);
