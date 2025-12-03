@@ -26,6 +26,8 @@ export function Layout({ children }: LayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Get current step from pathname
+  // Commented out as Chat is hidden
+  /*
   const getCurrentStep = () => {
     const path = location.pathname;
     if (path.includes('/research')) return 'research';
@@ -37,6 +39,7 @@ export function Layout({ children }: LayoutProps) {
     if (path.includes('/export')) return 'export';
     return 'welcome';
   };
+  */
 
   // const currentStep = getCurrentStep();
   // const { currentStepContent } = useStepContent();
