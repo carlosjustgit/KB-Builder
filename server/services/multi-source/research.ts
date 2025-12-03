@@ -54,7 +54,13 @@ IMPORTANT INSTRUCTIONS:
 - DO NOT say you need web access - all necessary information is in the research data
 - If specific ${step} details are not in the research, work with what's available and note gaps
 - Format your response in clear, professional markdown
-- Be specific and detailed based on the research data provided`;
+- Be specific and detailed based on the research data provided
+
+🚨 OUTPUT FORMAT - CRITICAL:
+START IMMEDIATELY WITH THE DOCUMENT HEADING.
+NO preamble like "Here's the analysis..." or "Based on the data..."
+NO meta-commentary about the task or research process
+GO STRAIGHT TO: # ${step.charAt(0).toUpperCase() + step.slice(1)} Document`;
 
       userPrompt = `Here is the verified company research data from ${companyUrl}:
 
@@ -157,22 +163,37 @@ IMPORTANT:
 - Format in markdown
 - If information is limited, work with what's available
 
-CRITICAL OUTPUT INSTRUCTIONS:
-- Output ONLY the final ${step} document in clean markdown
-- DO NOT include your thinking process, reasoning, or analysis steps
-- DO NOT include meta-commentary about the task
-- GO STRAIGHT TO THE DOCUMENT CONTENT
+🚨 CRITICAL OUTPUT FORMAT 🚨
+YOU MUST START YOUR RESPONSE WITH THE DOCUMENT HEADING.
+DO NOT START WITH:
+❌ "Let me analyze..."
+❌ "Based on this data..."
+❌ "Business Model:"
+❌ "Identifying..."
+❌ ANY thinking process or meta-commentary
 
-Generate the ${step} document now.`;
+✅ START IMMEDIATELY WITH:
+# Competitor Analysis
+## Competitor 1: [Name]
+[Content...]
+
+NO PREAMBLE. NO ANALYSIS. NO THINKING PROCESS.
+Just the formatted ${step} document in markdown.
+
+Generate NOW - start with the heading:`;
     } else {
       prompt = `Research and fact-check information about ${companyUrl} to create a ${step} document.
 
-CRITICAL OUTPUT INSTRUCTIONS:
-- Output ONLY the final ${step} document in clean markdown
-- DO NOT include your thinking process or reasoning
-- GO STRAIGHT TO THE DOCUMENT CONTENT
+🚨 CRITICAL OUTPUT FORMAT 🚨
+START YOUR RESPONSE WITH THE DOCUMENT HEADING IMMEDIATELY.
+NO "Let me...", NO "Based on...", NO ANALYSIS.
 
-Focus on accuracy and validation. Flag any uncertain information.`;
+✅ START WITH:
+# ${step.charAt(0).toUpperCase() + step.slice(1)} Document
+## [First Section]
+[Content...]
+
+Focus on accuracy. Flag uncertain information. But NO THINKING PROCESS IN OUTPUT.`;
     }
 
     const result = await model.generateContent(prompt);
