@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Mic, MicOff, Loader2 } from 'lucide-react';
+import { Mic, MicOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface SpeechToTextProps {
@@ -263,21 +263,21 @@ declare global {
   }
 
   interface SpeechRecognitionResultList {
-    length: number;
+    readonly length: number;
     item(index: number): SpeechRecognitionResult;
     [index: number]: SpeechRecognitionResult;
   }
 
   interface SpeechRecognitionResult {
-    length: number;
+    readonly length: number;
     item(index: number): SpeechRecognitionAlternative;
     [index: number]: SpeechRecognitionAlternative;
-    isFinal: boolean;
+    readonly isFinal: boolean;
   }
 
   interface SpeechRecognitionAlternative {
-    transcript: string;
-    confidence: number;
+    readonly transcript: string;
+    readonly confidence: number;
   }
 
   interface SpeechRecognitionErrorEvent extends Event {

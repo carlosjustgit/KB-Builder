@@ -36,7 +36,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
  */
 async function queryOpenAI(
   companyUrl: string,
-  locale: string,
+  _locale: string,
   step: string,
   context?: string
 ): Promise<ResearchResponse> {
@@ -98,7 +98,7 @@ async function queryOpenAI(
  */
 async function queryGemini(
   companyUrl: string,
-  locale: string,
+  _locale: string,
   step: string,
   context?: string
 ): Promise<ResearchResponse> {
@@ -131,7 +131,7 @@ function extractSourcesFromContent(content: string, provider: 'perplexity' | 'op
   
   // Extract URLs from markdown links
   const urlRegex = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
-  let match;
+  let match: RegExpExecArray | null;
   
   while ((match = urlRegex.exec(content)) !== null) {
     sources.push({
@@ -143,10 +143,11 @@ function extractSourcesFromContent(content: string, provider: 'perplexity' | 'op
   
   // Also extract plain URLs
   const plainUrlRegex = /(https?:\/\/[^\s\)]+)/g;
-  while ((match = plainUrlRegex.exec(content)) !== null) {
-    if (!sources.some(s => s.url === match[1])) {
+  let plainMatch: RegExpExecArray | null;
+  while ((plainMatch = plainUrlRegex.exec(content)) !== null) {
+    if (!sources.some(s => s.url === plainMatch![1])) {
       sources.push({
-        url: match[1],
+        url: plainMatch[1],
         snippet: 'Referenced source',
         provider,
       });
