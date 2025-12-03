@@ -126,5 +126,22 @@
   "noSession": {
     "message": "No active session found",
     "action": "Start new session"
+  },
+  "nextSteps": {
+    "congratulations": "🎉 Congratulations! Your Brand Docs Are Ready!",
+    "step1": {
+      "title": "Download Your Documents",
+      "description": "Click the download buttons on the right to save all your brand documents to your device."
+    },
+    "step2": {
+      "title": "Go to Witfy",
+      "description": "If you're new, click 'Create Profile' and our onboarding wizard will guide you through setup."
+    },
+    "step3": {
+      "title": "Upload Your Brand Docs",
+      "description": "Already have a profile? Go to Knowledge Base settings and upload your documents there."
+    },
+    "ctaButton": "Continue to Witfy",
+    "ctaHint": "Opens in a new tab • app.witfy.social"
   }
 }

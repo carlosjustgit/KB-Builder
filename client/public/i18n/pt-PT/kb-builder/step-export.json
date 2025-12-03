@@ -126,5 +126,22 @@
   "noSession": {
     "message": "Nenhuma sessão ativa encontrada",
     "action": "Iniciar nova sessão"
+  },
+  "nextSteps": {
+    "congratulations": "🎉 Parabéns! Os Seus Documentos de Marca Estão Prontos!",
+    "step1": {
+      "title": "Descarregue os Seus Documentos",
+      "description": "Clique nos botões de download à direita para guardar todos os seus documentos de marca no seu dispositivo."
+    },
+    "step2": {
+      "title": "Vá para o Witfy",
+      "description": "Se é novo, clique em 'Criar Perfil' e o nosso assistente de integração irá guiá-lo pela configuração."
+    },
+    "step3": {
+      "title": "Carregue os Seus Documentos de Marca",
+      "description": "Já tem um perfil? Vá para as definições da Base de Conhecimento e carregue os seus documentos lá."
+    },
+    "ctaButton": "Continuar para Witfy",
+    "ctaHint": "Abre num novo separador • app.witfy.social"
   }
 }

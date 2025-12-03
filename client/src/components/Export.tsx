@@ -18,7 +18,10 @@ import {
   Loader2,
   Calendar,
   File,
-  FileDown
+  FileDown,
+  CheckCircle,
+  ArrowRight,
+  Sparkles
 } from 'lucide-react';
 
 export interface ExportProps {
@@ -111,116 +114,69 @@ export function Export({ sessionId, className }: ExportProps) {
     <div className={className}>
       {/* Top Row: Generate Export + PDF Export */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        {/* Export Options */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Download className="w-5 h-5" />
-              {t('generate.title')}
+        {/* Next Steps Card */}
+        <Card className="border-2 border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
+          <CardHeader className="space-y-4 pb-4">
+            <div className="flex items-center justify-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center animate-pulse">
+                <CheckCircle className="w-10 h-10 text-green-600" />
+              </div>
+            </div>
+            <CardTitle className="text-2xl text-center font-bold text-green-700">
+              {t('nextSteps.congratulations')}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Format Selection */}
+          <CardContent className="space-y-6 pt-2">
+            {/* Instructions */}
+            <div className="space-y-4 text-center">
+              <div className="flex items-start gap-3 text-left bg-white/50 p-4 rounded-lg">
+                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-green-700 font-bold text-lg">1</span>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900">{t('nextSteps.step1.title')}</p>
+                  <p className="text-sm text-gray-600 mt-1">{t('nextSteps.step1.description')}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 text-left bg-white/50 p-4 rounded-lg">
+                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-green-700 font-bold text-lg">2</span>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900">{t('nextSteps.step2.title')}</p>
+                  <p className="text-sm text-gray-600 mt-1">{t('nextSteps.step2.description')}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 text-left bg-white/50 p-4 rounded-lg">
+                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Sparkles className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900">{t('nextSteps.step3.title')}</p>
+                  <p className="text-sm text-gray-600 mt-1">{t('nextSteps.step3.description')}</p>
+                </div>
+              </div>
+            </div>
+
+            <Separator className="my-6" />
+
+            {/* CTA Button */}
             <div className="space-y-3">
-              <Label className="text-base font-medium">{t('generate.formatLabel')}</Label>
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  variant={exportOptions.format === 'json' ? 'default' : 'outline'}
-                  onClick={() => setExportOptions(prev => ({ ...prev, format: 'json' }))}
-                  className="h-auto p-4 flex flex-col items-center gap-2"
-                >
-                  <FileText className="w-5 h-5" />
-                  <span>{t('generate.formatJson')}</span>
-                  <span className={`text-xs ${exportOptions.format === 'json' ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
-                    {t('generate.formatJsonDesc')}
-                  </span>
-                </Button>
-                <Button
-                  variant={exportOptions.format === 'zip' ? 'default' : 'outline'}
-                  onClick={() => setExportOptions(prev => ({ ...prev, format: 'zip' }))}
-                  className="h-auto p-4 flex flex-col items-center gap-2"
-                >
-                  <Archive className="w-5 h-5" />
-                  <span>{t('generate.formatZip')}</span>
-                  <span className={`text-xs ${exportOptions.format === 'zip' ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
-                    {t('generate.formatZipDesc')}
-                  </span>
-                </Button>
-              </div>
+              <Button
+                onClick={() => window.open('https://app.witfy.social', '_blank')}
+                className="w-full bg-green-600 hover:bg-green-700 text-white text-lg py-6"
+                size="lg"
+              >
+                <Sparkles className="w-5 h-5 mr-2" />
+                {t('nextSteps.ctaButton')}
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+              <p className="text-xs text-center text-gray-500">
+                {t('nextSteps.ctaHint')}
+              </p>
             </div>
-
-            <Separator />
-
-            {/* Include Options */}
-            <div className="space-y-4">
-              <Label className="text-base font-medium">{t('generate.includeLabel')}</Label>
-              
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <Checkbox
-                    id="includeImages"
-                    checked={exportOptions.includeImages}
-                    onCheckedChange={(checked) => 
-                      setExportOptions(prev => ({ ...prev, includeImages: !!checked }))
-                    }
-                  />
-                  <Label htmlFor="includeImages" className="flex items-center gap-2 cursor-pointer">
-                    <Image className="w-4 h-4" />
-                    {t('generate.includeImages', { count: stats?.total_images || 0 })}
-                  </Label>
-                </div>
-
-                <div className="flex items-center space-x-3">
-                  <Checkbox
-                    id="includeSources"
-                    checked={exportOptions.includeSources}
-                    onCheckedChange={(checked) => 
-                      setExportOptions(prev => ({ ...prev, includeSources: !!checked }))
-                    }
-                  />
-                  <Label htmlFor="includeSources" className="flex items-center gap-2 cursor-pointer">
-                    <Link className="w-4 h-4" />
-                    {t('generate.includeSources', { count: stats?.total_sources || 0 })}
-                  </Label>
-                </div>
-
-                <div className="flex items-center space-x-3">
-                  <Checkbox
-                    id="includeVisualGuide"
-                    checked={exportOptions.includeVisualGuide}
-                    onCheckedChange={(checked) => 
-                      setExportOptions(prev => ({ ...prev, includeVisualGuide: !!checked }))
-                    }
-                  />
-                  <Label htmlFor="includeVisualGuide" className="flex items-center gap-2 cursor-pointer">
-                    <Palette className="w-4 h-4" />
-                    {t('generate.includeVisualGuide')}
-                  </Label>
-                </div>
-              </div>
-            </div>
-
-            <Separator />
-
-            {/* Generate Button */}
-            <Button
-              onClick={handleGenerateExport}
-              disabled={isGenerating}
-              className="w-full"
-              size="lg"
-            >
-              {isGenerating ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  {t('generate.generating')}
-                </>
-              ) : (
-                <>
-                  <Download className="w-4 h-4 mr-2" />
-                  {t('generate.generateButton')}
-                </>
-              )}
-            </Button>
           </CardContent>
         </Card>
 
