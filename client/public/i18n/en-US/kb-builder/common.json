@@ -9,9 +9,7 @@
     "search": "Search",
     "exportJSON": "Export JSON",
     "downloadZIP": "Download ZIP",
-    "launchWitfy": "Launch Witfy",
-    "cancel": "Cancel",
-    "confirm": "Confirm"
+    "launchWitfy": "Launch Witfy"
   },
   "tabs": {
     "summary": "Summary",
@@ -26,10 +24,7 @@
     "researching": "Researching...",
     "generating": "Generating...",
     "uploading": "Uploading...",
-    "exporting": "Exporting...",
-    "approved": "approved",
-    "draft": "draft",
-    "pending": "pending"
+    "exporting": "Exporting..."
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",
@@ -37,151 +32,19 @@
     "validation": "Please fix the errors above.",
     "retry": "Retry"
   },
-  "notifications": {
-    "retrying": {
-      "title": "Retrying...",
-      "description": "Attempt {{attempt}} of {{max}}. AI services can be unpredictable, retrying automatically..."
-    },
-    "retryFailed": {
-      "title": "All retries failed",
-      "description": "The operation failed after {{max}} attempts. Please try again or contact support if this persists."
-    },
-    "unexpectedResult": {
-      "title": "Unexpected result",
-      "description": "The AI returned an incomplete response. You can regenerate or try editing the results manually."
-    }
-  },
   "chat": {
-    "title": "AI chat",
-    "noSession": "Start a session to chat with the AI about your research.",
-    "emptyState": {
-      "title": "Ask Wit anything about your research",
-      "examples": "Try: \"Can you summarize this?\" or \"What are the key points?\""
-    },
-    "placeholder": "Ask a question...",
-    "thinking": "Wit is thinking...",
-    "clearChat": "Clear chat history",
-    "clearConfirm": "Clear chat history?",
-    "clearConfirmDescription": "Are you sure you want to clear all chat messages? This action cannot be undone.",
-    "cleared": {
-      "title": "Chat cleared",
-      "description": "All messages have been cleared"
-    },
-    "error": {
-      "title": "Chat error",
-      "description": "Failed to send message. Please try again."
-    },
-    "clearError": {
-      "title": "Clear chat error",
-      "description": "Failed to clear chat history"
-    }
+    "title": "Chat with Wit",
+    "noSession": "Start a session to chat with Wit"
   },
   "sidebar": {
     "summary": {
-      "title": "Project summary",
-      "placeholder": "Your knowledge base summary will appear here as you progress through the wizard."
+      "title": "Summary",
+      "placeholder": "Complete steps to see your summary"
     },
     "sources": {
       "title": "Sources",
-      "placeholder": "Research sources and citations will appear here.",
-      "noSources": "No sources available yet. Complete the research step to see sources."
+      "noSources": "No sources yet"
     }
   },
-  "toast": {
-    "export": {
-      "generated": {
-        "title": "Export generated",
-        "description": "{{format}} export downloaded successfully"
-      },
-      "failed": {
-        "title": "Export failed",
-        "description": "Failed to generate export"
-      },
-      "downloadStarted": {
-        "title": "Download started",
-        "description": "Downloading {{filename}}"
-      },
-      "downloadFailed": {
-        "title": "Download failed",
-        "description": "Failed to download file"
-      },
-      "pdfDownloaded": {
-        "title": "PDF downloaded",
-        "description": "{{docType}} document exported successfully"
-      },
-      "pdfFailed": {
-        "title": "PDF export failed",
-        "description": "Failed to export PDF"
-      },
-      "complete": {
-        "title": "Knowledge base complete!",
-        "description": "Your knowledge base has been successfully generated and exported."
-      }
-    },
-    "upload": {
-      "success": {
-        "title": "Images uploaded",
-        "description": "{{count}} images uploaded successfully."
-      },
-      "failed": {
-        "title": "Upload failed",
-        "description": "Failed to upload images. Please try again."
-      },
-      "imported": {
-        "title": "Image imported",
-        "description": "Image imported successfully from URL."
-      },
-      "importFailed": {
-        "title": "Import failed",
-        "description": "Failed to import image from URL. Please check the URL and try again."
-      },
-      "noImages": {
-        "title": "No images selected",
-        "description": "Please upload images first."
-      }
-    },
-    "generation": {
-      "testImages": {
-        "title": "Test images generated",
-        "description": "{{count}} test images created."
-      },
-      "failed": {
-        "title": "Generation failed",
-        "description": "Please try again."
-      }
-    },
-    "document": {
-      "generated": {
-        "title": "{{type}} generated",
-        "description": "AI has generated your {{type}}"
-      },
-      "saved": {
-        "title": "{{type}} saved",
-        "description": "Your changes have been saved successfully"
-      },
-      "generateFirst": {
-        "title": "Generate {{type}}",
-        "description": "Please generate your {{type}} before continuing"
-      },
-      "saveFailed": {
-        "title": "Save failed",
-        "description": "Failed to save {{type}}"
-      }
-    },
-    "research": {
-      "complete": {
-        "title": "Research complete",
-        "description": "AI has analyzed your company information."
-      },
-      "failed": {
-        "title": "Research failed",
-        "description": "Please try again."
-      },
-      "saved": {
-        "title": "Content saved",
-        "description": "Research results have been saved."
-      }
-    }
-  }
+  "optional": "Optional"
 }
-

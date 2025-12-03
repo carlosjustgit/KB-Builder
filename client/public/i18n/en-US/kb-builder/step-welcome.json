@@ -6,12 +6,45 @@
     "label": "Choose your language",
     "placeholder": "Select language"
   },
+  "inputMode": {
+    "url": "Website URL",
+    "manual": "Manual Input"
+  },
   "url": {
     "label": "Company website URL",
     "placeholder": "example.com",
+    "description": "We'll analyze your website to build your knowledge base.",
     "validation": {
       "required": "Please enter your company website",
       "invalid": "Please enter a valid URL"
+    }
+  },
+  "manual": {
+    "description": "Provide details about your company manually. You can type or use the microphone button to speak your input.",
+    "companyDescription": {
+      "label": "Company Description",
+      "placeholder": "Describe your company, what you do, your mission, values, and target audience...",
+      "required": true
+    },
+    "competitors": {
+      "label": "Competitors",
+      "placeholder": "List your main competitors (one per line or comma-separated)...",
+      "optional": true
+    },
+    "services": {
+      "label": "Services/Products",
+      "placeholder": "Describe your main services or products...",
+      "optional": true
+    },
+    "additionalInfo": {
+      "label": "Additional Information",
+      "placeholder": "Any other relevant information about your company...",
+      "optional": true
+    },
+    "estimatedTime": "Estimated time: 3-5 minutes",
+    "button": "Start with Manual Input",
+    "validation": {
+      "descriptionTooShort": "Please provide at least 10 characters describing your company"
     }
   },
   "estimatedTime": "Build your complete brand documentation in minutes for Free",
@@ -50,4 +83,3 @@
     "starting": "Starting..."
   }
 }
-

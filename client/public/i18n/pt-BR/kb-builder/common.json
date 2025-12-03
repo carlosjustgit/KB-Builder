@@ -9,9 +9,7 @@
     "search": "Pesquisar",
     "exportJSON": "Exportar JSON",
     "downloadZIP": "Baixar ZIP",
-    "launchWitfy": "Abrir Witfy",
-    "cancel": "Cancelar",
-    "confirm": "Confirmar"
+    "launchWitfy": "Abrir Witfy"
   },
   "tabs": {
     "summary": "Resumo",
@@ -26,10 +24,7 @@
     "researching": "Pesquisando...",
     "generating": "Gerando...",
     "uploading": "Enviando...",
-    "exporting": "Exportando...",
-    "approved": "aprovado",
-    "draft": "rascunho",
-    "pending": "pendente"
+    "exporting": "Exportando..."
   },
   "errors": {
     "generic": "Algo deu errado. Por favor, tente novamente.",
@@ -37,150 +32,19 @@
     "validation": "Por favor, corrija os erros acima.",
     "retry": "Tentar novamente"
   },
-  "notifications": {
-    "retrying": {
-      "title": "Tentando novamente...",
-      "description": "Tentativa {{attempt}} de {{max}}. Os serviços de IA podem ser imprevisíveis, tentando novamente automaticamente..."
-    },
-    "retryFailed": {
-      "title": "Todas as tentativas falharam",
-      "description": "A operação falhou após {{max}} tentativas. Por favor, tente novamente ou entre em contato com o suporte se isso persistir."
-    },
-    "unexpectedResult": {
-      "title": "Resultado inesperado",
-      "description": "A IA retornou uma resposta incompleta. Você pode regenerar ou tentar editar os resultados manualmente."
-    }
-  },
   "chat": {
-    "title": "Chat IA",
-    "noSession": "Inicie uma sessão para conversar com a IA sobre sua pesquisa.",
-    "emptyState": {
-      "title": "Pergunte ao Wit sobre sua pesquisa",
-      "examples": "Experimente: \"Pode resumir isto?\" ou \"Quais são os pontos principais?\""
-    },
-    "placeholder": "Faça uma pergunta...",
-    "thinking": "Wit está pensando...",
-    "clearChat": "Limpar histórico de conversa",
-    "clearConfirm": "Limpar histórico de conversa?",
-    "clearConfirmDescription": "Tem certeza de que deseja limpar todas as mensagens? Esta ação não pode ser revertida.",
-    "cleared": {
-      "title": "Conversa limpa",
-      "description": "Todas as mensagens foram excluídas"
-    },
-    "error": {
-      "title": "Erro de conversa",
-      "description": "Falha ao enviar mensagem. Por favor, tente novamente."
-    },
-    "clearError": {
-      "title": "Erro ao limpar",
-      "description": "Falha ao limpar histórico de conversa"
-    }
+    "title": "Conversar com Wit",
+    "noSession": "Inicie uma sessão para conversar com Wit"
   },
   "sidebar": {
     "summary": {
-      "title": "Resumo do projeto",
-      "placeholder": "O resumo da sua base de conhecimento aparecerá aqui conforme você progride pelo assistente."
+      "title": "Resumo",
+      "placeholder": "Complete as etapas para ver seu resumo"
     },
     "sources": {
       "title": "Fontes",
-      "placeholder": "Fontes de pesquisa e citações aparecerão aqui.",
-      "noSources": "Ainda não há fontes disponíveis. Complete a etapa de pesquisa para ver fontes."
+      "noSources": "Ainda não há fontes"
     }
   },
-  "toast": {
-    "export": {
-      "generated": {
-        "title": "Exportação gerada",
-        "description": "Exportação {{format}} baixada com sucesso"
-      },
-      "failed": {
-        "title": "Exportação falhou",
-        "description": "Falha ao gerar exportação"
-      },
-      "downloadStarted": {
-        "title": "Download iniciado",
-        "description": "Baixando {{filename}}"
-      },
-      "downloadFailed": {
-        "title": "Download falhou",
-        "description": "Falha ao baixar arquivo"
-      },
-      "pdfDownloaded": {
-        "title": "PDF baixado",
-        "description": "Documento {{docType}} exportado com sucesso"
-      },
-      "pdfFailed": {
-        "title": "Exportação PDF falhou",
-        "description": "Falha ao exportar PDF"
-      },
-      "complete": {
-        "title": "Base de conhecimento completa!",
-        "description": "Sua base de conhecimento foi gerada e exportada com sucesso."
-      }
-    },
-    "upload": {
-      "success": {
-        "title": "Imagens enviadas",
-        "description": "{{count}} imagens enviadas com sucesso."
-      },
-      "failed": {
-        "title": "Envio falhou",
-        "description": "Falha ao enviar imagens. Por favor, tente novamente."
-      },
-      "imported": {
-        "title": "Imagem importada",
-        "description": "Imagem importada com sucesso da URL."
-      },
-      "importFailed": {
-        "title": "Importação falhou",
-        "description": "Falha ao importar imagem da URL. Verifique a URL e tente novamente."
-      },
-      "noImages": {
-        "title": "Nenhuma imagem selecionada",
-        "description": "Por favor, envie imagens primeiro."
-      }
-    },
-    "generation": {
-      "testImages": {
-        "title": "Imagens de teste geradas",
-        "description": "{{count}} imagens de teste criadas."
-      },
-      "failed": {
-        "title": "Geração falhou",
-        "description": "Por favor, tente novamente."
-      }
-    },
-    "document": {
-      "generated": {
-        "title": "{{type}} gerado",
-        "description": "IA gerou seu {{type}}"
-      },
-      "saved": {
-        "title": "{{type}} salvo",
-        "description": "Suas alterações foram salvas com sucesso"
-      },
-      "generateFirst": {
-        "title": "Gerar {{type}}",
-        "description": "Por favor, gere seu {{type}} antes de continuar"
-      },
-      "saveFailed": {
-        "title": "Falha ao salvar",
-        "description": "Falha ao salvar {{type}}"
-      }
-    },
-    "research": {
-      "complete": {
-        "title": "Pesquisa completa",
-        "description": "IA analisou as informações da sua empresa."
-      },
-      "failed": {
-        "title": "Pesquisa falhou",
-        "description": "Por favor, tente novamente."
-      },
-      "saved": {
-        "title": "Conteúdo salvo",
-        "description": "Resultados da pesquisa foram salvos."
-      }
-    }
-  }
+  "optional": "Opcional"
 }

@@ -1,40 +1,73 @@
 {
   "title": "Bem-vindo ao Witfy Origin",
-  "subtitle": "Crie documentação de marca abrangente em minutos",
-  "description": "Este assistente irá guiá-lo através de 7 etapas para construir sua base de conhecimento usando pesquisa e análise visual alimentadas por IA.",
+  "subtitle": "Crie documentação completa da marca em minutos",
+  "description": "Este assistente irá guiá-lo através de 7 etapas para construir sua base de conhecimento usando pesquisa com IA e análise visual.",
   "locale": {
     "label": "Escolha seu idioma",
-    "placeholder": "Selecionar idioma"
+    "placeholder": "Selecione o idioma"
+  },
+  "inputMode": {
+    "url": "URL do Site",
+    "manual": "Entrada Manual"
   },
   "url": {
-    "label": "URL do website da empresa",
-    "placeholder": "exemplo.com",
+    "label": "URL do site da empresa",
+    "placeholder": "exemplo.com.br",
+    "description": "Analisaremos seu site para construir sua base de conhecimento.",
     "validation": {
-      "required": "Por favor, insira o website da sua empresa",
-      "invalid": "Por favor, insira um URL válido"
+      "required": "Por favor, insira o site da sua empresa",
+      "invalid": "Por favor, insira uma URL válida"
     }
   },
-  "estimatedTime": "Construa sua documentação de marca completa em minutos gratuitamente",
+  "manual": {
+    "description": "Forneça detalhes sobre sua empresa manualmente. Você pode digitar ou usar o botão do microfone para falar.",
+    "companyDescription": {
+      "label": "Descrição da Empresa",
+      "placeholder": "Descreva sua empresa, o que você faz, sua missão, valores e público-alvo...",
+      "required": true
+    },
+    "competitors": {
+      "label": "Concorrentes",
+      "placeholder": "Liste seus principais concorrentes (um por linha ou separados por vírgula)...",
+      "optional": true
+    },
+    "services": {
+      "label": "Serviços/Produtos",
+      "placeholder": "Descreva seus principais serviços ou produtos...",
+      "optional": true
+    },
+    "additionalInfo": {
+      "label": "Informações Adicionais",
+      "placeholder": "Qualquer outra informação relevante sobre sua empresa...",
+      "optional": true
+    },
+    "estimatedTime": "Tempo estimado: 3-5 minutos",
+    "button": "Começar com Entrada Manual",
+    "validation": {
+      "descriptionTooShort": "Por favor, forneça pelo menos 10 caracteres descrevendo sua empresa"
+    }
+  },
+  "estimatedTime": "Construa sua documentação completa de marca em minutos gratuitamente",
   "session": {
     "checking": "Verificando sessão existente...",
     "found": {
       "title": "Sessão existente encontrada",
-      "description": "Encontrada sessão para {{url}}. Clique em \"Continuar\" ou \"Começar de novo\"",
-      "defaultUrl": "seu website"
+      "description": "Sessão encontrada para {{url}}. Clique em \"Continuar\" ou \"Começar do zero\"",
+      "defaultUrl": "seu site"
     },
     "cleared": {
       "title": "Sessão limpa",
-      "description": "Nova sessão criada. Todos os dados anteriores foram apagados."
+      "description": "Nova sessão criada. Todos os dados anteriores foram limpos."
     },
-    "startFreshConfirm": "Começar de novo irá criar uma sessão completamente nova. Isto irá apagar toda sua pesquisa, documentos e histórico de chat. Tem certeza de que deseja continuar?",
+    "startFreshConfirm": "Começar do zero criará uma sessão completamente nova. Isso limpará toda sua pesquisa, documentos e histórico de chat. Tem certeza que deseja continuar?",
     "continue": "Continuar sessão",
-    "startFresh": "🗑️ Começar de novo (nova sessão)"
+    "startFresh": "🗑️ Começar do zero (nova sessão)"
   },
   "notifications": {
     "error": {
       "title": "Erro",
       "sessionCreation": "Falha ao criar sessão. Por favor, tente novamente.",
-      "startFresh": "Falha ao começar de novo. Por favor, tente novamente.",
+      "startFresh": "Falha ao começar do zero. Por favor, tente novamente.",
       "noSession": "Nenhuma sessão ativa encontrada."
     },
     "success": {
@@ -43,7 +76,7 @@
     }
   },
   "buttons": {
-    "next": "Começar a construir",
+    "next": "Começar",
     "back": "Voltar",
     "cancel": "Cancelar",
     "confirm": "OK",

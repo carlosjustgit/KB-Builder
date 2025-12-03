@@ -1,6 +1,6 @@
 {
   "actions": {
-    "next": "Seguinte",
+    "next": "Próximo",
     "back": "Voltar",
     "save": "Guardar",
     "edit": "Editar",
@@ -9,9 +9,7 @@
     "search": "Pesquisar",
     "exportJSON": "Exportar JSON",
     "downloadZIP": "Descarregar ZIP",
-    "launchWitfy": "Abrir Witfy",
-    "cancel": "Cancelar",
-    "confirm": "Confirmar"
+    "launchWitfy": "Abrir Witfy"
   },
   "tabs": {
     "summary": "Resumo",
@@ -25,11 +23,8 @@
     "analyzing": "A analisar...",
     "researching": "A pesquisar...",
     "generating": "A gerar...",
-    "uploading": "A carregar...",
-    "exporting": "A exportar...",
-    "approved": "aprovado",
-    "draft": "rascunho",
-    "pending": "pendente"
+    "uploading": "A enviar...",
+    "exporting": "A exportar..."
   },
   "errors": {
     "generic": "Algo correu mal. Por favor, tente novamente.",
@@ -37,150 +32,19 @@
     "validation": "Por favor, corrija os erros acima.",
     "retry": "Tentar novamente"
   },
-  "notifications": {
-    "retrying": {
-      "title": "A tentar novamente...",
-      "description": "Tentativa {{attempt}} de {{max}}. Os serviços de IA podem ser imprevisíveis, a tentar novamente automaticamente..."
-    },
-    "retryFailed": {
-      "title": "Todas as tentativas falharam",
-      "description": "A operação falhou após {{max}} tentativas. Por favor, tente novamente ou contacte o suporte se isto persistir."
-    },
-    "unexpectedResult": {
-      "title": "Resultado inesperado",
-      "description": "A IA devolveu uma resposta incompleta. Pode regenerar ou tentar editar os resultados manualmente."
-    }
-  },
   "chat": {
-    "title": "Chat IA",
-    "noSession": "Inicie uma sessão para conversar com a IA sobre a sua pesquisa.",
-    "emptyState": {
-      "title": "Pergunte ao Wit sobre a sua pesquisa",
-      "examples": "Experimente: \"Pode resumir isto?\" ou \"Quais são os pontos principais?\""
-    },
-    "placeholder": "Faça uma pergunta...",
-    "thinking": "Wit está a pensar...",
-    "clearChat": "Limpar histórico de conversa",
-    "clearConfirm": "Limpar histórico de conversa?",
-    "clearConfirmDescription": "Tem a certeza de que deseja limpar todas as mensagens? Esta ação não pode ser revertida.",
-    "cleared": {
-      "title": "Conversa limpa",
-      "description": "Todas as mensagens foram eliminadas"
-    },
-    "error": {
-      "title": "Erro de conversa",
-      "description": "Falha ao enviar mensagem. Por favor, tente novamente."
-    },
-    "clearError": {
-      "title": "Erro ao limpar",
-      "description": "Falha ao limpar histórico de conversa"
-    }
+    "title": "Conversar com Wit",
+    "noSession": "Inicie uma sessão para conversar com Wit"
   },
   "sidebar": {
     "summary": {
-      "title": "Resumo do projeto",
-      "placeholder": "O resumo da sua base de conhecimento aparecerá aqui à medida que progride através do assistente."
+      "title": "Resumo",
+      "placeholder": "Complete as etapas para ver o seu resumo"
     },
     "sources": {
       "title": "Fontes",
-      "placeholder": "Fontes de pesquisa e citações aparecerão aqui.",
-      "noSources": "Ainda não há fontes disponíveis. Complete o passo de pesquisa para ver fontes."
+      "noSources": "Ainda não há fontes"
     }
   },
-  "toast": {
-    "export": {
-      "generated": {
-        "title": "Exportação gerada",
-        "description": "Exportação {{format}} descarregada com sucesso"
-      },
-      "failed": {
-        "title": "Exportação falhada",
-        "description": "Falha ao gerar exportação"
-      },
-      "downloadStarted": {
-        "title": "Transferência iniciada",
-        "description": "A transferir {{filename}}"
-      },
-      "downloadFailed": {
-        "title": "Transferência falhada",
-        "description": "Falha ao transferir ficheiro"
-      },
-      "pdfDownloaded": {
-        "title": "PDF transferido",
-        "description": "Documento {{docType}} exportado com sucesso"
-      },
-      "pdfFailed": {
-        "title": "Exportação PDF falhada",
-        "description": "Falha ao exportar PDF"
-      },
-      "complete": {
-        "title": "Base de conhecimento completa!",
-        "description": "A sua base de conhecimento foi gerada e exportada com sucesso."
-      }
-    },
-    "upload": {
-      "success": {
-        "title": "Imagens carregadas",
-        "description": "{{count}} imagens carregadas com sucesso."
-      },
-      "failed": {
-        "title": "Carregamento falhado",
-        "description": "Falha ao carregar imagens. Por favor, tente novamente."
-      },
-      "imported": {
-        "title": "Imagem importada",
-        "description": "Imagem importada com sucesso do URL."
-      },
-      "importFailed": {
-        "title": "Importação falhada",
-        "description": "Falha ao importar imagem do URL. Verifique o URL e tente novamente."
-      },
-      "noImages": {
-        "title": "Nenhuma imagem selecionada",
-        "description": "Por favor, carregue imagens primeiro."
-      }
-    },
-    "generation": {
-      "testImages": {
-        "title": "Imagens de teste geradas",
-        "description": "{{count}} imagens de teste criadas."
-      },
-      "failed": {
-        "title": "Geração falhada",
-        "description": "Por favor, tente novamente."
-      }
-    },
-    "document": {
-      "generated": {
-        "title": "{{type}} gerado",
-        "description": "A IA gerou o seu {{type}}"
-      },
-      "saved": {
-        "title": "{{type}} guardado",
-        "description": "As suas alterações foram guardadas com sucesso"
-      },
-      "generateFirst": {
-        "title": "Gerar {{type}}",
-        "description": "Por favor, gere o seu {{type}} antes de continuar"
-      },
-      "saveFailed": {
-        "title": "Falha ao guardar",
-        "description": "Falha ao guardar {{type}}"
-      }
-    },
-    "research": {
-      "complete": {
-        "title": "Pesquisa completa",
-        "description": "A IA analisou as informações da sua empresa."
-      },
-      "failed": {
-        "title": "Pesquisa falhada",
-        "description": "Por favor, tente novamente."
-      },
-      "saved": {
-        "title": "Conteúdo guardado",
-        "description": "Os resultados da pesquisa foram guardados."
-      }
-    }
-  }
+  "optional": "Opcional"
 }
