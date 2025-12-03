@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 // import { ConversationalAI } from './ConversationalAI';
 import { useSession } from '@/hooks/useSession';
 // import { useStepContent } from '@/contexts/StepContentContext';
-import { useLocation } from 'react-router-dom';
-// import { useQuery } from '@tantml:parameter>
+// import { useLocation } from 'react-router-dom';
+// import { useQuery } from '@tanstack/react-query';
 // import { supabase } from '@/lib/supabase';
 import { useDocuments } from '@/hooks/useDocuments';
 import { useSources } from '@/hooks/useSources';
