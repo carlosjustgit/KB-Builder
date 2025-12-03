@@ -22,7 +22,7 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   const { t } = useTranslation('common');
   const { data: session } = useSession();
-  const location = useLocation();
+  // const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Get current step from pathname
