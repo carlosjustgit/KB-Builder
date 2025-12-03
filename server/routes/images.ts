@@ -57,7 +57,8 @@ router.post('/import-url', async (req: Request, res: Response) => {
     }
 
     // Get the image buffer
-    const buffer = await response.buffer();
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
     const contentType = response.headers.get('content-type') || 'image/jpeg';
     
     console.log('✅ Image fetched:', contentType, buffer.length, 'bytes');

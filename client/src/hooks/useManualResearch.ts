@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 interface ManualInput {
   company_description: string;
-  competitors?: string | string[];
+  competitors?: string; // String input, converted to array when sent to API
   services?: string;
   additional_info?: string;
 }

@@ -38,7 +38,8 @@ export async function analyzeImagesForGuidelines(
             throw new Error(`Failed to fetch image: ${response.statusText}`);
           }
           
-          const buffer = await response.buffer();
+          const arrayBuffer = await response.arrayBuffer();
+          const buffer = Buffer.from(arrayBuffer);
           const base64 = buffer.toString('base64');
           const contentType = response.headers.get('content-type') || 'image/jpeg';
           
