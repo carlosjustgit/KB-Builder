@@ -128,17 +128,17 @@
     "action": "Iniciar nova sessão"
   },
   "nextSteps": {
-    "congratulations": "🎉 Parabéns! Seus Documentos de Marca Estão Prontos!",
+    "congratulations": "🎉 Parabéns! Seus Documentos Estão Prontos!",
     "step1": {
       "title": "Baixe Seus Documentos",
-      "description": "Clique nos botões de download à direita para salvar todos os seus documentos de marca no seu dispositivo."
+      "description": "Clique nos botões de download à direita para salvar todos os seus documentos no seu dispositivo."
     },
     "step2": {
       "title": "Vá para o Witfy",
       "description": "Se você é novo, clique em 'Criar Perfil' e nosso assistente de integração irá guiá-lo pela configuração."
     },
     "step3": {
-      "title": "Carregue Seus Documentos de Marca",
+      "title": "Carregue Seus Documentos",
       "description": "Já tem um perfil? Vá para as configurações da Base de Conhecimento e carregue seus documentos lá."
     },
     "ctaButton": "Continuar para Witfy",

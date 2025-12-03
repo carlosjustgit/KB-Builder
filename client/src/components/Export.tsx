@@ -3,18 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { useExportWithState, useDownloadPDF } from '@/hooks/useExport';
 import { useDocuments } from '@/hooks/useDocuments';
 import { 
   Download, 
   FileText, 
-  Archive, 
-  Image, 
-  Link, 
-  Palette,
+  Archive,
   Loader2,
   Calendar,
   File,
@@ -33,9 +28,7 @@ export function Export({ sessionId, className }: ExportProps) {
   const { t } = useTranslation('step-export');
   
   const {
-    generateExport,
     downloadExport,
-    isGenerating,
     isDownloading,
     stats,
     isLoading,
@@ -45,21 +38,7 @@ export function Export({ sessionId, className }: ExportProps) {
   const { data: documents } = useDocuments(sessionId);
   const downloadPDF = useDownloadPDF();
 
-  const [exportOptions, setExportOptions] = useState({
-    includeImages: true,
-    includeSources: true,
-    includeVisualGuide: true,
-    format: 'zip' as 'json' | 'zip',
-  });
-
   const [downloadingDocId, setDownloadingDocId] = useState<string | null>(null);
-
-  const handleGenerateExport = () => {
-    generateExport({
-      sessionId,
-      options: exportOptions,
-    });
-  };
 
   const handleDownloadExisting = (filename: string) => {
     downloadExport(filename);
