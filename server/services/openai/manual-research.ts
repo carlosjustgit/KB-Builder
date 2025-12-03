@@ -22,7 +22,7 @@ interface ResearchResult {
  */
 export async function performManualResearch(
   manualInput: ManualInput,
-  locale: string,
+  _locale: string,
   step: string
 ): Promise<ResearchResult> {
   console.log(`📝 [Manual Research] Generating ${step} content from manual input...`);
@@ -32,7 +32,7 @@ export async function performManualResearch(
 
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4-turbo-preview',
+      model: 'gpt-4o',
       messages: [
         {
           role: 'system',
