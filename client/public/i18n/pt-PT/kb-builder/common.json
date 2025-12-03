@@ -9,7 +9,9 @@
     "search": "Pesquisar",
     "exportJSON": "Exportar JSON",
     "downloadZIP": "Descarregar ZIP",
-    "launchWitfy": "Abrir Witfy"
+    "launchWitfy": "Abrir Witfy",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
   },
   "tabs": {
     "summary": "Resumo",
@@ -34,7 +36,28 @@
   },
   "chat": {
     "title": "Conversar com Wit",
-    "noSession": "Inicie uma sessão para conversar com Wit"
+    "noSession": "Inicie uma sessão para conversar com Wit",
+    "emptyState": {
+      "title": "Pergunte qualquer coisa ao Wit sobre a sua marca",
+      "examples": "Por exemplo: \"Torne o tom mais profissional\" ou \"Adicione mais ênfase na sustentabilidade\""
+    },
+    "placeholder": "Digite a sua mensagem...",
+    "thinking": "O Wit está a pensar...",
+    "clearChat": "Limpar chat",
+    "clearConfirm": "Limpar histórico do chat?",
+    "clearConfirmDescription": "Isto irá eliminar permanentemente todas as mensagens desta conversa. Esta acção não pode ser anulada.",
+    "error": {
+      "title": "Falha ao enviar mensagem",
+      "description": "Ocorreu um erro ao enviar a sua mensagem. Por favor, tente novamente."
+    },
+    "cleared": {
+      "title": "Chat limpo",
+      "description": "Todas as mensagens foram eliminadas."
+    },
+    "clearError": {
+      "title": "Falha ao limpar chat",
+      "description": "Ocorreu um erro ao limpar o chat. Por favor, tente novamente."
+    }
   },
   "sidebar": {
     "summary": {

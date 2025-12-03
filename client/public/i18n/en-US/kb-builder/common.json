@@ -9,7 +9,9 @@
     "search": "Search",
     "exportJSON": "Export JSON",
     "downloadZIP": "Download ZIP",
-    "launchWitfy": "Launch Witfy"
+    "launchWitfy": "Launch Witfy",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   },
   "tabs": {
     "summary": "Summary",
@@ -34,7 +36,28 @@
   },
   "chat": {
     "title": "Chat with Wit",
-    "noSession": "Start a session to chat with Wit"
+    "noSession": "Start a session to chat with Wit",
+    "emptyState": {
+      "title": "Ask Wit anything about your brand",
+      "examples": "For example: \"Make the tone more professional\" or \"Add more emphasis on sustainability\""
+    },
+    "placeholder": "Type your message...",
+    "thinking": "Wit is thinking...",
+    "clearChat": "Clear chat",
+    "clearConfirm": "Clear chat history?",
+    "clearConfirmDescription": "This will permanently delete all messages in this conversation. This action cannot be undone.",
+    "error": {
+      "title": "Failed to send message",
+      "description": "There was an error sending your message. Please try again."
+    },
+    "cleared": {
+      "title": "Chat cleared",
+      "description": "All messages have been deleted."
+    },
+    "clearError": {
+      "title": "Failed to clear chat",
+      "description": "There was an error clearing the chat. Please try again."
+    }
   },
   "sidebar": {
     "summary": {

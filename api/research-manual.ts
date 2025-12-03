@@ -1,7 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { z } from 'zod';
-import { performMultiSourceResearch } from '../server/services/multi-source/research.js';
-import { validateResearchQuality } from '../server/services/multi-source/validator.js';
+import { performManualResearch } from '../server/services/openai/manual-research.js';
 import { supabase } from '../server/services/supabase/client.js';
 
 /**
@@ -81,48 +80,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       })
       .eq('id', session_id);
 
-    // Build context from manual input
-    const context = buildContextFromManualInput(manual_input, step);
-    console.log('📄 [Manual Research] Built context length:', context.length);
-
-    // Use a placeholder URL for manual input mode
-    const placeholderUrl = 'https://manual-input.witfy.ai';
-
-    // Perform multi-source research with manual input context
-    console.log('🔍 [Manual Research] Starting multi-source research...');
-    const researchResult = await performMultiSourceResearch(
-      placeholderUrl,
-      locale,
-      step,
-      context
-    );
-
-    // Validate research quality
-    console.log('✅ [Manual Research] Validating research quality...');
-    const validation = await validateResearchQuality(
-      researchResult.content_md,
-      researchResult.sources,
-      placeholderUrl
-    );
-
-    console.log(`📊 [Manual Research] Quality Score: ${validation.qualityScore}/10`);
-    console.log(`📊 [Manual Research] Providers used: ${researchResult.providers_used.join(', ')}`);
-    console.log(`📊 [Manual Research] Confidence: ${researchResult.confidence_score}`);
-
-    // Enhance content with manual input context
-    let finalContent = enhanceContentWithManualInput(
-      researchResult.content_md,
+    // Perform manual research using OpenAI
+    console.log('🔍 [Manual Research] Generating content from manual input...');
+    const researchResult = await performManualResearch(
       manual_input,
+      locale,
       step
     );
 
-    // Add quality notice if needed
-    if (validation.qualityScore < 7) {
-      finalContent = `> ⚠️ **Quality Notice**: This content scored ${validation.qualityScore}/10. Please review carefully.\n\n` + finalContent;
-    }
+    console.log(`✅ [Manual Research] Generated ${researchResult.content_md.length} characters`);
+    console.log(`📊 [Manual Research] Quality Score: ${researchResult.quality_score}/10`);
+
+    let finalContent = researchResult.content_md;
 
     // Add manual input notice
-    finalContent = `> ℹ️ **Source**: Generated from manual input\n\n` + finalContent;
+    finalContent = `> ℹ️ **Source**: Generated from your manual input\n\n` + finalContent;
 
     // Save document to database
     console.log(`💾 [Manual Research] Saving ${step} document to database...`);
@@ -182,9 +154,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.json({
       content_md: finalContent,
       sources: researchResult.sources,
-      quality_score: validation.qualityScore,
-      confidence_score: researchResult.confidence_score,
-      providers_used: researchResult.providers_used,
+      quality_score: researchResult.quality_score,
+      confidence_score: researchResult.quality_score / 10,
+      providers_used: ['openai'],
     });
 
   } catch (error) {
