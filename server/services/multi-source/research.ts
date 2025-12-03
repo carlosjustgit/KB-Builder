@@ -135,7 +135,7 @@ async function queryGemini(
   context?: string
 ): Promise<ResearchResponse> {
   try {
-    // Use Gemini 2.0 Flash Thinking Experimental - latest with advanced reasoning
+    // Use Gemini 2.0 Flash Thinking Experimental - advanced reasoning but clean output
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-thinking-exp' });
 
     let prompt;
@@ -157,9 +157,22 @@ IMPORTANT:
 - Format in markdown
 - If information is limited, work with what's available
 
+CRITICAL OUTPUT INSTRUCTIONS:
+- Output ONLY the final ${step} document in clean markdown
+- DO NOT include your thinking process, reasoning, or analysis steps
+- DO NOT include meta-commentary about the task
+- GO STRAIGHT TO THE DOCUMENT CONTENT
+
 Generate the ${step} document now.`;
     } else {
-      prompt = `Research and fact-check information about ${companyUrl} to create a ${step} document. Focus on accuracy and validation. Flag any uncertain information.`;
+      prompt = `Research and fact-check information about ${companyUrl} to create a ${step} document.
+
+CRITICAL OUTPUT INSTRUCTIONS:
+- Output ONLY the final ${step} document in clean markdown
+- DO NOT include your thinking process or reasoning
+- GO STRAIGHT TO THE DOCUMENT CONTENT
+
+Focus on accuracy and validation. Flag any uncertain information.`;
     }
 
     const result = await model.generateContent(prompt);
