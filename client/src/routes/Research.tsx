@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MarkdownEditor } from '@/components/MarkdownEditor';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
-import { BottomActionBar } from '@/components/BottomActionBar';
 import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
 import { useManualResearch } from '@/hooks/useManualResearch';
@@ -272,7 +271,7 @@ export function Research() {
             <CardContent>
               <MarkdownRenderer content={researchResult.content_md} />
 
-              {/* Action Buttons - Top */}
+              {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
                 <Button variant="outline" onClick={() => setIsEditing(true)} className="w-full sm:w-auto">
                   <Edit className="w-4 h-4 mr-2" />
@@ -286,16 +285,6 @@ export function Research() {
                   {t('results.approve')}
                 </Button>
               </div>
-
-              {/* Action Buttons - Bottom */}
-              <BottomActionBar
-                isEditing={false}
-                onEdit={() => setIsEditing(true)}
-                onRegenerate={handleRegenerate}
-                editLabel={t('results.edit')}
-                regenerateLabel={t('results.regenerate')}
-                isLoading={isLoading}
-              />
             </CardContent>
           </Card>
 
