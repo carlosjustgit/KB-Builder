@@ -211,7 +211,7 @@ function calculateSpecificity(content: string, companyUrl: string): number {
 /**
  * Detect potential hallucinations
  */
-function detectPotentialHallucinations(content: string, sources: Source[]): {
+function detectPotentialHallucinations(content: string, _sources: Source[]): {
   suspiciousStatements: string[];
 } {
   const suspiciousStatements: string[] = [];
