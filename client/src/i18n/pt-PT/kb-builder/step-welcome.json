@@ -6,18 +6,80 @@
     "label": "Escolha o seu idioma",
     "placeholder": "Selecione o idioma"
   },
+  "inputMode": {
+    "url": "URL do Site",
+    "manual": "Introdução Manual"
+  },
   "url": {
     "label": "URL do site da empresa",
     "placeholder": "exemplo.pt",
+    "description": "Analisaremos o seu site para construir a sua base de conhecimento.",
     "validation": {
       "required": "Por favor, insira o site da sua empresa",
       "invalid": "Por favor, insira um URL válido"
     }
   },
+  "manual": {
+    "description": "Forneça detalhes sobre a sua empresa manualmente. Pode digitar ou usar o botão do microfone para falar.",
+    "companyDescription": {
+      "label": "Descrição da Empresa",
+      "placeholder": "Descreva a sua empresa, o que faz, a sua missão, valores e público-alvo...",
+      "required": true
+    },
+    "competitors": {
+      "label": "Concorrentes",
+      "placeholder": "Liste os seus principais concorrentes (um por linha ou separados por vírgula)...",
+      "optional": true
+    },
+    "services": {
+      "label": "Serviços/Produtos",
+      "placeholder": "Descreva os seus principais serviços ou produtos...",
+      "optional": true
+    },
+    "additionalInfo": {
+      "label": "Informações Adicionais",
+      "placeholder": "Qualquer outra informação relevante sobre a sua empresa...",
+      "optional": true
+    },
+    "estimatedTime": "Tempo estimado: 3-5 minutos",
+    "button": "Começar com Introdução Manual",
+    "validation": {
+      "descriptionTooShort": "Por favor, forneça pelo menos 10 caracteres descrevendo a sua empresa"
+    }
+  },
   "estimatedTime": "Tempo estimado: 15-20 minutos",
   "buttons": {
     "next": "Começar",
-    "back": "Voltar"
+    "back": "Voltar",
+    "starting": "A iniciar...",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
+  },
+  "session": {
+    "checking": "A verificar sessão existente...",
+    "found": {
+      "title": "Sessão Encontrada",
+      "description": "Tem uma sessão existente para {{url}}",
+      "defaultUrl": "a sua empresa"
+    },
+    "continue": "Continuar Sessão",
+    "startFresh": "Começar de Novo",
+    "startFreshConfirm": "Isto limpará o seu progresso actual e iniciará uma nova sessão. Tem a certeza?",
+    "cleared": {
+      "title": "Sessão Limpa",
+      "description": "Pronto para começar de novo"
+    }
+  },
+  "notifications": {
+    "success": {
+      "title": "Sessão Criada",
+      "description": "Vamos construir a sua base de conhecimento!"
+    },
+    "error": {
+      "title": "Erro",
+      "description": "Falha ao criar sessão",
+      "sessionCreation": "Falha ao criar sessão",
+      "startFresh": "Falha ao limpar sessão"
+    }
   }
 }
-

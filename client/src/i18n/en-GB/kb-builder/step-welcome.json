@@ -6,18 +6,80 @@
     "label": "Choose your language",
     "placeholder": "Select language"
   },
+  "inputMode": {
+    "url": "Website URL",
+    "manual": "Manual Input"
+  },
   "url": {
     "label": "Company Website URL",
-    "placeholder": "example.com",
+    "placeholder": "example.co.uk",
+    "description": "We'll analyse your website to build your knowledge base.",
     "validation": {
       "required": "Please enter your company website",
       "invalid": "Please enter a valid URL"
     }
   },
+  "manual": {
+    "description": "Provide details about your company manually. You can type or use the microphone button to speak your input.",
+    "companyDescription": {
+      "label": "Company Description",
+      "placeholder": "Describe your company, what you do, your mission, values, and target audience...",
+      "required": true
+    },
+    "competitors": {
+      "label": "Competitors",
+      "placeholder": "List your main competitors (one per line or comma-separated)...",
+      "optional": true
+    },
+    "services": {
+      "label": "Services/Products",
+      "placeholder": "Describe your main services or products...",
+      "optional": true
+    },
+    "additionalInfo": {
+      "label": "Additional Information",
+      "placeholder": "Any other relevant information about your company...",
+      "optional": true
+    },
+    "estimatedTime": "Estimated time: 3-5 minutes",
+    "button": "Start with Manual Input",
+    "validation": {
+      "descriptionTooShort": "Please provide at least 10 characters describing your company"
+    }
+  },
   "estimatedTime": "Estimated time: 15-20 minutes",
   "buttons": {
     "next": "Start Building",
-    "back": "Back"
+    "back": "Back",
+    "starting": "Starting...",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "session": {
+    "checking": "Checking for existing session...",
+    "found": {
+      "title": "Session Found",
+      "description": "You have an existing session for {{url}}",
+      "defaultUrl": "your company"
+    },
+    "continue": "Continue Session",
+    "startFresh": "Start Fresh",
+    "startFreshConfirm": "This will clear your current progress and start a new session. Are you sure?",
+    "cleared": {
+      "title": "Session Cleared",
+      "description": "Ready to start fresh"
+    }
+  },
+  "notifications": {
+    "success": {
+      "title": "Session Created",
+      "description": "Let's build your knowledge base!"
+    },
+    "error": {
+      "title": "Error",
+      "description": "Failed to create session",
+      "sessionCreation": "Failed to create session",
+      "startFresh": "Failed to clear session"
+    }
   }
 }
-

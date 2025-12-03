@@ -1,6 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { z } from 'zod';
 import { performResearch, performResearchWithContext } from '../server/services/perplexity/client.js';
+import { performMultiSourceResearch } from '../server/services/multi-source/research.js';
+import { validateResearchQuality } from '../server/services/multi-source/validator.js';
 import { supabase } from '../server/services/supabase/client.js';
 
 /**
@@ -83,10 +85,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
-    // Perform research using Perplexity
+    // Perform research using Multi-Source (Perplexity + OpenAI + Gemini)
     // For competitors, brand, and market steps, use existing research data from step 1
     let researchResult;
-    if (step === 'competitors' || step === 'brand' || step === 'market') {
+    let context: string | undefined;
+    
+    if (step === 'competitors' || step === 'brand' || step === 'market' || step === 'services') {
       // Get research data from step 1
       const { data: researchDoc, error: researchError } = await supabase
         .from('kb_documents')
@@ -101,9 +105,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (researchDoc && !researchError) {
         console.log(`🔍 Using research context for ${step} analysis`);
         console.log('📄 Research data length:', researchDoc.content_md.length);
-        console.log('📄 Research data preview:', researchDoc.content_md.substring(0, 200) + '...');
-        // Use the research data from step 1 to generate step-specific content
-        researchResult = await performResearchWithContext(company_url, locale, step, researchDoc.content_md);
+        context = researchDoc.content_md;
       } else {
         console.log('⚠️ No research data found, trying to find any document from this session');
         
@@ -119,17 +121,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         if (anyDoc && !anyDocError) {
           console.log('🔍 Found fallback document:', anyDoc.doc_type);
           console.log('📄 Fallback data length:', anyDoc.content_md.length);
-          researchResult = await performResearchWithContext(company_url, locale, step, anyDoc.content_md);
-        } else {
-          console.log('❌ No documents found at all, falling back to regular research');
-          console.log('❌ Error details:', anyDocError);
-          // Fallback to regular research if no research data found
-          researchResult = await performResearch(company_url, locale, step);
+          context = anyDoc.content_md;
         }
       }
-    } else {
-      researchResult = await performResearch(company_url, locale, step);
     }
+
+    // Use multi-source research for better accuracy
+    console.log('🔍 [Research API] Using multi-source research...');
+    const multiSourceResult = await performMultiSourceResearch(company_url, locale, step, context);
+    
+    // Validate research quality
+    console.log('✅ [Research API] Validating research quality...');
+    const validation = await validateResearchQuality(
+      multiSourceResult.content_md,
+      multiSourceResult.sources,
+      company_url
+    );
+    
+    console.log(`📊 [Research API] Quality Score: ${validation.qualityScore}/10`);
+    console.log(`📊 [Research API] Providers used: ${multiSourceResult.providers_used.join(', ')}`);
+    console.log(`📊 [Research API] Confidence: ${multiSourceResult.confidence_score}`);
+    
+    // Add quality metadata to content if score is low
+    let finalContent = multiSourceResult.content_md;
+    if (validation.qualityScore < 7) {
+      finalContent = `> ⚠️ **Quality Notice**: This content scored ${validation.qualityScore}/10. Please review carefully.\n\n` + finalContent;
+    }
+    
+    researchResult = {
+      content_md: finalContent,
+      sources: multiSourceResult.sources,
+    };
 
     // Save document to database
     console.log(`💾 Saving ${step} document to database...`);

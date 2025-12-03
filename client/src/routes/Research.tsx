@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MarkdownEditor } from '@/components/MarkdownEditor';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
+import { BottomActionBar } from '@/components/BottomActionBar';
 import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
+import { useManualResearch } from '@/hooks/useManualResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
 import { useStepContent } from '@/contexts/StepContentContext';
 import { Loader2, Check, RotateCcw, Edit } from 'lucide-react';
@@ -15,11 +17,14 @@ import { useToast } from '@/hooks/use-toast.tsx';
 export function Research() {
   const { t } = useTranslation('step-research');
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
   const { toast } = useToast();
 
   const { data: session } = useSession();
   const saveDocument = useSaveDocument();
   const { performResearch, isLoading, error, reset } = useResearchWithState();
+  const { performManualResearch, isLoading: isManualLoading, error: manualError, reset: resetManual } = useManualResearch();
   const { setCurrentStepContent } = useStepContent();
 
   const [researchResult, setResearchResult] = useState<{
@@ -27,6 +32,10 @@ export function Research() {
     sources: Array<{ url: string; snippet: string; provider: string }>;
   } | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  
+  // Check if we're in manual input mode
+  const isManualMode = searchParams.get('mode') === 'manual';
+  const manualInput = location.state?.manualInput;
 
   // Update the current step content whenever researchResult changes
   useEffect(() => {
@@ -45,45 +54,83 @@ export function Research() {
   const handleResearch = async () => {
     if (!session) return;
 
-    // Use the company URL from the session
-    const companyUrl = session.company_url || 'https://example.com';
-    console.log('🔍 [Research] Session URL:', session.company_url);
-    console.log('🔍 [Research] Using URL for API call:', companyUrl);
+    // Check if we should use manual input mode
+    if (isManualMode && manualInput) {
+      console.log('📝 [Research] Using manual input mode');
+      const result = await performManualResearch(
+        session.id,
+        session.language,
+        'research',
+        manualInput
+      );
 
-    const result = await performResearch(
-      companyUrl,
-      session.language,
-      'research',
-      session.id
-    );
-    
-    console.log('📊 [Research] API Result:', result);
-
-    if (result.success && result.data) {
-      setResearchResult({
-        content_md: result.data.content_md,
-        sources: result.data.sources.map((s: { url: string; snippet?: string; provider?: string }) => ({
-          url: s.url,
-          snippet: s.snippet || '',
-          provider: s.provider || 'perplexity',
-        })),
-      });
-      
-      // Update the current step content for Wit to see
-      setCurrentStepContent(result.data.content_md);
-      
-      toast({
-        title: 'Research Complete',
-        description: 'AI has analyzed your company information.',
-      });
+      if (result.success && result.data) {
+        setResearchResult({
+          content_md: result.data.content_md,
+          sources: result.data.sources,
+        });
+        
+        setCurrentStepContent(result.data.content_md);
+        
+        toast({
+          title: 'Research Complete',
+          description: 'AI has analyzed your manual input.',
+        });
+      } else {
+        toast({
+          title: 'Research Failed',
+          description: result.error || 'Please try again.',
+          variant: 'destructive',
+        });
+      }
     } else {
-      toast({
-        title: 'Research Failed',
-        description: result.error || 'Please try again.',
-        variant: 'destructive',
-      });
+      // Use the company URL from the session
+      const companyUrl = session.company_url || 'https://example.com';
+      console.log('🔍 [Research] Session URL:', session.company_url);
+      console.log('🔍 [Research] Using URL for API call:', companyUrl);
+
+      const result = await performResearch(
+        companyUrl,
+        session.language,
+        'research',
+        session.id
+      );
+      
+      console.log('📊 [Research] API Result:', result);
+
+      if (result.success && result.data) {
+        setResearchResult({
+          content_md: result.data.content_md,
+          sources: result.data.sources.map((s: { url: string; snippet?: string; provider?: string }) => ({
+            url: s.url,
+            snippet: s.snippet || '',
+            provider: s.provider || 'perplexity',
+          })),
+        });
+        
+        // Update the current step content for Wit to see
+        setCurrentStepContent(result.data.content_md);
+        
+        toast({
+          title: 'Research Complete',
+          description: 'AI has analyzed your company information.',
+        });
+      } else {
+        toast({
+          title: 'Research Failed',
+          description: result.error || 'Please try again.',
+          variant: 'destructive',
+        });
+      }
     }
   };
+
+  // Auto-start research if in manual mode
+  useEffect(() => {
+    if (isManualMode && manualInput && !researchResult && !isManualLoading) {
+      handleResearch();
+    }
+  }, [isManualMode, manualInput]);
 
   const handleApprove = async () => {
     if (!researchResult || !session) return;
@@ -126,10 +173,17 @@ export function Research() {
   };
 
   const handleRegenerate = () => {
-    reset();
+    if (isManualMode) {
+      resetManual();
+    } else {
+      reset();
+    }
     setResearchResult(null);
     handleResearch();
   };
+
+  const currentError = isManualMode ? manualError : error;
+  const currentLoading = isManualMode ? isManualLoading : isLoading;
 
   if (!session) {
     return (
@@ -161,13 +215,17 @@ export function Research() {
       </Card>
 
       {/* Research Action */}
-      {!researchResult && !isLoading && (
+      {!researchResult && !currentLoading && (
         <Card>
           <CardContent className="p-8 text-center">
             <div className="space-y-4">
               <div className="text-center">
                 <h3 className="text-lg font-semibold mb-2">{t('loading.title')}</h3>
-                <p className="text-muted-foreground">{t('loading.description')}</p>
+                <p className="text-muted-foreground">
+                  {isManualMode 
+                    ? t('loading.manualDescription', 'Ready to analyze your manual input with multi-source AI research.')
+                    : t('loading.description')}
+                </p>
               </div>
 
               <Button
@@ -183,7 +241,7 @@ export function Research() {
       )}
 
       {/* Loading State */}
-      {isLoading && (
+      {currentLoading && (
         <Card>
           <CardContent className="p-8 text-center">
             <div className="space-y-4">
@@ -214,7 +272,7 @@ export function Research() {
             <CardContent>
               <MarkdownRenderer content={researchResult.content_md} />
 
-              {/* Action Buttons */}
+              {/* Action Buttons - Top */}
               <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
                 <Button variant="outline" onClick={() => setIsEditing(true)} className="w-full sm:w-auto">
                   <Edit className="w-4 h-4 mr-2" />
@@ -228,6 +286,16 @@ export function Research() {
                   {t('results.approve')}
                 </Button>
               </div>
+
+              {/* Action Buttons - Bottom */}
+              <BottomActionBar
+                isEditing={false}
+                onEdit={() => setIsEditing(true)}
+                onRegenerate={handleRegenerate}
+                editLabel={t('results.edit')}
+                regenerateLabel={t('results.regenerate')}
+                isLoading={isLoading}
+              />
             </CardContent>
           </Card>
 
@@ -292,13 +360,13 @@ export function Research() {
       )}
 
       {/* Error State */}
-      {error && !isLoading && (
+      {currentError && !currentLoading && (
         <Card className="border-destructive">
           <CardContent className="p-8 text-center">
             <div className="space-y-4">
               <div className="text-destructive">
                 <h3 className="text-lg font-semibold">{t('validation.researchFailed')}</h3>
-                <p className="text-sm">{error.message}</p>
+                <p className="text-sm">{currentError.message}</p>
               </div>
 
               <Button onClick={handleRegenerate} variant="outline">

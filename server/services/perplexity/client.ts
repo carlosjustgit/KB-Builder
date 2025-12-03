@@ -54,9 +54,10 @@ export async function performResearch(
 - If information conflicts, prioritize the official website content
 - If you cannot find specific information on the website, state "Information not available" rather than guessing
 - NEVER make up or assume facts about founding dates, locations, or company history
-- Always cite your sources with URLs
+- Always cite your sources with URLs in markdown format: [Source Text](URL)
 - DO NOT include reasoning tags like <think> or internal processing steps
 - Provide complete, finished responses only
+- Quote specific sections from the website to support your claims
 
 ⚠️ ANTI-HALLUCINATION PROTOCOL:
 - Before stating ANY fact, ask yourself: "Do I have a direct source for this?"
@@ -64,6 +65,18 @@ export async function performResearch(
 - Cross-reference information from multiple pages on the website
 - If sources conflict, state the conflict and cite both sources
 - NEVER fill in gaps with assumptions or generic information
+- Include direct quotes from the website when making factual claims
+
+📊 CONFIDENCE LEVELS:
+- For each major section, indicate confidence: High (multiple sources), Medium (single source), or Low (inferred)
+- Example: "**Company Mission** (Confidence: High): [Quote from website]"
+
+✅ QUALITY CHECKLIST:
+- [ ] All facts have source citations
+- [ ] Direct quotes are used for key information
+- [ ] No generic/template language
+- [ ] Company-specific details included
+- [ ] Confidence levels indicated
 
 Your credibility depends on accuracy. False information damages trust and business relationships.`,
           },

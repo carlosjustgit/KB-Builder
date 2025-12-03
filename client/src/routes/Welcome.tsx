@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { SpeechTextarea } from '@/components/SpeechToText';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -13,9 +15,17 @@ import type { Locale } from '@/lib/i18n';
 import { useCreateSession, useSessionFromParams } from '@/hooks/useSession';
 import { useToast } from '@/hooks/use-toast.tsx';
 import { useQueryClient } from '@tanstack/react-query';
+import { Globe, FileText } from 'lucide-react';
 
 type WelcomeForm = {
   company_url: string;
+};
+
+type ManualInputForm = {
+  company_description: string;
+  competitors: string;
+  services: string;
+  additional_info: string;
 };
 
 export function Welcome() {
@@ -40,13 +50,30 @@ export function Welcome() {
         { message: t('url.validation.invalid') }
       ),
   });
+
+  const manualInputSchema = z.object({
+    company_description: z.string().min(10, 'Please provide at least 10 characters describing your company'),
+    competitors: z.string().optional(),
+    services: z.string().optional(),
+    additional_info: z.string().optional(),
+  });
+
   const navigate = useNavigate();
   const { toast } = useToast();
   // Initialize from current i18n language instead of hardcoding 'en-US'
   const [selectedLocale, setSelectedLocale] = useState<Locale>((i18n.language as Locale) || 'en-US');
   const [showStartFreshDialog, setShowStartFreshDialog] = useState(false);
+  const [inputMode, setInputMode] = useState<'url' | 'manual'>('url');
   const createSession = useCreateSession();
   const { data: existingSession, isLoading: sessionLoading } = useSessionFromParams();
+
+  // Manual input form state
+  const [manualInput, setManualInput] = useState<ManualInputForm>({
+    company_description: '',
+    competitors: '',
+    services: '',
+    additional_info: '',
+  });
 
   // Sync selectedLocale with current i18n language on mount
   useEffect(() => {
@@ -170,6 +197,54 @@ export function Welcome() {
     }
   };
 
+  const onManualSubmit = async () => {
+    // Validate manual input
+    const validation = manualInputSchema.safeParse(manualInput);
+    
+    if (!validation.success) {
+      toast({
+        title: 'Validation Error',
+        description: validation.error.errors[0].message,
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    console.log('📝 Manual input submitted:', manualInput);
+    console.log('📍 Selected locale:', selectedLocale);
+
+    try {
+      // Create a new session with manual input mode
+      console.log('🔄 Creating session with manual input...');
+      const session = await createSession.mutateAsync({
+        user_id: crypto.randomUUID(),
+        company_url: 'https://manual-input.witfy.ai', // Placeholder URL
+        language: selectedLocale,
+        step: 'research',
+      });
+
+      console.log('✅ Session created:', session);
+
+      toast({
+        title: 'Session Created',
+        description: 'Processing your manual input...',
+      });
+
+      // Navigate to research step with manual input flag
+      console.log('🧭 Navigating to research page with manual input...');
+      navigate(`/research?session=${session.id}&mode=manual`, {
+        state: { manualInput },
+      });
+    } catch (error) {
+      console.error('❌ Error creating session:', error);
+      toast({
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to create session',
+        variant: 'destructive',
+      });
+    }
+  };
+
   // Show loading state while checking for existing session
   if (sessionLoading) {
     return (
@@ -238,60 +313,148 @@ export function Welcome() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Language selector */}
-            <div className="space-y-2">
-              <Label htmlFor="locale">{t('locale.label')}</Label>
-              <Select value={selectedLocale} onValueChange={handleLocaleChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder={t('locale.placeholder')} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="en-US">English (US)</SelectItem>
-                  <SelectItem value="en-GB">English (UK)</SelectItem>
-                  <SelectItem value="pt-BR">Português (Brasil)</SelectItem>
-                  <SelectItem value="pt-PT">Português (Portugal)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+          {/* Language selector - Outside tabs */}
+          <div className="space-y-2 mb-6">
+            <Label htmlFor="locale">{t('locale.label')}</Label>
+            <Select value={selectedLocale} onValueChange={handleLocaleChange}>
+              <SelectTrigger>
+                <SelectValue placeholder={t('locale.placeholder')} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en-US">English (US)</SelectItem>
+                <SelectItem value="en-GB">English (UK)</SelectItem>
+                <SelectItem value="pt-BR">Português (Brasil)</SelectItem>
+                <SelectItem value="pt-PT">Português (Portugal)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-            {/* URL input */}
-            <div className="space-y-2">
-              <Label htmlFor="company_url">{t('url.label')}</Label>
-              <Input
-                id="company_url"
-                type="text"
-                placeholder={t('url.placeholder')}
-                {...register('company_url')}
-                className={errors.company_url ? 'border-destructive' : ''}
-              />
-              {errors.company_url && (
-                <p className="text-sm text-destructive">
-                  {errors.company_url.message}
+          {/* Input Mode Tabs */}
+          <Tabs value={inputMode} onValueChange={(value) => setInputMode(value as 'url' | 'manual')} className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="url" className="flex items-center gap-2">
+                <Globe className="w-4 h-4" />
+                {t('inputMode.url')}
+              </TabsTrigger>
+              <TabsTrigger value="manual" className="flex items-center gap-2">
+                <FileText className="w-4 h-4" />
+                {t('inputMode.manual')}
+              </TabsTrigger>
+            </TabsList>
+
+            {/* URL Input Tab */}
+            <TabsContent value="url" className="space-y-6 mt-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                {/* URL input */}
+                <div className="space-y-2">
+                  <Label htmlFor="company_url">{t('url.label')}</Label>
+                  <Input
+                    id="company_url"
+                    type="text"
+                    placeholder={t('url.placeholder')}
+                    {...register('company_url')}
+                    className={errors.company_url ? 'border-destructive' : ''}
+                  />
+                  {errors.company_url && (
+                    <p className="text-sm text-destructive">
+                      {errors.company_url.message}
+                    </p>
+                  )}
+                  <p className="text-xs text-muted-foreground">
+                    {t('url.description')}
+                  </p>
+                </div>
+
+                {/* Time estimate */}
+                <div className="text-center p-4 bg-muted/50 rounded-md">
+                  <p className="text-sm text-muted-foreground">
+                    ⏱️ {t('estimatedTime')}
+                  </p>
+                </div>
+
+                {/* Submit button */}
+                <div className="text-center">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="witfy-gradient text-white hover:opacity-90 w-full sm:w-auto"
+                    disabled={createSession.isPending}
+                  >
+                    {createSession.isPending ? t('buttons.starting') : t('buttons.next')}
+                  </Button>
+                </div>
+              </form>
+            </TabsContent>
+
+            {/* Manual Input Tab */}
+            <TabsContent value="manual" className="space-y-6 mt-6">
+              <div className="space-y-6">
+                <p className="text-sm text-muted-foreground">
+                  {t('manual.description')}
                 </p>
-              )}
-            </div>
 
-            {/* Time estimate */}
-            <div className="text-center p-4 bg-muted/50 rounded-md">
-              <p className="text-sm text-muted-foreground">
-                ⏱️ {t('estimatedTime')}
-              </p>
-            </div>
+                {/* Company Description */}
+                <SpeechTextarea
+                  value={manualInput.company_description}
+                  onChange={(value) => setManualInput({ ...manualInput, company_description: value })}
+                  label={`${t('manual.companyDescription.label')} *`}
+                  placeholder={t('manual.companyDescription.placeholder')}
+                  rows={6}
+                  language={selectedLocale}
+                />
 
-            {/* Submit button */}
-            <div className="text-center">
-              <Button
-                type="submit"
-                size="lg"
-                className="witfy-gradient text-white hover:opacity-90 w-full sm:w-auto"
-                disabled={createSession.isPending}
-                onClick={() => console.log('🔘 Button clicked!')}
-              >
-                {createSession.isPending ? t('buttons.starting') : t('buttons.next')}
-              </Button>
-            </div>
-          </form>
+                {/* Competitors */}
+                <SpeechTextarea
+                  value={manualInput.competitors}
+                  onChange={(value) => setManualInput({ ...manualInput, competitors: value })}
+                  label={`${t('manual.competitors.label')} (${t('common:optional', 'Optional')})`}
+                  placeholder={t('manual.competitors.placeholder')}
+                  rows={3}
+                  language={selectedLocale}
+                />
+
+                {/* Services/Products */}
+                <SpeechTextarea
+                  value={manualInput.services}
+                  onChange={(value) => setManualInput({ ...manualInput, services: value })}
+                  label={`${t('manual.services.label')} (${t('common:optional', 'Optional')})`}
+                  placeholder={t('manual.services.placeholder')}
+                  rows={4}
+                  language={selectedLocale}
+                />
+
+                {/* Additional Information */}
+                <SpeechTextarea
+                  value={manualInput.additional_info}
+                  onChange={(value) => setManualInput({ ...manualInput, additional_info: value })}
+                  label={`${t('manual.additionalInfo.label')} (${t('common:optional', 'Optional')})`}
+                  placeholder={t('manual.additionalInfo.placeholder')}
+                  rows={4}
+                  language={selectedLocale}
+                />
+
+                {/* Time estimate */}
+                <div className="text-center p-4 bg-muted/50 rounded-md">
+                  <p className="text-sm text-muted-foreground">
+                    ⏱️ {t('manual.estimatedTime')}
+                  </p>
+                </div>
+
+                {/* Submit button */}
+                <div className="text-center">
+                  <Button
+                    type="button"
+                    size="lg"
+                    className="witfy-gradient text-white hover:opacity-90 w-full sm:w-auto"
+                    disabled={createSession.isPending || !manualInput.company_description}
+                    onClick={onManualSubmit}
+                  >
+                    {createSession.isPending ? t('buttons.starting') : t('manual.button')}
+                  </Button>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
 

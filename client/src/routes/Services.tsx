@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
+import { BottomActionBar } from '@/components/BottomActionBar';
 import { useSession } from '@/hooks/useSession';
 import { useResearchWithState } from '@/hooks/useResearch';
 import { useSaveDocument } from '@/hooks/useDocuments';
@@ -298,7 +299,24 @@ export function Services() {
                 placeholder={t('placeholders.editDocument')}
               />
             ) : (
-              <MarkdownRenderer content={servicesContent} />
+              <>
+                <MarkdownRenderer content={servicesContent} />
+                
+                {/* Action Buttons - Bottom */}
+                <BottomActionBar
+                  isEditing={false}
+                  onEdit={() => setIsEditing(true)}
+                  onSave={handleSave}
+                  onCancel={() => setIsEditing(false)}
+                  onRegenerate={handleRegenerate}
+                  editLabel={t('actions.edit')}
+                  saveLabel={t('actions.save')}
+                  cancelLabel={t('actions.cancel')}
+                  regenerateLabel={t('actions.regenerate')}
+                  isLoading={isLoading}
+                  isSaving={saveDocument.isPending}
+                />
+              </>
             )}
           </CardContent>
         </Card>
