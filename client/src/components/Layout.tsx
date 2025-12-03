@@ -102,7 +102,7 @@ export function Layout({ children }: LayoutProps) {
   });
 
   // Use database content if available, otherwise fall back to context
-  const actualCurrentContent = dbStepContent || currentStepContent;
+  // const actualCurrentContent = dbStepContent || currentStepContent;
 
   // Sidebar Content Component (reusable for both desktop and mobile)
   const SidebarContent = () => (
