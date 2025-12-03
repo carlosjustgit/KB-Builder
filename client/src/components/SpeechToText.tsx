@@ -188,8 +188,6 @@ export function SpeechToText({
     return null;
   }
 
-  const isProcessing = isRecording || isTranscribing;
-
   return (
     <Button
       type="button"
