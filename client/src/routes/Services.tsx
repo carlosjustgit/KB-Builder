@@ -21,9 +21,12 @@ export function Services() {
   const { t } = useTranslation('step-services');
   
   const { data: session } = useSession();
-  const { performResearch, isLoading, error, reset } = useResearchWithState();
-  const { performManualResearch, reset: resetManual } = useManualResearch();
+  const { performResearch, isLoading: isUrlLoading, error, reset } = useResearchWithState();
+  const { performManualResearch, isLoading: isManualLoading, reset: resetManual } = useManualResearch();
   const saveDocument = useSaveDocument();
+  
+  // Combined loading state for both URL and manual modes
+  const isLoading = isUrlLoading || isManualLoading;
 
   const [servicesContent, setServicesContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
