@@ -141,8 +141,8 @@ async function queryGemini(
   context?: string
 ): Promise<ResearchResponse> {
   try {
-    // Use Gemini 3 Pro - Released November 2025, best multimodal model globally
-    const model = genAI.getGenerativeModel({ model: 'gemini-3-pro' });
+    // Use Gemini 3 Pro Preview - Released November 2025, best multimodal model globally
+    const model = genAI.getGenerativeModel({ model: 'gemini-3-pro-preview' });
 
     let prompt;
     if (context) {
