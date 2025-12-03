@@ -74,10 +74,10 @@ export async function analyzeImagesForGuidelines(
 
     console.log('🤖 Calling OpenAI Vision API...');
     const response = await openai.chat.completions.create({
-      model: 'gpt-5', // GPT-5 with vision capabilities
+      model: 'gpt-4o', // GPT-4o for vision - stable and proven
       messages,
-      reasoning_effort: 'medium', // Balance quality and speed for vision analysis
-      // Note: GPT-5 reasoning models only support temperature=1 (default)
+      max_tokens: 4000,
+      temperature: 0.7,
     });
 
     if (!response.choices?.[0]?.message?.content) {
