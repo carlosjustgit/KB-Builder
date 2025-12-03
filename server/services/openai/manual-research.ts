@@ -43,8 +43,8 @@ export async function performManualResearch(
           content: userPrompt,
         },
       ],
+      reasoning_effort: 'medium', // Balance quality and speed
       temperature: 0.8, // Slightly higher for more creative brand content
-      max_tokens: 4000, // More tokens for detailed brand documentation
     });
 
     const content = completion.choices[0]?.message?.content || '';

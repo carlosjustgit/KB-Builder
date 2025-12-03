@@ -101,8 +101,8 @@ Generate the ${step} document now using the research data above.`;
             content: userPrompt,
           },
         ],
+        reasoning_effort: 'medium', // Balance quality and speed - completes tasks fully
         temperature: 0.3,
-        max_tokens: 3000,
       }),
     });
 
@@ -196,7 +196,16 @@ NO "Let me...", NO "Based on...", NO ANALYSIS.
 Focus on accuracy. Flag uncertain information. But NO THINKING PROCESS IN OUTPUT.`;
     }
 
-    const result = await model.generateContent(prompt);
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.3,
+        // Gemini 3 Pro automatically uses deep reasoning - no need for maxOutputTokens limit
+        // The model will generate complete responses naturally
+        topK: 40,
+        topP: 0.95,
+      }
+    });
     const content = result.response.text();
 
     return {

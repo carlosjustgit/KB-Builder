@@ -86,7 +86,7 @@ Your credibility depends on accuracy. False information damages trust and busine
           },
         ],
         temperature: 0.3, // Lower temperature for more factual responses
-        max_tokens: 4000, // Increased for comprehensive responses
+        max_tokens: 8000, // Increased for complete, detailed responses
         search_domain_filter: [domain], // Restrict search to specific domain
       }),
     });
@@ -219,7 +219,7 @@ export async function performResearchWithContext(
           },
         ],
         temperature: 0.7, // Balance creativity and consistency
-        max_tokens: 2000, // Sufficient for research responses
+        max_tokens: 8000, // Increased to match other providers - ensure complete responses
         search_domain_filter: [domain], // Restrict search to specific domain
       }),
     });

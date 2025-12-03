@@ -76,7 +76,7 @@ export async function analyzeImagesForGuidelines(
     const response = await openai.chat.completions.create({
       model: 'gpt-5', // GPT-5 with vision capabilities
       messages,
-      max_tokens: 2000,
+      reasoning_effort: 'medium', // Balance quality and speed for vision analysis
       temperature: 0.7,
     });
 
