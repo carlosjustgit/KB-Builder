@@ -104,6 +104,32 @@
         "title": "Generation failed",
         "description": "Failed to generate images. Please try again."
       }
+    },
+    "export": {
+      "generated": {
+        "title": "Export generated",
+        "description": "Your {{format}} export is ready for download"
+      },
+      "failed": {
+        "title": "Export failed",
+        "description": "Failed to generate export. Please try again."
+      },
+      "downloadStarted": {
+        "title": "Download started",
+        "description": "Downloading {{filename}}..."
+      },
+      "downloadFailed": {
+        "title": "Download failed",
+        "description": "Failed to download export. Please try again."
+      },
+      "pdfDownloaded": {
+        "title": "PDF downloaded",
+        "description": "{{docType}} PDF downloaded successfully"
+      },
+      "pdfFailed": {
+        "title": "PDF download failed",
+        "description": "Failed to download PDF. Please try again."
+      }
     }
   }
 }

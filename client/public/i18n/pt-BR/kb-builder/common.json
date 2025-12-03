@@ -104,6 +104,32 @@
         "title": "Geração falhou",
         "description": "Falha ao gerar imagens. Por favor, tente novamente."
       }
+    },
+    "export": {
+      "generated": {
+        "title": "Exportação gerada",
+        "description": "Sua exportação {{format}} está pronta para download"
+      },
+      "failed": {
+        "title": "Falha na exportação",
+        "description": "Falha ao gerar exportação. Por favor, tente novamente."
+      },
+      "downloadStarted": {
+        "title": "Download iniciado",
+        "description": "Baixando {{filename}}..."
+      },
+      "downloadFailed": {
+        "title": "Falha no download",
+        "description": "Falha ao baixar exportação. Por favor, tente novamente."
+      },
+      "pdfDownloaded": {
+        "title": "PDF baixado",
+        "description": "PDF de {{docType}} baixado com sucesso"
+      },
+      "pdfFailed": {
+        "title": "Falha no download do PDF",
+        "description": "Falha ao baixar PDF. Por favor, tente novamente."
+      }
     }
   }
 }

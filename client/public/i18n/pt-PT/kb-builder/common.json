@@ -104,6 +104,32 @@
         "title": "Geração falhou",
         "description": "Falha ao gerar imagens. Por favor, tente novamente."
       }
+    },
+    "export": {
+      "generated": {
+        "title": "Exportação gerada",
+        "description": "A sua exportação {{format}} está pronta para transferência"
+      },
+      "failed": {
+        "title": "Falha na exportação",
+        "description": "Falha ao gerar exportação. Por favor, tente novamente."
+      },
+      "downloadStarted": {
+        "title": "Transferência iniciada",
+        "description": "A transferir {{filename}}..."
+      },
+      "downloadFailed": {
+        "title": "Falha na transferência",
+        "description": "Falha ao transferir exportação. Por favor, tente novamente."
+      },
+      "pdfDownloaded": {
+        "title": "PDF transferido",
+        "description": "PDF de {{docType}} transferido com sucesso"
+      },
+      "pdfFailed": {
+        "title": "Falha na transferência do PDF",
+        "description": "Falha ao transferir PDF. Por favor, tente novamente."
+      }
     }
   }
 }
