@@ -144,7 +144,11 @@ export function Market() {
     setMarketContent('');
     
     // Reset the research state
-    reset();
+    if (session.input_mode === 'manual') {
+      resetManual();
+    } else {
+      reset();
+    }
     
     // Generate new content
     await handleGenerate();

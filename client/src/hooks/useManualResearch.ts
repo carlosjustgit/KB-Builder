@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 interface ManualInput {
   company_description: string;
-  competitors?: string;
+  competitors?: string | string[];
   services?: string;
   additional_info?: string;
 }
