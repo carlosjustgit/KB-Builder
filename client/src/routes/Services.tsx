@@ -66,7 +66,12 @@ export function Services() {
         session.id,
         session.language,
         'services',
-        session.manual_input_data
+        {
+          ...session.manual_input_data,
+          competitors: Array.isArray(session.manual_input_data.competitors) 
+            ? session.manual_input_data.competitors.join(', ') 
+            : session.manual_input_data.competitors
+        }
       );
     } else {
       // Use URL-based research
