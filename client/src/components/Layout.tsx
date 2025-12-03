@@ -4,12 +4,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useTranslation } from 'react-i18next';
-import { ConversationalAI } from './ConversationalAI';
+// import { ConversationalAI } from './ConversationalAI';
 import { useSession } from '@/hooks/useSession';
-import { useStepContent } from '@/contexts/StepContentContext';
+// import { useStepContent } from '@/contexts/StepContentContext';
 import { useLocation } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/lib/supabase';
+// import { useQuery } from '@tantml:parameter>
+// import { supabase } from '@/lib/supabase';
 import { useDocuments } from '@/hooks/useDocuments';
 import { useSources } from '@/hooks/useSources';
 import { SmartDiscoveryBar } from './discovery/SmartDiscoveryBar';
@@ -38,7 +38,7 @@ export function Layout({ children }: LayoutProps) {
     return 'welcome';
   };
 
-  const currentStep = getCurrentStep();
+  // const currentStep = getCurrentStep();
   // const { currentStepContent } = useStepContent();
 
   // Fetch documents and sources for sidebar
