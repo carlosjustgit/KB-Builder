@@ -77,7 +77,7 @@ export async function analyzeImagesForGuidelines(
       model: 'gpt-5', // GPT-5 with vision capabilities
       messages,
       reasoning_effort: 'medium', // Balance quality and speed for vision analysis
-      temperature: 0.7,
+      // Note: GPT-5 reasoning models only support temperature=1 (default)
     });
 
     if (!response.choices?.[0]?.message?.content) {

@@ -44,7 +44,7 @@ export async function performManualResearch(
         },
       ],
       reasoning_effort: 'medium', // Balance quality and speed
-      temperature: 0.8, // Slightly higher for more creative brand content
+      // Note: GPT-5 reasoning models only support temperature=1 (default)
     });
 
     const content = completion.choices[0]?.message?.content || '';
