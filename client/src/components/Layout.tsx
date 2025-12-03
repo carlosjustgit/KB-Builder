@@ -46,7 +46,9 @@ export function Layout({ children }: LayoutProps) {
   const { data: sources } = useSources(session?.id || '');
 
   // Fetch current step content from database
-  // const { data: dbStepContent } = useQuery({
+  // Commented out as Chat is hidden - will uncomment when Chat is re-enabled
+  /*
+  const { data: dbStepContent } = useQuery({
     queryKey: ['stepContent', session?.id, currentStep],
     queryFn: async () => {
       console.log('🔍 Fetching step content:', {
@@ -102,7 +104,8 @@ export function Layout({ children }: LayoutProps) {
   });
 
   // Use database content if available, otherwise fall back to context
-  // const actualCurrentContent = dbStepContent || currentStepContent;
+  const actualCurrentContent = dbStepContent || currentStepContent;
+  */
 
   // Sidebar Content Component (reusable for both desktop and mobile)
   const SidebarContent = () => (
