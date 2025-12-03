@@ -229,9 +229,11 @@ export function Welcome() {
       console.log('🔄 Creating session with manual input...');
       const session = await createSession.mutateAsync({
         user_id: crypto.randomUUID(),
-        company_url: 'https://manual-input.witfy.ai', // Placeholder URL
+        company_url: '', // No URL for manual mode
         language: selectedLocale,
         step: 'research',
+        input_mode: 'manual',
+        manual_input_data: manualInput,
       });
 
       console.log('✅ Session created:', session);

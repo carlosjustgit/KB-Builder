@@ -28,6 +28,8 @@ export function useCreateSession() {
       language: Locale;
       step?: string;
       profile_id?: string;
+      input_mode?: 'url' | 'manual';
+      manual_input_data?: any;
     }) => {
       const { data: session, error } = await supabase
         .from('kb_sessions')
