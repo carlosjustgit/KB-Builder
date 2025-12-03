@@ -276,10 +276,9 @@ function validateFormatting(content: string): { issues: ValidationIssue[] } {
 /**
  * Validate source URLs (basic check)
  */
-async function validateSourceUrls(_sources: Source[]): Promise<{
+async function validateSourceUrls(sources: Source[]): Promise<{
   invalidUrls: string[];
 }> {
-  const sources = _sources;
   const invalidUrls: string[] = [];
 
   // Basic URL validation (not making actual HTTP requests to avoid slowdown)
