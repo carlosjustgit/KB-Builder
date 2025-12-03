@@ -1,29 +1,35 @@
 {
   "title": "Pesquisa e análise",
-  "subtitle": "Pesquisa alimentada por IA a partir do seu website",
-  "description": "Com base no URL da sua empresa, iremos pesquisar a sua marca, audiência e posicionamento usando IA. Pode rever e editar os resultados antes de prosseguir.",
+  "subtitle": "Pesquisa com IA do seu website",
+  "subtitleManual": "Análise com IA da sua introdução manual",
+  "description": "Com base no URL da sua empresa, pesquisaremos a sua marca, público e posicionamento usando IA. Pode rever e editar os resultados antes de prosseguir.",
+  "descriptionManual": "Com base na sua introdução manual, geraremos uma pesquisa abrangente sobre a sua marca, público e posicionamento usando IA. Pode rever e editar os resultados antes de prosseguir.",
   "loading": {
     "title": "Pesquisar a sua empresa",
-    "description": "Analisar conteúdo do website e informação pública"
+    "titleManual": "Gerar pesquisa",
+    "description": "Analisar conteúdo do website e informações públicas",
+    "descriptionManual": "A analisar a sua introdução manual com pesquisa de IA multi-fonte"
   },
   "results": {
     "title": "Resultados da pesquisa",
-    "subtitle": "Eis o que encontrámos sobre a sua empresa",
+    "subtitle": "Aqui está o que encontrámos sobre a sua empresa",
+    "subtitleManual": "Aqui está o que gerámos da sua introdução",
     "brandOverview": "Visão geral da marca",
     "sources": "Fontes",
     "noSources": "Nenhuma fonte encontrada",
     "edit": "Editar resultados",
     "regenerate": "Regenerar",
-    "approve": "Parece bem"
+    "approve": "Parece bom"
   },
   "actions": {
-    "analyse": "Analisar website",
     "analyze": "Analisar website",
+    "analyzeManual": "Gerar pesquisa",
     "next": "Continuar para marca e tom",
-    "back": "Voltar para bem-vindo"
+    "back": "Voltar ao início"
   },
   "validation": {
     "noContent": "Nenhum conteúdo de pesquisa gerado. Por favor, tente novamente.",
-    "researchFailed": "Pesquisa falhada. Por favor, verifique o seu URL e tente novamente."
+    "researchFailed": "Pesquisa falhou. Verifique o seu URL e tente novamente.",
+    "researchFailedManual": "Pesquisa falhou. Por favor, tente novamente."
   }
 }

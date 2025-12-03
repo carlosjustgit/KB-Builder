@@ -1,14 +1,19 @@
 {
   "title": "Research and analysis",
   "subtitle": "AI-powered research from your website",
+  "subtitleManual": "AI-powered analysis from your manual input",
   "description": "Based on your company URL, we'll research your brand, audience, and positioning using AI. You can review and edit the results before proceeding.",
+  "descriptionManual": "Based on your manual input, we'll generate comprehensive research about your brand, audience, and positioning using AI. You can review and edit the results before proceeding.",
   "loading": {
     "title": "Research your company",
-    "description": "Analyze website content and public information"
+    "titleManual": "Generate research",
+    "description": "Analyze website content and public information",
+    "descriptionManual": "Analyzing your manual input with multi-source AI research"
   },
   "results": {
     "title": "Research results",
     "subtitle": "Here's what we found about your company",
+    "subtitleManual": "Here's what we generated from your input",
     "brandOverview": "Brand overview",
     "sources": "Sources",
     "noSources": "No sources found",
@@ -18,12 +23,13 @@
   },
   "actions": {
     "analyze": "Analyze website",
+    "analyzeManual": "Generate research",
     "next": "Continue to brand and tone",
     "back": "Back to welcome"
   },
   "validation": {
     "noContent": "No research content generated. Please try again.",
-    "researchFailed": "Research failed. Please check your URL and try again."
+    "researchFailed": "Research failed. Please check your URL and try again.",
+    "researchFailedManual": "Research failed. Please try again."
   }
 }
-

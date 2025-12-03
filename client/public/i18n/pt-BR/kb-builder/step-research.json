@@ -1,14 +1,19 @@
 {
   "title": "Pesquisa e análise",
-  "subtitle": "Pesquisa alimentada por IA a partir do seu website",
-  "description": "Com base no URL da sua empresa, iremos pesquisar sua marca, audiência e posicionamento usando IA. Você pode revisar e editar os resultados antes de prosseguir.",
+  "subtitle": "Pesquisa com IA do seu website",
+  "subtitleManual": "Análise com IA da sua entrada manual",
+  "description": "Com base na URL da sua empresa, pesquisaremos sua marca, público e posicionamento usando IA. Você pode revisar e editar os resultados antes de prosseguir.",
+  "descriptionManual": "Com base na sua entrada manual, geraremos uma pesquisa abrangente sobre sua marca, público e posicionamento usando IA. Você pode revisar e editar os resultados antes de prosseguir.",
   "loading": {
     "title": "Pesquisar sua empresa",
-    "description": "Analisar conteúdo do website e informação pública"
+    "titleManual": "Gerar pesquisa",
+    "description": "Analisar conteúdo do website e informações públicas",
+    "descriptionManual": "Analisando sua entrada manual com pesquisa de IA multi-fonte"
   },
   "results": {
     "title": "Resultados da pesquisa",
     "subtitle": "Aqui está o que encontramos sobre sua empresa",
+    "subtitleManual": "Aqui está o que geramos da sua entrada",
     "brandOverview": "Visão geral da marca",
     "sources": "Fontes",
     "noSources": "Nenhuma fonte encontrada",
@@ -18,11 +23,13 @@
   },
   "actions": {
     "analyze": "Analisar website",
+    "analyzeManual": "Gerar pesquisa",
     "next": "Continuar para marca e tom",
-    "back": "Voltar para bem-vindo"
+    "back": "Voltar ao início"
   },
   "validation": {
     "noContent": "Nenhum conteúdo de pesquisa gerado. Por favor, tente novamente.",
-    "researchFailed": "Pesquisa falhou. Por favor, verifique seu URL e tente novamente."
+    "researchFailed": "Pesquisa falhou. Verifique sua URL e tente novamente.",
+    "researchFailedManual": "Pesquisa falhou. Por favor, tente novamente."
   }
 }

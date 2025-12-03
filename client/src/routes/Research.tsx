@@ -204,12 +204,12 @@ export function Research() {
             {t('title')}
           </CardTitle>
           <p className="text-sm sm:text-base text-muted-foreground">
-            {t('subtitle')}
+            {isManualMode ? t('subtitleManual') : t('subtitle')}
           </p>
         </CardHeader>
         <CardContent className="px-4 sm:px-6">
           <p className="text-xs sm:text-sm text-muted-foreground mb-4">
-            {t('description')}
+            {isManualMode ? t('descriptionManual') : t('description')}
           </p>
         </CardContent>
       </Card>
@@ -220,11 +220,11 @@ export function Research() {
           <CardContent className="p-8 text-center">
             <div className="space-y-4">
               <div className="text-center">
-                <h3 className="text-lg font-semibold mb-2">{t('loading.title')}</h3>
+                <h3 className="text-lg font-semibold mb-2">
+                  {isManualMode ? t('loading.titleManual') : t('loading.title')}
+                </h3>
                 <p className="text-muted-foreground">
-                  {isManualMode 
-                    ? t('loading.manualDescription', 'Ready to analyze your manual input with multi-source AI research.')
-                    : t('loading.description')}
+                  {isManualMode ? t('loading.descriptionManual') : t('loading.description')}
                 </p>
               </div>
 
@@ -233,7 +233,7 @@ export function Research() {
                 size="lg"
                 className="witfy-gradient text-white"
               >
-                {t('actions.analyze')}
+                {isManualMode ? t('actions.analyzeManual') : t('actions.analyze')}
               </Button>
             </div>
           </CardContent>
@@ -266,7 +266,7 @@ export function Research() {
                 {t('results.title')}
               </CardTitle>
               <p className="text-muted-foreground">
-                {t('results.subtitle')}
+                {isManualMode ? t('results.subtitleManual') : t('results.subtitle')}
               </p>
             </CardHeader>
             <CardContent>
