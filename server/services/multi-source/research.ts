@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { performResearch as perplexityResearch } from '../perplexity/client.js';
+import { performResearch as perplexityResearch, performResearchWithContext as perplexityResearchWithContext } from '../perplexity/client.js';
 
 /**
  * Multi-source AI research service
@@ -41,9 +41,41 @@ async function queryOpenAI(
   context?: string
 ): Promise<ResearchResponse> {
   try {
-    const prompt = context
-      ? `Based on this company research data:\n\n${context}\n\nNow create a detailed ${step} analysis for ${companyUrl}. Include specific facts and cite sources where possible.`
-      : `Research and analyze ${companyUrl} to create a comprehensive ${step} document. Focus on factual, verifiable information. Cite sources when possible.`;
+    let systemPrompt, userPrompt;
+    
+    if (context) {
+      // For subsequent steps WITH context from step 1
+      systemPrompt = `You are a professional business analyst creating a ${step} document based on EXISTING verified research data.
+
+IMPORTANT INSTRUCTIONS:
+- The research data provided below is VERIFIED and comes from the company's website (${companyUrl})
+- Your job is to EXTRACT and ORGANIZE the relevant ${step} information from this data
+- DO NOT refuse to generate content - the data is already verified
+- DO NOT say you need web access - all necessary information is in the research data
+- If specific ${step} details are not in the research, work with what's available and note gaps
+- Format your response in clear, professional markdown
+- Be specific and detailed based on the research data provided`;
+
+      userPrompt = `Here is the verified company research data from ${companyUrl}:
+
+---
+${context}
+---
+
+Task: Create a comprehensive ${step} document by extracting and organizing the relevant information from the above research data.
+
+Focus on:
+${step === 'services' ? '- Service offerings and products\n- Pricing models\n- Key features and benefits\n- Target customers for each service' : ''}
+${step === 'brand' ? '- Brand identity and values\n- Mission and vision\n- Brand voice and positioning\n- Unique selling propositions' : ''}
+${step === 'market' ? '- Target market and audience\n- Market size and trends\n- Market positioning\n- Growth opportunities' : ''}
+${step === 'competitors' ? '- Main competitors\n- Competitive advantages\n- Market differentiation\n- Competitive positioning' : ''}
+
+Generate the ${step} document now using the research data above.`;
+    } else {
+      // For initial research WITHOUT context
+      systemPrompt = `You are a professional business analyst. Provide accurate, well-researched content in markdown format. Always cite sources and avoid making assumptions. If information is not available, state that clearly.`;
+      userPrompt = `Research and analyze ${companyUrl} to create a comprehensive ${step} document. Focus on factual, verifiable information. Cite sources when possible.`;
+    }
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -56,11 +88,11 @@ async function queryOpenAI(
         messages: [
           {
             role: 'system',
-            content: `You are a professional business analyst. Provide accurate, well-researched content in markdown format. Always cite sources and avoid making assumptions. If information is not available, state that clearly.`,
+            content: systemPrompt,
           },
           {
             role: 'user',
-            content: prompt,
+            content: userPrompt,
           },
         ],
         temperature: 0.3,
@@ -105,9 +137,29 @@ async function queryGemini(
   try {
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
 
-    const prompt = context
-      ? `Based on this company research data:\n\n${context}\n\nNow create a detailed ${step} analysis for ${companyUrl}. Focus on fact-checking and validation. Highlight any inconsistencies or areas needing verification.`
-      : `Research and fact-check information about ${companyUrl} to create a ${step} document. Focus on accuracy and validation. Flag any uncertain information.`;
+    let prompt;
+    if (context) {
+      prompt = `You are fact-checking and validating a ${step} document for ${companyUrl}.
+
+Here is the verified research data from the company's website:
+
+---
+${context}
+---
+
+Task: Create a ${step} document by extracting relevant information from the above research data.
+
+IMPORTANT:
+- This research data is VERIFIED - you do not need web access
+- Extract and organize ${step}-specific information from the data
+- Be specific and detailed
+- Format in markdown
+- If information is limited, work with what's available
+
+Generate the ${step} document now.`;
+    } else {
+      prompt = `Research and fact-check information about ${companyUrl} to create a ${step} document. Focus on accuracy and validation. Flag any uncertain information.`;
+    }
 
     const result = await model.generateContent(prompt);
     const content = result.response.text();
@@ -237,7 +289,11 @@ export async function performMultiSourceResearch(
 
   // Query all sources in parallel
   const promises = [
-    perplexityResearch(companyUrl, locale, step)
+    // Use Perplexity with context if available
+    (context 
+      ? perplexityResearchWithContext(companyUrl, locale, step, context)
+      : perplexityResearch(companyUrl, locale, step)
+    )
       .then(result => ({
         content: result.content_md,
         sources: result.sources.map(s => ({ ...s, provider: 'perplexity' as const })),
