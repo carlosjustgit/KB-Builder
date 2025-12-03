@@ -341,7 +341,7 @@ export function SpeechTextarea({
   const cleanup = () => {
     recognitionRef.current = null;
     transcriptBufferRef.current = '';
-    initialValueRef.current = '';
+    // Don't reset initialValueRef - we'll set it fresh on next recording
     setLocalIsListening(false);
   };
 
