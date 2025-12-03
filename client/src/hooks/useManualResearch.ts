@@ -64,7 +64,9 @@ export function useManualResearch(): UseManualResearchReturn {
           step,
           manual_input: {
             company_description: manualInput.company_description,
-            competitors: manualInput.competitors?.split(/[,\n]+/).map(c => c.trim()).filter(Boolean),
+            competitors: Array.isArray(manualInput.competitors) 
+              ? manualInput.competitors 
+              : manualInput.competitors?.split(/[,\n]+/).map((c: string) => c.trim()).filter(Boolean),
             services: manualInput.services,
             additional_info: manualInput.additional_info,
           },
