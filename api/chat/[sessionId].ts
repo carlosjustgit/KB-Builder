@@ -40,7 +40,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(500).json({ message: 'Failed to fetch chat history', error });
       }
 
-      return res.json(data?.map(msg => ({
+      return res.json(data?.map((msg: Record<string, unknown>) => ({
         ...msg,
         timestamp: msg.created_at
       })) || []);

@@ -70,8 +70,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const stats = {
       sessionId,
       total_exports: exports?.length || 0,
-      json_exports: exports?.filter(e => e.file_type === 'json').length || 0,
-      zip_exports: exports?.filter(e => e.file_type === 'zip').length || 0,
+      json_exports: exports?.filter((e: { file_type: string }) => e.file_type === 'json').length || 0,
+      zip_exports: exports?.filter((e: { file_type: string }) => e.file_type === 'zip').length || 0,
       total_images: imageCount || 0,
       total_sources: sourceCount || 0,
       exports: exports || [],

@@ -1,6 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { z } from 'zod';
-import { performResearch, performResearchWithContext } from '../server/services/perplexity/client.js';
 import { performMultiSourceResearch } from '../server/services/multi-source/research.js';
 import { validateResearchQuality } from '../server/services/multi-source/validator.js';
 import { supabase } from '../server/services/supabase/client.js';

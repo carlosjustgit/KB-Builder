@@ -30,7 +30,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { base_prompt, negative_prompt, count = 2, session_id } = req.body;
+    const { base_prompt, count = 2, session_id } = req.body;
 
     if (!base_prompt || !session_id) {
       return res.status(400).json({ 
