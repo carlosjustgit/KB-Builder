@@ -10,19 +10,19 @@ if (!apiKey) {
 const genAI = new GoogleGenerativeAI(apiKey);
 
 /**
- * Generate images using Gemini Nano Banana model
+ * Generate images using Gemini 3.1 Flash Image (Nano Banana 2) - 2026
  */
 export async function generateImagesWithGemini(
   prompt: string,
   count: number = 1
 ): Promise<Array<{ url: string; storage_path: string }>> {
   try {
-    console.log('🍌 Generating images with Gemini Nano Banana...');
+    console.log('🍌 Generating images with Gemini 3.1 Flash Image (Nano Banana 2)...');
     console.log('📝 Prompt:', prompt);
     console.log('🔢 Count:', count);
 
-    // Initialize the Nano Banana model for image generation
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' }); // Gemini 2.0 Flash - stable for generation
+    // Gemini 3.1 Flash Image - Feb 2026, Pro quality at Flash speed (replaces gemini-2.0-flash-exp)
+    const model = genAI.getGenerativeModel({ model: 'gemini-3-1-flash-image-preview' });
 
     const results: Array<{ url: string; storage_path: string }> = [];
 
@@ -60,7 +60,7 @@ export async function generateImagesWithGemini(
       });
     }
 
-    console.log(`✅ Generated ${results.length} images with Gemini`);
+    console.log(`✅ Generated ${results.length} images with Gemini 3.1 Flash Image`);
     return results;
 
   } catch (error) {

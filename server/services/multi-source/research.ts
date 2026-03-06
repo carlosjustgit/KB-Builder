@@ -141,8 +141,8 @@ async function queryGemini(
   context?: string
 ): Promise<ResearchResponse> {
   try {
-    // Use Gemini 3 Pro Preview - Released November 2025, best multimodal model globally
-    const model = genAI.getGenerativeModel({ model: 'gemini-3-pro-preview' });
+    // Use Gemini 3.1 Flash-Lite Preview - March 2026, fast and cost-effective (replaces deprecated Gemini 3 Pro)
+    const model = genAI.getGenerativeModel({ model: 'gemini-3-1-flash-lite-preview' });
 
     let prompt;
     if (context) {
@@ -200,8 +200,7 @@ Focus on accuracy. Flag uncertain information. But NO THINKING PROCESS IN OUTPUT
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
       generationConfig: {
         temperature: 0.3,
-        // Gemini 3 Pro automatically uses deep reasoning - no need for maxOutputTokens limit
-        // The model will generate complete responses naturally
+        // Flash-Lite is optimized for fast generation; config supports complete responses
         topK: 40,
         topP: 0.95,
       }

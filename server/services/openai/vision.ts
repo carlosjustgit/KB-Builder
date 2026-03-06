@@ -134,7 +134,7 @@ export async function generateTestImages(
       fullPrompt += `\n\nAvoid: ${negativePrompt}`;
     }
 
-    console.log('🎨 Generating images with Gemini Nano Banana...');
+    console.log('🎨 Generating images with Gemini 3.1 Flash Image (Nano Banana 2)...');
     
     // Use Gemini instead of DALL-E
     const images = await generateImagesWithGemini(fullPrompt, count);
